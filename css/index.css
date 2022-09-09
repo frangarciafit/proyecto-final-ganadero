@@ -1,0 +1,118 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-image: url(vaca.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    width: 100%;
+}
+
+#blur{
+    backdrop-filter: blur(6px);
+}
+
+nav{
+    width: 100%;
+    padding: 1.3rem 0;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    color: white;
+}
+
+nav a{
+    position: relative;
+    display: inline-block;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bolder;
+
+
+}
+nav a:after {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #fff;
+    transform: scaleX(0);
+    transform-origin: top right;
+    transition: transform 0.3s ease;
+}
+nav a:hover:after{
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+nav p{
+    color: grey;
+    font-size: 18px;
+    font-weight: bolder;
+}
+.formulario{
+    background-color: rgba(255, 255, 255, 0.61);
+    margin: 3rem auto;
+    width: 40%;
+    padding: 2rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 15px;
+}
+.formulario form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+.formulario form ul li{
+    text-decoration: none;
+    padding: .7rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.formulario form ul li label{
+    font-size: 18px;
+    font-weight: bolder;
+}
+.formulario form ul li input{
+    margin-left: 15px;
+    padding: .2rem;
+}
+.enviar{
+    font-size: 16px;
+    padding: .5rem 2rem;
+    background-color: grey;
+    color: black;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+}
+.enviar:hover{
+    background-color: rgb(156, 156, 156);
+}
+
+footer{
+    padding: .5rem 0;
+    width: 100%;
+    color: white;
+    background-color: black;
+    bottom: 0;
+    right: 0;
+    position: fixed;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bolder;
+}
+
