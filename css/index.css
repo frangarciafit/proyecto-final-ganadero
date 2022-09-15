@@ -10,6 +10,7 @@ body{
     background-image: url(vaca.jpg);
     background-repeat: no-repeat;
     background-size: cover;
+    background-attachment: fixed;
     height: 100vh;
     width: 100%;
 }
@@ -76,7 +77,6 @@ nav p{
     display: flex;
     flex-direction: column;
     align-items: center;
-
 }
 .formulario form ul li{
     text-decoration: none;
@@ -86,12 +86,17 @@ nav p{
     justify-content: space-between;
 }
 .formulario form ul li label{
-    font-size: 18px;
+    font-size: 25px;
     font-weight: bolder;
 }
 .formulario form ul li input{
+    margin-left: 30px;
+    padding: .4rem .8rem;
+}
+.formulario form ul li select{
     margin-left: 15px;
-    padding: .2rem;
+    padding: .4rem .8rem;
+    font-size: 18px;
 }
 .enviar{
     font-size: 16px;
@@ -104,6 +109,56 @@ nav p{
 }
 .enviar:hover{
     background-color: rgb(156, 156, 156);
+}
+.buscador{
+    background-color: rgba(20, 20, 20, 0.766);
+    color: white;
+    width: 90%;
+    margin: 20px auto;
+    text-align: center;
+    font-weight: bolder;
+    font-size: 18px;
+
+}
+.buscador input{
+    margin: 10px 20px;
+}
+.buscador select{
+    margin: 0px 20px;
+    padding: .2rem .5rem;
+}
+
+.tabla{
+    background-color: white;
+    width: 90%;
+    margin: 20px auto;
+
+}
+table tr{
+    font-size: 20px;
+}
+table tr td button{
+    border: none;
+    background-color: white;
+}
+table tr td .fa-pencil{
+    font-size: 28px;
+    color: green;
+}
+table tr td .fa-trash{
+    font-size: 28px;
+    color: red;
+}
+
+#insertar2{
+    background-color: rgb(255, 255, 255);
+    color: black;
+    font-weight: bolder;
+}
+#insertar2:hover{
+    background-color: rgba(150, 150, 150, 0.885);
+    color: black;
+    font-weight: bolder;
 }
 
 footer{

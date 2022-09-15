@@ -20,27 +20,31 @@
       <ul>
         <li>
           <label for="">Caravana propia</label>
-          <input type="number" id="caravanapropia"  min="0" required>
+          <input type="number" id="caravanapropia" min="0" required>
         </li>
         <li>
           <label for="">Caravana ajena</label>
-          <input type="number" id="caravanaajena"  min="0" placeholder="Opcional">
+          <input type="number" id="caravanaajena" min="0" placeholder="Opcional">
         </li>
         <li>
           <label for="">Raza</label>
-          <input type="text" id="raza"  required>
+          <input type="text" id="raza" required>
         </li>
         <li>
           <label for="">Nacimiento</label>
-          <input type="date" id="nacimiento"  required>
+          <input type="date" id="nacimiento" required>
         </li>
         <li>
           <label for="">Peso</label>
-          <input type="number" id="peso"  step="0.01" min="0" required>
+          <input type="number" id="peso" step="0.01" min="0" required>
         </li>
         <li>
           <label for="">Color</label>
-          <input type="text" id="color"  required>
+          <input type="text" id="color" required>
+        </li>
+        <li>
+          <label for="">Lugar</label>
+          <input type="text" id="lugar" required>
         </li>
         <li>
           <label for="">Sexo</label>
@@ -54,46 +58,45 @@
     </form>
   </section>
 
-  <script
-  src="https://code.jquery.com/jquery-3.6.1.js"
-  integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
-  crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
 
 
   <script>
-    
-  function agregar_animal(){
-    let caravana = $("#caravanapropia").val();
-    let caravanaajena = $("#caravanaajena").val();
-    let raza = $("#raza").val();
-    let nacimiento = $("#nacimiento").val();
-    let peso = $("#peso").val();
-    let color = $("#color").val();
-    let sexo = $("#sexo").val();
-    console.log(sexo);
-    $.ajax({
-                "url": "../funciones.php",
-                "type": "post",
-                "dataType": "json",
-                "data":{
-                    "caravana": caravana,
-                    "raza": raza,
-                    "peso": peso,
-                    "color": color,
-                    "caravanaajena": caravanaajena,
-                    "nacimiento": nacimiento,
-                    "sexo": sexo,
-                    "funcion": "agregar_vaca",  
-                },success:function(r){
-                    if (r.error == 0) {
-                      console.log("Exitoso")
-                    }else{
-                      console.log(r.error);
-                    }
-                },
-    })
-  
-  }
+    function agregar_animal() {
+      let caravana = $("#caravanapropia").val();
+      let caravanaajena = $("#caravanaajena").val();
+      let raza = $("#raza").val();
+      let nacimiento = $("#nacimiento").val();
+      let peso = $("#peso").val();
+      let color = $("#color").val();
+      let sexo = $("#sexo").val();
+      let lugar = $("#lugar").val();
+      console.log(sexo);
+      $.ajax({
+        "url": "../funciones.php",
+        "type": "post",
+        "dataType": "json",
+        "data": {
+          "caravana": caravana,
+          "raza": raza,
+          "peso": peso,
+          "color": color,
+          "caravanaajena": caravanaajena,
+          "nacimiento": nacimiento,
+          "sexo": sexo,
+          "lugar": lugar,
+          "funcion": "agregar_vaca",
+        },
+        success: function(r) {
+          if (r.error == 0) {
+            console.log("Exitoso")
+          } else {
+            console.log(r.error);
+          }
+        },
+      })
+
+    }
   </script>
 
 
