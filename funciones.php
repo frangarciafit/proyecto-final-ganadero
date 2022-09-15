@@ -31,11 +31,24 @@
         }
     }
 
-    function cargartodo()
+    function cargartodo($conf = array())
     {
       global $con;
-      $sql = "SELECT * FROM animal";
+
+      $caravanapropia = isset($conf["caravanapropia"]) ? $conf["caravanapropia"] : "";
+      $caravanaajena = isset($conf["caravanaajena"]) ? $conf["caravanaajena"] : "";
+      $sexo = isset($conf["sexo"]) ? $conf["sexo"] : "";
+
+      $sql = "SELECT * ";
+      $sql.= "FROM animal ";
+      $sql.= "WHERE 1 = 1 ";
+      if ($caravanapropia != "") $sql.= "AND caravanapropia LIKE '%$caravanapropia%' ";
+      if ($caravanaajena != "") $sql.= "AND caravanaajena = '$caravanaajena' ";
+      if ($sexo != "") $sql.= "AND sexo = '$sexo' ";
+
+      echo $sql;
       $stmt = $con->prepare($sql);
+      #$stmt->bind_param("sss", $firstname, $lastname, $email);
   
       $stmt->execute();
       $resultado = $stmt->get_result();
