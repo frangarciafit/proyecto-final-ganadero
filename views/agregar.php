@@ -20,38 +20,35 @@
       <ul>
         <li>
           <label for="">Caravana propia</label>
-          <input type="number" id="caravanapropia" name="caravanapropia" min="0" required>
+          <input type="number" id="caravanapropia"  min="0" required>
         </li>
-        <!-- <li>
+        <li>
           <label for="">Caravana ajena</label>
-          <input type="number" name="caravanaajane" min="0" placeholder="Opcional">
-        </li> -->
+          <input type="number" id="caravanaajena"  min="0" placeholder="Opcional">
+        </li>
         <li>
           <label for="">Raza</label>
-          <input type="text" id="raza" name="raza" required>
+          <input type="text" id="raza"  required>
         </li>
-        <!-- <li>
+        <li>
           <label for="">Nacimiento</label>
-          <input type="date" name="nacimiento" required>
-        </li> -->
+          <input type="date" id="nacimiento"  required>
+        </li>
         <li>
           <label for="">Peso</label>
-          <input type="number" id="peso" name="peso" step="0.01" min="0" required>
+          <input type="number" id="peso"  step="0.01" min="0" required>
         </li>
         <li>
           <label for="">Color</label>
-          <input type="text" id="color" name="color" required>
+          <input type="text" id="color"  required>
         </li>
         <li>
-          <!-- <label for="">Sexo</label>
-          <div>
-          <label for="">Macho</label>
-          <input type="radio" id="macho" name="sexo" required></div>
-
-          <div>
-          <label for="">Hembra</label>
-          <input type="radio" id="hembra" name="sexo" required></div>
-        </li> -->
+          <label for="">Sexo</label>
+          <select id="sexo" required>
+            <option value="macho">Macho</option>
+            <option value="hembra" selected>Hembra</option>
+          </select>
+        </li>
       </ul>
       <button type="submit" class="enviar" id="insertar" onclick="agregar_animal()">Enviar</button>
     </form>
@@ -64,12 +61,16 @@
 
 
   <script>
+    
   function agregar_animal(){
     let caravana = $("#caravanapropia").val();
+    let caravanaajena = $("#caravanaajena").val();
     let raza = $("#raza").val();
+    let nacimiento = $("#nacimiento").val();
     let peso = $("#peso").val();
     let color = $("#color").val();
-    console.log("AGREGAR ANIMAL", caravana, raza, peso, color);
+    let sexo = $("#sexo").val();
+    console.log(sexo);
     $.ajax({
                 "url": "../funciones.php",
                 "type": "post",
@@ -79,7 +80,10 @@
                     "raza": raza,
                     "peso": peso,
                     "color": color,
-                    "funcion": "agregar_vaca",    
+                    "caravanaajena": caravanaajena,
+                    "nacimiento": nacimiento,
+                    "sexo": sexo,
+                    "funcion": "agregar_vaca",  
                 },success:function(r){
                     if (r.error == 0) {
                       console.log("Exitoso")
@@ -90,7 +94,6 @@
     })
   
   }
-
   </script>
 
 
