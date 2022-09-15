@@ -31,6 +31,18 @@
         }
     }
 
+    function cargartodo()
+    {
+      global $con;
+      $sql = "SELECT * FROM animal";
+      $stmt = $con->prepare($sql);
+  
+      $stmt->execute();
+      $resultado = $stmt->get_result();
+  
+      return $resultado;
+    }
 
-    mysqli_close($con);
+
+
     ?>

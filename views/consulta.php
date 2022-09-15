@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-
+<?php include("../funciones.php") ?>
 <head>
   <meta charset="UTF-8" />
   <link rel="stylesheet" href="../css/index.css">
@@ -10,21 +10,7 @@
 </head>
 
 <body>
-  <?php
-  $con = new mysqli("localhost", "root", "", "ganadero");
 
-  function cargartodo()
-  {
-    global $con;
-    $sql = "SELECT * FROM animal";
-    $stmt = $con->prepare($sql);
-
-    $stmt->execute();
-    $resultado = $stmt->get_result();
-
-    return $resultado;
-  }
-  ?>
 
   <nav>
     <p>Consulta datos</p>
@@ -108,11 +94,12 @@
 
 <script>
   function eliminar_animal(e) {
-
-    let id = $(e).attr("data-id");
-    console.log(id);
-    eliminar_campo(id);
-    $(e).parent().parent().parent().remove();
+    if(confirm("Desea eliminar el animal?")){
+        let id = $(e).attr("data-id");
+        console.log(id);
+        eliminar_campo(id);
+        $(e).parent().parent().remove();
+    }
   }
 
 
