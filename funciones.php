@@ -45,8 +45,7 @@
       if ($caravanapropia != "") $sql.= "AND caravanapropia LIKE '%$caravanapropia%' ";
       if ($caravanaajena != "") $sql.= "AND caravanaajena = '$caravanaajena' ";
       if ($sexo != "") $sql.= "AND sexo = '$sexo' ";
-
-      echo $sql;
+      
       $stmt = $con->prepare($sql);
       #$stmt->bind_param("sss", $firstname, $lastname, $email);
   
