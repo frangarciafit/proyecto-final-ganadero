@@ -36,8 +36,9 @@ nav a{
     text-decoration: none;
     font-size: 18px;
     font-weight: bolder;
-
-
+}
+nav a:hover{
+    color: white;
 }
 nav a:after {
     content: "";
@@ -115,31 +116,62 @@ nav p{
     color: white;
     width: 90%;
     margin: 20px auto;
-    text-align: center;
     font-weight: bolder;
-    font-size: 18px;
-
-}
-.buscador input{
-    margin: 10px 20px;
+    border-radius: 20px;
+    padding: .4rem .7rem;
 }
 .buscador select{
-    margin: 0px 20px;
     padding: .2rem .5rem;
 }
 
-.tabla{
-    background-color: white;
-    width: 90%;
-    margin: 20px auto;
+.buscador input{
+    width: 170px;
+}
+.formularioconsulta{
+    display: flex;
+    flex-direction: column;
 
 }
+.tabla{
+    background-color: white;
+    width: 98%;
+    margin: 20px auto;
+    border-radius: 15px;
+    flex: 1;
+}
+
+.alinear{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin: 15px 0;
+
+}
+table{
+    padding: .5rem;
+}
+table tr .grande{
+    width: 17%;
+}
+table tr .normal{
+    width: 9%;
+}
+table tr .chico{
+    width: 5%;
+}
+table th{
+    background-color: white;
+}
+tr:nth-child(odd) {
+    background-color: #aae0a8;
+  }
 table tr{
     font-size: 20px;
+    text-align: center;
 }
 table tr td button{
     border: none;
-    background-color: white;
+    background: none;
 }
 table tr td .fa-pencil{
     font-size: 28px;
