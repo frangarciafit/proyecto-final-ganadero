@@ -74,7 +74,7 @@
       let color = $("#color").val();
       let sexo = $("#sexo").val();
       let lugar = $("#lugar").val();
-      console.log(sexo);
+
       $.ajax({
         "url": "../funciones.php",
         "type": "post",

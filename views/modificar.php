@@ -12,7 +12,7 @@
 
       <nav>
           <p>Modificar datos</p>
-          <a href="../index.php">Volver</a>
+          <a href="../menuprincipal.php">Volver</a>
       </nav>
 
 

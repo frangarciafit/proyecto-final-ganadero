@@ -16,6 +16,11 @@
   $caravanapropia = isset($_POST["caravanapropia"]) ? $_POST["caravanapropia"] : "";
   $caravanaajena = isset($_POST["caravanaajena"]) ? $_POST["caravanaajena"] : "";
   $sexo = isset($_POST["sexo"]) ? $_POST["sexo"] : "";
+  $color = isset($_POST['color']) ? $_POST["color"] : "";
+  $raza = isset($_POST['raza']) ? $_POST["raza"] : "";
+  $peso = isset($_POST['peso']) ? $_POST["peso"] : "";
+  $nacimiento = isset($_POST['nacimiento']) ? $_POST["nacimiento"] : "";
+  $lugar = isset($_POST['lugar']) ? $_POST["lugar"] : "";
 
   ?>
 </head>
@@ -39,20 +44,20 @@
         <input type="number" value="<?php echo $caravanaajena ?>" name="caravanaajena" id="caravanaajena" min="0">
   
         <label for="">Raza</label>
-        <input type="text" id="raza">
+        <input type="text" value="<?php echo $raza ?>" name="raza" id="raza">
   
         <label for="">Nacimiento</label>
-        <input type="date" id="nacimiento">
+        <input type="date"  value="<?php echo $nacimiento ?>" name="nacimiento" id="nacimiento">
       </div>
       <div class="alinear">
         <label for="">Peso</label>
-        <input type="number" id="peso" step="0.01" min="0">
+        <input type="number" value="<?php echo $peso ?>" name="peso" id="peso" step="0.01" min="0">
   
         <label for="">Color</label>
-        <input type="text" id="color">
+        <input type="text" value="<?php echo $color ?>" name="color" id="color">
   
         <label for="">Lugar</label>
-        <input type="text" id="lugar">
+        <input type="text" value="<?php echo $lugar ?>" name="lugar" id="lugar">
   
         <label for="">Sexo</label>
         <select name="sexo" id="sexo">
@@ -60,7 +65,7 @@
           <option <?php echo ($sexo == "hembra") ? 'selected' : '' ?> value="hembra">Hembra</option>
           <option <?php echo ($sexo == "") ? 'selected' : '' ?> value="" >Ambos</option>
         </select>
-        <button type="submit" class="enviar" id="insertar2" onclick="agregar_animal2()">Buscar</button>
+        <button type="submit" class="enviar" id="insertar2" onclick="cargartodo()">Buscar</button>
       </div>
     </div>
   </form>
@@ -90,6 +95,11 @@
           "caravanapropia"=>$caravanapropia,
           "caravanaajena"=>$caravanaajena,
           "sexo"=>$sexo,
+          "color"=>$color,
+          "raza"=>$raza,
+          "peso"=>$peso,
+          "nacimiento"=>$nacimiento,
+          "lugar"=>$lugar,
         )); 
         ?>
         <?php while ($data = $datos->fetch_object()) { ?>
@@ -118,7 +128,7 @@
 
 <script>
   function eliminar_animal(e) {
-    if(confirm("Desea eliminar el animal?")){
+    if(confirm("DESEA ELIMINAR AL ANIMAL?")){
         let id = $(e).attr("data-id");
         console.log(id);
         eliminar_campo(id);

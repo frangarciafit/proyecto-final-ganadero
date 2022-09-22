@@ -101,6 +101,7 @@ nav p{
 }
 .enviar{
     font-size: 16px;
+    font-weight: bolder;
     padding: .5rem 2rem;
     background-color: grey;
     color: black;
@@ -160,10 +161,10 @@ table tr .chico{
     width: 5%;
 }
 table th{
-    background-color: white;
+    background-color: rgb(255, 255, 255);
 }
 tr:nth-child(odd) {
-    background-color: #aae0a8;
+    background-color: #bce1bb;
   }
 table tr{
     font-size: 20px;
@@ -175,11 +176,13 @@ table tr td button{
 }
 table tr td .fa-pencil{
     font-size: 28px;
-    color: green;
+    color: rgb(0, 0, 0);
+    padding: 0px 5px;
 }
 table tr td .fa-trash{
     font-size: 28px;
     color: red;
+    padding: 0px 5px;
 }
 
 #insertar2{
@@ -193,6 +196,23 @@ table tr td .fa-trash{
     font-weight: bolder;
 }
 
+.login{
+    width: 30%;
+    font-size: 26px;
+    font-weight: bolder;
+    text-align: center;
+}
+
+.login input{
+    margin-bottom: 40px;
+    width: 60%;
+    padding: .4rem 0;
+}
+ .login h1{
+    font-size: 50px;
+    font-weight: bolder;
+    margin-bottom: 50px;
+}
 footer{
     padding: .5rem 0;
     width: 100%;
