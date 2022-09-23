@@ -16,12 +16,12 @@
 <body id="blur">
   <section class="login formulario">
     <h1>Iniciar Sesion</h1>
-    <form action="">
+    <form action="" method="post">
       <label for="">Usuario</label>
-      <input type="text" name="usuario" id="usuario">
+      <input type="text" name="txtUsuario" id="usuario">
       <label for="">Contraseña</label>
-      <input type="password" name="password" id="password">
-      <button class="enviar" onclick="login()">Ingresar</button>
+      <input type="password" name="pasPassword" id="password">
+      <input class="enviar1" type="submit" name="subLogin" id="login">
     </form>
   </section>
 
@@ -37,7 +37,7 @@
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-<script>
+<!-- <script>
   function login() {
     let usuario = $("#usuario").val();
     let password = $("#password").val();
@@ -61,6 +61,6 @@
     })
 
   }
-</script>
+</script> -->
 
 </html>

@@ -3,60 +3,71 @@
     $con = new mysqli("localhost", "root", "", "ganadero");
 
 
-    $funcion = isset($_POST['funcion']) ? $_POST["funcion"] : "";
-    if ($funcion == "agregar_vaca") {
-        $color = isset($_POST['color']) ? $_POST["color"] : "";
-        $caravana = isset($_POST['caravana']) ? $_POST["caravana"] : "";
-        $raza = isset($_POST['raza']) ? $_POST["raza"] : "";
-        $peso = isset($_POST['peso']) ? $_POST["peso"] : "";
-        $caravanaajena = isset($_POST['caravanaajena']) ? $_POST["caravanaajena"] : "";
-        $nacimiento = isset($_POST['nacimiento']) ? $_POST["nacimiento"] : "";
-        $sexo = isset($_POST['sexo']) ? $_POST["sexo"] : "";
-        $lugar = isset($_POST['lugar']) ? $_POST["lugar"] : "";
+
+    if (isset($_POST["subAgregar"])) {
+        global $con;
+
+        $caravanaPropia = $_POST['txtCaravanaPropia'];
+        $caravanaAjena = $_POST['txtCaravanaAjena'];
+        $raza = $_POST['txtRaza'];
+        $nacimiento = $_POST['datNacimiento'];
+        $peso = $_POST['numPeso'];
+        $fecha = $_POST['datFecha'];
+        $color = $_POST['txtColor'];
+        $lugar = $_POST['txtLugar'];
+        $sexo = $_POST['selSexo'];
 
 
-        $sql = "INSERT INTO animal (caravanapropia, caravanaajena, raza, nacimiento, peso, color, lugar, sexo) VALUES ('$caravana', '$caravanaajena', '$raza', '$nacimiento','$peso', '$color','$lugar','$sexo') ";
+        $sql = "INSERT INTO t_animal (caravanaPropia, caravanaAjena, raza, nacimiento, color, sexo) VALUES ('$caravanaPropia', '$caravanaAjena', '$raza', '$nacimiento', '$color','$sexo') ";
+        $result = mysqli_query($con, $sql);
+        $sql = "INSERT INTO t_peso (caravanaPropia, fecha, peso) VALUES ('$caravanaPropia', '$fecha', '$peso') ";
+        $result = mysqli_query($con, $sql);
+        $sql = "INSERT INTO t_lugar (caravanaPropia, fecha, lugar) VALUES ('$caravanaPropia', '$fecha', '$lugar') ";
+        $result = mysqli_query($con, $sql);
 
-        $stmt = $con->prepare($sql);
+        // $stmt = $con->prepare($sql);
+        // $stmt->execute();
 
-        $stmt->execute();
-        $resultado = $stmt->get_result();
-    } else {
-        if ($funcion == "eliminar") {
-            $id = isset($_POST['id']) ? $_POST["id"] : "";
-            $sql = "DELETE FROM animal WHERE caravanapropia = $id";
-            $stmt = $con->prepare($sql);
-            $stmt->execute();
-            $resultado = $stmt->get_result();
+
+        // if (mysqli_num_rows($result) == 1) {
+        //     echo "<h3>Cargado exitoso</h3>";
+        //     return 1;
+        // } else {
+        //     echo "<h3>ERROR</h3>";
+        // }
+    }
+
+    // if ($funcion == "eliminar") {
+    //     $id = isset($_POST['id']) ? $_POST["id"] : "";
+    //     $sql = "DELETE FROM animal WHERE caravanapropia = $id";
+    //     $stmt = $con->prepare($sql);
+    //     $stmt->execute();
+    //     $resultado = $stmt->get_result();
+    // } else {
+
+    if (isset($_POST["subLogin"])) {
+        global $con;
+        $usuario = $_POST['txtUsuario'];
+        $password = $_POST['pasPassword'];
+
+        $sql = "SELECT * FROM t_login WHERE usuario = '$usuario' and password = '$password'";
+        $result = mysqli_query($con, $sql);
+
+        if (mysqli_num_rows($result) == 1) {
+            echo "<h3> login successfully.</h3>";
+            return 1;
         } else {
-            if ($funcion == "login") {
-
-                global $con;
-                $usuario = $_POST['usuario'];
-                $password = $_POST['password'];
-
-                $sql = "SELECT * FROM login WHERE usuario = '$usuario' and password = '$password'";
-                $result = mysqli_query($con, $sql);
-
-                echo $usuario;
-                echo $password;
-
-                if (mysqli_num_rows($result) == 1) {
-                    echo "Login successful";
-                    return 1;
-                } else {
-                    echo "Login failed. Invalid username or password.";
-                }
-            }
+            echo "<h3>ERROR</h3>";
         }
     }
 
-    function cargartodo($conf = array())
+
+    function cargarTodo($conf = array())
     {
         global $con;
 
-        $caravanapropia = isset($conf["caravanapropia"]) ? $conf["caravanapropia"] : "";
-        $caravanaajena = isset($conf["caravanaajena"]) ? $conf["caravanaajena"] : "";
+        $caravanaPropia = isset($conf["caravanaPropia"]) ? $conf["caravanaPropia"] : "";
+        $caravanaAjena = isset($conf["caravanaAjena"]) ? $conf["caravanaAjena"] : "";
         $sexo = isset($conf["sexo"]) ? $conf["sexo"] : "";
         $color = isset($conf['color']) ? $conf["color"] : "";
         $raza = isset($conf['raza']) ? $conf["raza"] : "";
@@ -64,13 +75,13 @@
         $nacimiento = isset($conf['nacimiento']) ? $conf["nacimiento"] : "";
         $lugar = isset($conf['lugar']) ? $conf["lugar"] : "";
 
-
         $sql = "SELECT * ";
-        $sql .= "FROM animal ";
-        $sql .= "WHERE 1 = 1 ";
+        $sql .= "FROM t_animal a ";
+        $sql .= "CROSS JOIN t_peso p , t_lugar l ";
+        $sql .= "WHERE a.caravanaPropia = p.caravanaPropia AND a.caravanaPropia = l.caravanaPropia ";
 
-        if ($caravanapropia != "") $sql .= "AND caravanapropia LIKE '%$caravanapropia%' ";
-        if ($caravanaajena != "") $sql .= "AND caravanaajena LIKE '%$caravanaajena%' ";
+        if ($caravanaPropia != "") $sql .= "AND caravanaPropia LIKE '%$caravanaPropia%' ";
+        if ($caravanaAjena != "") $sql .= "AND caravanaAjena LIKE '%$caravanaAjena%' ";
         if ($sexo != "") $sql .= "AND sexo LIKE '%$sexo%' ";
         if ($color != "") $sql .= "AND color LIKE '%$color%' ";
         if ($raza != "") $sql .= "AND raza LIKE '%$raza%' ";
@@ -81,20 +92,56 @@
 
         $stmt = $con->prepare($sql);
 
-        #$stmt->bind_param("sss", $firstname, $lastname, $email);
 
         $stmt->execute();
         $resultado = $stmt->get_result();
 
-        //$resultado=mysqli_query($con,$sql);
+        //     #$stmt->bind_param("sss", $firstname, $lastname, $email);
+        //     //$resultado=mysqli_query($con,$sql);
 
-        //if (mysqli_num_rows($resultado)==0){
+        //     //if (mysqli_num_rows($resultado)==0){
 
-        //echo "No se encontro ningun dato";
-        //   }
-        //   mysqli_free_result($resultado);
+        //     //echo "No se encontro ningun dato";
+        //     //   }
+        //     //   mysqli_free_result($resultado);
 
         return $resultado;
     }
+
+    function cargarVaca()
+    {
+        global $con;
+
+        $id = $_GET["id"];
+
+        $sql = "SELECT * ";
+        $sql .= "FROM t_animal a ";
+        $sql .= "CROSS JOIN t_peso p , t_lugar l ";
+        $sql .= "WHERE '10' = a.caravanaPropia AND '10' = p.caravanaPropia AND '10' = l.caravanaPropia ";
+
+        // $resultado = mysqli_query($con, $sql);
+
+        // if (mysqli_num_rows($resultado) == 0) {
+
+        //     echo "No se encontro ningun dato";
+        // }else{
+        //     echo "hola";
+        // }
+        $stmt = $con->prepare($sql);
+
+
+        $stmt->execute();
+        $resultado = $stmt->get_result();
+
+        return $resultado;
+    }
+
+
+
+    function modificarVaca()
+    {
+    }
+
+
 
     ?>

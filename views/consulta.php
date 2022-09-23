@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <?php include("../funciones.php") ?>
+
 <head>
   <meta charset="UTF-8" />
   <link rel="stylesheet" href="../css/index.css">
@@ -12,148 +13,156 @@
 
 
   <?php
-
-  $caravanapropia = isset($_POST["caravanapropia"]) ? $_POST["caravanapropia"] : "";
-  $caravanaajena = isset($_POST["caravanaajena"]) ? $_POST["caravanaajena"] : "";
-  $sexo = isset($_POST["sexo"]) ? $_POST["sexo"] : "";
-  $color = isset($_POST['color']) ? $_POST["color"] : "";
-  $raza = isset($_POST['raza']) ? $_POST["raza"] : "";
-  $peso = isset($_POST['peso']) ? $_POST["peso"] : "";
-  $nacimiento = isset($_POST['nacimiento']) ? $_POST["nacimiento"] : "";
-  $lugar = isset($_POST['lugar']) ? $_POST["lugar"] : "";
-
+  $caravanaPropia = isset($_POST["txtCaravanaPropia"]) ? $_POST["txtCaravanaPropia"] : "";
+  $caravanaAjena = isset($_POST["txtCaravanaAjena"]) ? $_POST["txtCaravanaAjena"] : "";
+  $sexo = isset($_POST["selSexo"]) ? $_POST["selSexo"] : "";
+  $color = isset($_POST['txtColor']) ? $_POST["txtColor"] : "";
+  $raza = isset($_POST['txtRaza']) ? $_POST["txtRaza"] : "";
+  $peso = isset($_POST['numPeso']) ? $_POST["numPeso"] : "";
+  $nacimiento = isset($_POST['datNacimiento']) ? $_POST["datNacimiento"] : "";
+  $lugar = isset($_POST['txtLugar']) ? $_POST["txtLugar"] : "";
   ?>
+
 </head>
 
 <body>
 
 
-  <nav >
+  <!-- <nav>
     <p>Consulta animal</p>
     <a href="../index.php">Volver</a>
-  </nav>
+  </nav> -->
 
-    <div class="formularioconsulta">
-  <form action="" method="post">
-    <div class="buscador">
-      <div class="alinear">
-        <label for="">Caravana propia</label>
-        <input type="number" value="<?php echo $caravanapropia ?>" name="caravanapropia" id="caravanapropia" min="0">
-  
-        <label for="">Caravana ajena</label>
-        <input type="number" value="<?php echo $caravanaajena ?>" name="caravanaajena" id="caravanaajena" min="0">
-  
-        <label for="">Raza</label>
-        <input type="text" value="<?php echo $raza ?>" name="raza" id="raza">
-  
-        <label for="">Nacimiento</label>
-        <input type="date"  value="<?php echo $nacimiento ?>" name="nacimiento" id="nacimiento">
+  <div class="formularioconsulta">
+    <form action="" method="post">
+      <div class="buscador">
+        <div class="alinear">
+          <label for="">Caravana propia</label>
+          <input type="text" value="<?php echo $caravanaPropia ?>" name="txtCaravanaPropia" id="txtCaravanaPropia" min="0">
+
+          <label for="">Caravana ajena</label>
+          <input type="text" value="<?php echo $caravanaAjena ?>" name="txtCaravanaAjena" id="txtCaravanaAjena" min="0">
+
+          <label for="">Raza</label>
+          <input type="text" value="<?php echo $raza ?>" name="txtRaza" id="txtRaza">
+
+          <label for="">Nacimiento</label>
+          <input type="date" value="<?php echo $nacimiento ?>" name="datNacimiento" id="datNacimiento">
+        </div>
+        <div class="alinear">
+          <label for="">Peso</label>
+          <input type="number" value="<?php echo $peso ?>" name="numPeso" id="numPeso" step="0.01" min="0">
+
+          <label for="">Color</label>
+          <input type="text" value="<?php echo $color ?>" name="txtColor" id="txtColor">
+
+          <label for="">Lugar</label>
+          <input type="text" value="<?php echo $lugar ?>" name="txtLugar" id="txtLugar">
+
+          <label for="">Sexo</label>
+          <select name="selSexo" id="selSexo">
+            <option <?php echo ($sexo == "macho") ? 'selected' : '' ?> value="macho">Macho</option>
+            <option <?php echo ($sexo == "hembra") ? 'selected' : '' ?> value="hembra">Hembra</option>
+            <option <?php echo ($sexo == "") ? 'selected' : '' ?> value="">Ambos</option>
+          </select>
+          <button type="submit" class="enviar" id="insertar" onclick="cargarTodo()">Agregar</button>
+        </div>
       </div>
-      <div class="alinear">
-        <label for="">Peso</label>
-        <input type="number" value="<?php echo $peso ?>" name="peso" id="peso" step="0.01" min="0">
-  
-        <label for="">Color</label>
-        <input type="text" value="<?php echo $color ?>" name="color" id="color">
-  
-        <label for="">Lugar</label>
-        <input type="text" value="<?php echo $lugar ?>" name="lugar" id="lugar">
-  
-        <label for="">Sexo</label>
-        <select name="sexo" id="sexo">
-          <option <?php echo ($sexo == "macho") ? 'selected' : '' ?> value="macho">Macho</option>
-          <option <?php echo ($sexo == "hembra") ? 'selected' : '' ?> value="hembra">Hembra</option>
-          <option <?php echo ($sexo == "") ? 'selected' : '' ?> value="" >Ambos</option>
-        </select>
-        <button type="submit" class="enviar" id="insertar2" onclick="cargartodo()">Buscar</button>
-      </div>
-    </div>
-  </form>
+    </form>
 
 
-  <div class="tabla">
-    <table class="table">
-      <thead>
-        <tr>
-          <th class="normal">Caravana Propia</th>
-          <th class="normal">Caravana Ajena</th>
-          <th class="grande">Raza</th>
-          <th class="normal">Nacimiento</th>
-          <th class="normal">Peso</th>
-          <th class="normal">Color</th>
-          <th class="grande">Lugar</th>
-          <th class="normal">Sexo</th>
-          <th class="chico"></th>
-          <th class="chico"></th>
-        </tr>
-      </thead>
-      <tbody>
-
-
-        <?php 
-        $datos = cargartodo(array(
-          "caravanapropia"=>$caravanapropia,
-          "caravanaajena"=>$caravanaajena,
-          "sexo"=>$sexo,
-          "color"=>$color,
-          "raza"=>$raza,
-          "peso"=>$peso,
-          "nacimiento"=>$nacimiento,
-          "lugar"=>$lugar,
-        )); 
-        ?>
-        <?php while ($data = $datos->fetch_object()) { ?>
+    <div class="tabla">
+      <table class="table">
+        <thead>
           <tr>
-            <td class="grande"><?php echo $data->caravanapropia; ?></td>
-            <td class="grande"><?php echo $data->caravanaajena; ?></td>
-            <td class="normal"><?php echo $data->raza; ?></td>
-            <td class="grande"><?php echo $data->nacimiento; ?></td>
-            <td class="normal"><?php echo $data->peso; ?></td>
-            <td class="normal"><?php echo $data->color; ?></td>
-            <td class="normal"><?php echo $data->lugar; ?></td>
-            <td class="normal"><?php echo $data->sexo; ?></td>
-            <td class="chico"><button><i class="fa fa-pencil" aria-hidden="true"></i></button></td>
-            <td class="chico"><button data-id="<?php echo $data->caravanapropia; ?>" class="btn_eliminar espacio_right" onclick="eliminar_animal(this)"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
+            <th class="normal">Caravana Propia</th>
+            <!-- <th class="normal">Caravana Ajena</th>
+            <th class="normal">Nacimiento</th> -->
+            <th class="grande">Raza</th>
+            <th class="normal">Peso</th>
+            <th class="normal">Color</th>
+            <th class="grande">Lugar</th>
+            <th class="normal">Sexo</th>
+            <th class="chico"></th>
+            <th class="chico"></th>
+            <th class="chico"></th>
+            <th class="chico"></th>
+            <th class="chico"></th>
+            <th class="chico"></th>
+            <th class="chico"></th>
           </tr>
-        <?php } ?>
+        </thead>
+        <tbody>
 
-      </tbody>
-    </table>
+
+          <?php
+          $datos = cargarTodo(array(
+            "caravanaPropia" => $caravanaPropia,
+            "caravanaAjena" => $caravanaAjena,
+            "sexo" => $sexo,
+            "color" => $color,
+            "raza" => $raza,
+            "peso" => $peso,
+            "nacimiento" => $nacimiento,
+            "lugar" => $lugar,
+          ));
+          ?>
+          <?php while ($data = $datos->fetch_object()) { ?>
+            <tr>
+              <td class="grande"><?php echo $data->caravanaPropia; ?></td>
+              <td class="normal"><?php echo $data->raza; ?></td>
+              <td class="normal"><?php echo $data->peso; ?></td>
+              <td class="normal"><?php echo $data->color; ?></td>
+              <td class="normal"><?php echo $data->lugar; ?></td>
+              <td class="normal"><?php echo $data->sexo; ?></td>
+              <td class="chico"><button><i class="fa fa-plus icons" aria-hidden="true"></i></button></td>
+              <td class="chico"><button><i class="fa fa-balance-scale icons" aria-hidden="true"></i></button></td>
+              <td class="chico"><button><i class="fa fa-eyedropper icons" aria-hidden="true"></i></button></td>
+              <td class="chico"><button><i class="fa fa-user-md icons" aria-hidden="true"></i></button></td>
+              <td class="chico"><button><i class="fa fa-home icons" aria-hidden="true"></i></button></td>
+              <td class="chico"><a href="./modificar.php?id=<?php echo $data->caravanaPropia; ?>"><i class="fa fa-pencil-square-o icons" aria-hidden="true"></i></a></td>
+              <td class="chico"><button data-id="<?php echo $data->caravanaPropia; ?>" onclick="eliminarAnimal(this)"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
+            </tr>
+          <?php } ?>
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
+
+
 
 </body>
 
-<script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+
 
 <script>
-  function eliminar_animal(e) {
-    if(confirm("DESEA ELIMINAR AL ANIMAL?")){
-        let id = $(e).attr("data-id");
-        console.log(id);
-        eliminar_campo(id);
-        $(e).parent().parent().remove();
+  function eliminarAnimal(e) {
+    if (confirm("DESEA ELIMINAR AL ANIMAL?")) {
+      let id = $(e).attr("data-id");
+      console.log(id);
+      eliminarCampo(id);
+      $(e).parent().parent().remove();
     }
   }
 
 
-  function eliminar_campo(id) {
-    $.ajax({
-      "url": "../funciones.php",
-      "type": "post",
-      "dataType": "json",
-      "data": {
-        "id": id,
-        "funcion": "eliminar",
-      },
-      success: function(r) {
-        if (r.error == 0) {
-          console.log("Exitoso")
-        }
-      },
-    });
+  //   function eliminarCampo(id) {
+  //     $.ajax({
+  //       "url": "../funciones.php",
+  //       "type": "post",
+  //       "dataType": "json",
+  //       "data": {
+  //         "id": id,
+  //         "funcion": "eliminar",
+  //       },
+  //       success: function(r) {
+  //         if (r.error == 0) {
+  //           console.log("Exitoso")
+  //         }
+  //       },
+  //     });
 
-  }
+  //   }
 </script>
 
 </html>

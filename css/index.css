@@ -103,7 +103,17 @@ nav p{
     font-size: 16px;
     font-weight: bolder;
     padding: .5rem 2rem;
-    background-color: grey;
+    background-color: rgb(227, 227, 227);
+    color: black;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+}
+.enviar1{
+    font-size: 16px;
+    font-weight: bolder;
+    padding: .5rem 2rem;
+    background-color: rgb(123, 122, 122);
     color: black;
     border: none;
     border-radius: 25px;
@@ -111,6 +121,9 @@ nav p{
 }
 .enviar:hover{
     background-color: rgb(156, 156, 156);
+}
+.enviar1:hover{
+    background-color: rgb(202, 202, 202);
 }
 .buscador{
     background-color: rgba(20, 20, 20, 0.766);
@@ -152,19 +165,22 @@ table{
     padding: .5rem;
 }
 table tr .grande{
-    width: 17%;
+    width: 15%;
 }
 table tr .normal{
-    width: 9%;
+    width: 10%;
 }
 table tr .chico{
-    width: 5%;
+    width: 4%;
+}
+table tr .chico button{
+    cursor: pointer;
 }
 table th{
     background-color: rgb(255, 255, 255);
 }
 tr:nth-child(odd) {
-    background-color: #bce1bb;
+    background-color: #d5f2dc;
   }
 table tr{
     font-size: 20px;
@@ -174,13 +190,13 @@ table tr td button{
     border: none;
     background: none;
 }
-table tr td .fa-pencil{
-    font-size: 28px;
+table tr td .icons{
+    font-size: 25px;
     color: rgb(0, 0, 0);
     padding: 0px 5px;
 }
 table tr td .fa-trash{
-    font-size: 28px;
+    font-size: 25px;
     color: red;
     padding: 0px 5px;
 }
