@@ -65,7 +65,7 @@
             <option <?php echo ($sexo == "hembra") ? 'selected' : '' ?> value="hembra">Hembra</option>
             <option <?php echo ($sexo == "") ? 'selected' : '' ?> value="">Ambos</option>
           </select>
-          <button type="submit" class="enviar" id="insertar" onclick="cargarTodo()">Agregar</button>
+          <button type="submit" class="enviar" id="insertar" onclick="cargarTodo()">Buscar</button>
         </div>
       </div>
     </form>
@@ -93,7 +93,6 @@
           </tr>
         </thead>
         <tbody>
-
 
           <?php
           $datos = cargarTodo(array(

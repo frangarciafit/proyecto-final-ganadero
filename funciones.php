@@ -75,8 +75,7 @@
         $nacimiento = isset($conf['nacimiento']) ? $conf["nacimiento"] : "";
         $lugar = isset($conf['lugar']) ? $conf["lugar"] : "";
 
-        $sql = "SELECT * ";
-        $sql .= "FROM t_animal a ";
+        $sql = "SELECT * FROM t_animal a ";
         $sql .= "CROSS JOIN t_peso p , t_lugar l ";
         $sql .= "WHERE a.caravanaPropia = p.caravanaPropia AND a.caravanaPropia = l.caravanaPropia ";
 
@@ -89,23 +88,20 @@
         if ($nacimiento != "") $sql .= "AND nacimiento LIKE '%$nacimiento%' ";
         if ($lugar != "") $sql .= "AND lugar LIKE '%$lugar%' ";
 
-
         $stmt = $con->prepare($sql);
-
 
         $stmt->execute();
         $resultado = $stmt->get_result();
 
-        //     #$stmt->bind_param("sss", $firstname, $lastname, $email);
-        //     //$resultado=mysqli_query($con,$sql);
-
-        //     //if (mysqli_num_rows($resultado)==0){
-
-        //     //echo "No se encontro ningun dato";
-        //     //   }
-        //     //   mysqli_free_result($resultado);
-
         return $resultado;
+        #$stmt->bind_param("sss", $firstname, $lastname, $email);
+        // $resultado = mysqli_query($con, $sql);
+
+        // if (mysqli_num_rows($resultado) == 0) {
+
+        //     echo "No se encontro ningun dato";
+        // }
+        // mysqli_free_result($resultado);
     }
 
     function cargarVaca()
@@ -117,7 +113,7 @@
         $sql = "SELECT * ";
         $sql .= "FROM t_animal a ";
         $sql .= "CROSS JOIN t_peso p , t_lugar l ";
-        $sql .= "WHERE '10' = a.caravanaPropia AND '10' = p.caravanaPropia AND '10' = l.caravanaPropia ";
+        $sql .= "WHERE '$id' = a.caravanaPropia AND '$id' = p.caravanaPropia AND '$id' = l.caravanaPropia ";
 
         // $resultado = mysqli_query($con, $sql);
 
@@ -138,9 +134,9 @@
 
 
 
-    function modificarVaca()
-    {
-    }
+    // function modificarVaca()
+    // {
+    // }
 
 
 

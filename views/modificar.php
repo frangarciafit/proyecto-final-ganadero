@@ -22,40 +22,40 @@
 
   <section class="formulario">
     <form action="" id="forminsert" method="post">
-      <?php $datos = cargarVaca() ?>
-      <?php while ($data = $datos->fetch_object()) { ?>
+      <?php $datoss = cargarVaca() ?>
+      <?php while ($datas = $datoss->fetch_object()) { ?>
         <ul>
           <li>
             <label for="">Caravana propia</label>
-            <input type="text" name="txtCaravanaPropia" value="<?php echo $data->$caravanaPropia; ?>" min="0" required>
+            <input type="text" name="txtCaravanaPropia" value="<?php echo $datas->$caravanaPropia; ?>" min="0" required>
           </li>
           <li>
             <label for="">Caravana ajena</label>
-            <input type="text" name="txtCaravanaAjena" value="<?php echo $data->$caravanaAjena; ?>" min="0" placeholder="Opcional">
+            <input type="text" name="txtCaravanaAjena" value="<?php echo $datas->$caravanaAjena; ?>" min="0" placeholder="Opcional">
           </li>
           <li>
             <label for="">Raza</label>
-            <input type="text" name="txtRaza" value="<?php echo $data->$raza; ?>" required>
+            <input type="text" name="txtRaza" value="<?php echo $datas->$raza; ?>" required>
           </li>
           <li>
             <label for="">Nacimiento</label>
-            <input type="date" name="datNacimiento" value="<?php echo $data->$nacimiento ?>" id="datNacimiento" required>
+            <input type="date" name="datNacimiento" value="<?php echo $datas->$nacimiento ?>" id="datNacimiento" required>
           </li>
           <li>
             <label for="">Peso</label>
-            <input type="number" name="numPeso" value="<?php echo $data->$peso ?>" id="numPeso" step="0.01" min="0" required>
+            <input type="number" name="numPeso" value="<?php echo $datas->$peso ?>" id="numPeso" step="0.01" min="0" required>
           </li>
           <li>
             <label for="">Fecha ingreso</label>
-            <input type="date" name="datFecha" value="<?php echo $data->$fecha ?>" required>
+            <input type="date" name="datFecha" value="<?php echo $datas->$fecha ?>" required>
           </li>
           <li>
             <label for="">Color</label>
-            <input type="text" name="txtColor" value="<?php echo $data->$color ?>" id="txtColor" required>
+            <input type="text" name="txtColor" value="<?php echo $datas->$color ?>" id="txtColor" required>
           </li>
           <li>
             <label for="">Lugar</label>
-            <input type="text" name="txtLugar" value="<?php echo $data->$lugar ?>" id="txtLugar" required>
+            <input type="text" name="txtLugar" value="<?php echo $datas->$lugar ?>" id="txtLugar" required>
           </li>
           <li>
             <label for="">Sexo</label>
