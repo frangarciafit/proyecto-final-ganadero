@@ -21,8 +21,8 @@
   </nav>
 
   <section class="formulario">
-    <form action="" id="forminsert" method="post">
-      <?php $datoss = cargarVaca() ?>
+    <form action="" id="forminsert" method="">
+      <?php $datos   ?>
       <?php while ($datas = $datoss->fetch_object()) { ?>
         <ul>
           <li>

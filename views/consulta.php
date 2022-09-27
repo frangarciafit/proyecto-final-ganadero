@@ -28,10 +28,10 @@
 <body>
 
 
-  <!-- <nav>
+  <nav>
     <p>Consulta animal</p>
     <a href="../index.php">Volver</a>
-  </nav> -->
+  </nav>
 
   <div class="formularioconsulta">
     <form action="" method="post">
@@ -107,33 +107,34 @@
           ));
           ?>
           <?php while ($data = $datos->fetch_object()) { ?>
-            <tr>
-              <td class="grande"><?php echo $data->caravanaPropia; ?></td>
-              <td class="normal"><?php echo $data->raza; ?></td>
-              <td class="normal"><?php echo $data->peso; ?></td>
-              <td class="normal"><?php echo $data->color; ?></td>
-              <td class="normal"><?php echo $data->lugar; ?></td>
-              <td class="normal"><?php echo $data->sexo; ?></td>
-              <td class="chico"><button><i class="fa fa-plus icons" aria-hidden="true"></i></button></td>
-              <td class="chico"><button><i class="fa fa-balance-scale icons" aria-hidden="true"></i></button></td>
-              <td class="chico"><button><i class="fa fa-eyedropper icons" aria-hidden="true"></i></button></td>
-              <td class="chico"><button><i class="fa fa-user-md icons" aria-hidden="true"></i></button></td>
-              <td class="chico"><button><i class="fa fa-home icons" aria-hidden="true"></i></button></td>
-              <td class="chico"><a href="./modificar.php?id=<?php echo $data->caravanaPropia; ?>"><i class="fa fa-pencil-square-o icons" aria-hidden="true"></i></a></td>
-              <td class="chico"><button data-id="<?php echo $data->caravanaPropia; ?>" onclick="eliminarAnimal(this)"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
-            </tr>
+            <?php if ($data->eliminada == 0) { ?>
+              <tr>
+                <td class="grande"><?php echo $data->caravanaPropia; ?></td>
+                <td class="normal"><?php echo $data->raza; ?></td>
+                <td class="normal"><?php echo $data->peso; ?></td>
+                <td class="normal"><?php echo $data->color; ?></td>
+                <td class="normal"><?php echo $data->lugar; ?></td>
+                <td class="normal"><?php echo $data->sexo; ?></td>
+                <td class="chico"><button><i class="fa fa-plus icons" aria-hidden="true"></i></button></td>
+                <td class="chico"><button><i class="fa fa-balance-scale icons" aria-hidden="true"></i></button></td>
+                <td class="chico"><button><i class="fa fa-eyedropper icons" aria-hidden="true"></i></button></td>
+                <td class="chico"><button><i class="fa fa-user-md icons" aria-hidden="true"></i></button></td>
+                <td class="chico"><button><i class="fa fa-home icons" aria-hidden="true"></i></button></td>
+                <td class="chico"><a href="./modificar.php" target="_blank"><button data-id="<?php echo $data->caravanaPropia; ?>" onclick="modificarDatos(this)"><i class="fa fa-pencil-square-o icons" aria-hidden="true"></i></button></a></td>
+                <td class="chico"><button data-id="<?php echo $data->caravanaPropia; ?>" onclick="eliminarAnimal(this)"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
+              </tr>
+            <?php } ?>
           <?php } ?>
         </tbody>
       </table>
     </div>
   </div>
 
-
-
+  
 </body>
 
 
-
+<script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
 <script>
   function eliminarAnimal(e) {
     if (confirm("DESEA ELIMINAR AL ANIMAL?")) {
@@ -145,23 +146,41 @@
   }
 
 
-    // function eliminarCampo(id) {
-    //   $.ajax({
-    //     "url": "../funciones.php",
-    //     "type": "post",
-    //     "dataType": "json",
-    //     "data": {
-    //       "id": id,
-    //       "funcion": "eliminar",
-    //     },
-    //     success: function(r) {
-    //       if (r.error == 0) {
-    //         console.log("Exitoso")
-    //       }
-    //     },
-    //   });
+  function eliminarCampo(id) {
+    $.ajax({
+      "url": "../funciones.php",
+      "type": "post",
+      "dataType": "json",
+      "data": {
+        "id": id,
+        "funcion": "eliminar",
+      },
+      success: function(r) {
+        if (r.error == 0) {
+          console.log("Exitoso")
+        }
+      },
+    });
 
-    // }
+  }
+
+  function modificarDatos() {
+    let id = $(e).attr("data-id");
+    $.ajax({
+      "url": "../funciones.php",
+      "type": "post",
+      "dataType": "json",
+      "data": {
+        "id": id,
+        "funcion": "modificar",
+      },
+      success: function(r) {
+        if (r.error == 0) {
+          console.log("Exitoso")
+        }
+      },
+    });
+  }
 </script>
 
 </html>

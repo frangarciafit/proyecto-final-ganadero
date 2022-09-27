@@ -11,12 +11,13 @@
 
   <title>Ganadero</title>
 
+
 </head>
 
 <body id="blur">
 
   <nav>
-    <p>Agregar por compra</p>
+    <p>Agregar por Nacimiento</p>
     <a href="../index.php">Volver</a>
   </nav>
 
@@ -28,8 +29,8 @@
           <input type="text" name="txtCaravanaPropia" maxlength="12" min="0" required>
         </li>
         <li>
-          <label for="">Caravana ajena</label>
-          <input type="text" name="txtCaravanaAjena" maxlength="12" min="0" placeholder="Opcional">
+          <label for="">Caravana madre</label>
+          <input type="text" name="txtCaravanaMadre" maxlength="12" min="0" placeholder="Opcional">
         </li>
         <li>
           <label for="">Raza</label>
@@ -42,10 +43,6 @@
         <li>
           <label for="">Peso</label>
           <input type="number" name="numPeso" id="numPeso" step="0.01" min="0" required>
-        </li>
-        <li>
-          <label for="">Fecha ingreso</label>
-          <input type="date" name="datFecha" required>
         </li>
         <li>
           <label for="">Color</label>
@@ -63,7 +60,7 @@
           </select>
         </li>
       </ul>
-      <input class="enviar1" type="submit" name="subAgregar" id="subAgregar">
+      <input class="enviar1" type="submit" name="subAgregarTernero" id="subAgregarTernero">
     </form>
   </section>
 

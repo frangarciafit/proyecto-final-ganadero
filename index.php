@@ -13,8 +13,15 @@
 
 
 <body>
-  <nav>
-    <a href="/views/agregar.php">Agregar animal</a>
+  <nav id="menu">
+    <ul>
+      <li><a href="">Agregar animal</a>
+        <ul>
+          <li><a href="/views/agregar.php">Por compra</a></li>
+          <li><a href="/views/agregarNacimiento.php">Por Nacimiento</a></li>
+        </ul>
+      </li>
+    </ul>
     <a href="/views/consulta.php">Consulta de datos</a>
   </nav>
 
