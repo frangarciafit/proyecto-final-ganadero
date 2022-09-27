@@ -145,23 +145,23 @@
   }
 
 
-  //   function eliminarCampo(id) {
-  //     $.ajax({
-  //       "url": "../funciones.php",
-  //       "type": "post",
-  //       "dataType": "json",
-  //       "data": {
-  //         "id": id,
-  //         "funcion": "eliminar",
-  //       },
-  //       success: function(r) {
-  //         if (r.error == 0) {
-  //           console.log("Exitoso")
-  //         }
-  //       },
-  //     });
+    // function eliminarCampo(id) {
+    //   $.ajax({
+    //     "url": "../funciones.php",
+    //     "type": "post",
+    //     "dataType": "json",
+    //     "data": {
+    //       "id": id,
+    //       "funcion": "eliminar",
+    //     },
+    //     success: function(r) {
+    //       if (r.error == 0) {
+    //         console.log("Exitoso")
+    //       }
+    //     },
+    //   });
 
-  //   }
+    // }
 </script>
 
 </html>

@@ -39,7 +39,7 @@
 
     // if ($funcion == "eliminar") {
     //     $id = isset($_POST['id']) ? $_POST["id"] : "";
-    //     $sql = "DELETE FROM animal WHERE caravanapropia = $id";
+    //     $sql = "DELETE FROM t_animal WHERE caravanaPropia = $id";
     //     $stmt = $con->prepare($sql);
     //     $stmt->execute();
     //     $resultado = $stmt->get_result();
@@ -54,7 +54,11 @@
         $result = mysqli_query($con, $sql);
 
         if (mysqli_num_rows($result) == 1) {
-            echo "<h3> login successfully.</h3>";
+
+            ob_start();
+            header('Location: index.php');
+            ob_end_flush();
+            
             return 1;
         } else {
             echo "<h3>ERROR</h3>";
@@ -75,11 +79,11 @@
         $nacimiento = isset($conf['nacimiento']) ? $conf["nacimiento"] : "";
         $lugar = isset($conf['lugar']) ? $conf["lugar"] : "";
 
-        $sql = "SELECT * FROM t_animal a ";
-        $sql .= "CROSS JOIN t_peso p , t_lugar l ";
-        $sql .= "WHERE a.caravanaPropia = p.caravanaPropia AND a.caravanaPropia = l.caravanaPropia ";
+        $sql = " SELECT * FROM t_animal a ";
+        $sql .= " CROSS JOIN t_peso p , t_lugar l ";
+        $sql .= " WHERE a.caravanaPropia = p.caravanaPropia AND a.caravanaPropia = l.caravanaPropia ";
 
-        if ($caravanaPropia != "") $sql .= "AND caravanaPropia LIKE '%$caravanaPropia%' ";
+        if ($caravanaPropia != "") $sql .= "AND a.caravanaPropia LIKE '%$caravanaPropia%' ";
         if ($caravanaAjena != "") $sql .= "AND caravanaAjena LIKE '%$caravanaAjena%' ";
         if ($sexo != "") $sql .= "AND sexo LIKE '%$sexo%' ";
         if ($color != "") $sql .= "AND color LIKE '%$color%' ";
@@ -94,6 +98,7 @@
         $resultado = $stmt->get_result();
 
         return $resultado;
+
         #$stmt->bind_param("sss", $firstname, $lastname, $email);
         // $resultado = mysqli_query($con, $sql);
 
