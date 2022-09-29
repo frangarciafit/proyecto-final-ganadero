@@ -120,7 +120,7 @@
                 <td class="chico"><a href="./vacunas.php" target="_blank"><button data-id="<?php echo $data->caravanaPropia; ?>" onclick="agregarVacuna(this)"><button><i class="fa fa-eyedropper icons" aria-hidden="true"></i></button></a></td>
                 <td class="chico"><a href="./enfermedades.php" target="_blank"><button data-id="<?php echo $data->caravanaPropia; ?>" onclick="agregarEnfermedad(this)"><button><i class="fa fa-user-md icons" aria-hidden="true"></i></button></a></td>
                 <td class="chico"><a href="./lugar.php" target="_blank"><button data-id="<?php echo $data->caravanaPropia; ?>" onclick="cambioLugar(this)"><i class="fa fa-home icons" aria-hidden="true"></i></button></a></td>
-                <td class="chico"><a href="./modificar.php?id=<?php echo $data->id ?> " target="_blank"><button data-id="<?php echo $data->caravanaPropia; ?>" onclick="modificarDatos(this)"><i class="fa fa-pencil-square-o icons" aria-hidden="true"></i></button></a></td>
+                <td class="chico"><a href="./modificar.php?id=<?php echo $data->caravanaPropia ?> " target="_blank"><button data-id="<?php echo $data->caravanaPropia; ?>" onclick="modificarDatos(this)"><i class="fa fa-pencil-square-o icons" aria-hidden="true"></i></button></a></td>
                 <td class="chico"><button data-id="<?php echo $data->caravanaPropia; ?>" onclick="eliminarAnimal(this)"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
               </tr>
             <?php } ?>
