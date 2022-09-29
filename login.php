@@ -17,14 +17,16 @@
   <section class="login formulario">
     <h1>Iniciar Sesion</h1>
     <form action="" method="post">
+      <?php if (isset($_GET['error'])) { ?>
+        <p class="error"><?php echo $_GET['error']; ?></p>
+      <?php } ?>
       <label for="">Usuario</label>
       <input type="text" name="txtUsuario" id="usuario">
       <label for="">Contraseña</label>
       <input type="password" name="pasPassword" id="password">
-      <input class="enviar1" type="submit" name="subLogin" id="login">
+      <input class="enviar1" value="Ingresar" type="submit" name="subLogin" id="login">
     </form>
   </section>
-
 
 
   <footer>

@@ -27,7 +27,7 @@
 
 <body>
 
-
+  
   <nav>
     <p>Consulta animal</p>
     <a href="../index.php">Volver</a>
@@ -71,7 +71,7 @@
     </form>
 
 
-    <div class="tabla">
+    <div id="tabla" class="tabla">
       <table class="table">
         <thead>
           <tr>
@@ -115,11 +115,11 @@
                 <td class="normal"><?php echo $data->color; ?></td>
                 <td class="normal"><?php echo $data->lugar; ?></td>
                 <td class="normal"><?php echo $data->sexo; ?></td>
-                <td class="chico"><button><i class="fa fa-plus icons" aria-hidden="true"></i></button></td>
-                <td class="chico"><button><i class="fa fa-balance-scale icons" aria-hidden="true"></i></button></td>
-                <td class="chico"><button><i class="fa fa-eyedropper icons" aria-hidden="true"></i></button></td>
-                <td class="chico"><button><i class="fa fa-user-md icons" aria-hidden="true"></i></button></td>
-                <td class="chico"><button><i class="fa fa-home icons" aria-hidden="true"></i></button></td>
+                <td class="chico"><a href="./mostrarTodo.php" target="_blank"><button data-id="<?php echo $data->caravanaPropia; ?>" onclick="mostrarTodo(this)"><button><i class="fa fa-plus icons" aria-hidden="true"></i></button></a></td>
+                <td class="chico"><a href="./peso.php" target="_blank"><button data-id="<?php echo $data->caravanaPropia; ?>" onclick="agregarPeso(this)"><button><i class="fa fa-balance-scale icons" aria-hidden="true"></i></button></a></td>
+                <td class="chico"><a href="./vacunas.php" target="_blank"><button data-id="<?php echo $data->caravanaPropia; ?>" onclick="agregarVacuna(this)"><button><i class="fa fa-eyedropper icons" aria-hidden="true"></i></button></a></td>
+                <td class="chico"><a href="./enfermedades.php" target="_blank"><button data-id="<?php echo $data->caravanaPropia; ?>" onclick="agregarEnfermedad(this)"><button><i class="fa fa-user-md icons" aria-hidden="true"></i></button></a></td>
+                <td class="chico"><a href="./lugar.php" target="_blank"><button data-id="<?php echo $data->caravanaPropia; ?>" onclick="cambioLugar(this)"><i class="fa fa-home icons" aria-hidden="true"></i></button></a></td>
                 <td class="chico"><a href="./modificar.php" target="_blank"><button data-id="<?php echo $data->caravanaPropia; ?>" onclick="modificarDatos(this)"><i class="fa fa-pencil-square-o icons" aria-hidden="true"></i></button></a></td>
                 <td class="chico"><button data-id="<?php echo $data->caravanaPropia; ?>" onclick="eliminarAnimal(this)"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
               </tr>
@@ -130,57 +130,56 @@
     </div>
   </div>
 
-  
-</body>
 
 
-<script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
-<script>
-  function eliminarAnimal(e) {
-    if (confirm("DESEA ELIMINAR AL ANIMAL?")) {
-      let id = $(e).attr("data-id");
-      console.log(id);
-      eliminarCampo(id);
-      $(e).parent().parent().remove();
+  <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+  <script>
+    function eliminarAnimal(e) {
+      if (confirm("DESEA ELIMINAR AL ANIMAL?")) {
+        let id = $(e).attr("data-id");
+        console.log(id);
+        eliminarCampo(id);
+        $(e).parent().parent().remove();
+      }
     }
-  }
 
 
-  function eliminarCampo(id) {
-    $.ajax({
-      "url": "../funciones.php",
-      "type": "post",
-      "dataType": "json",
-      "data": {
-        "id": id,
-        "funcion": "eliminar",
-      },
-      success: function(r) {
-        if (r.error == 0) {
-          console.log("Exitoso")
-        }
-      },
-    });
+    function eliminarCampo(id) {
+      $.ajax({
+        "url": "../funciones.php",
+        "type": "post",
+        "dataType": "json",
+        "data": {
+          "id": id,
+          "funcion": "eliminar",
+        },
+        success: function(r) {
+          if (r.error == 0) {
+            $("#tabla").html(r.total);
+            html = `hola`;
+          }
+        },
+      });
+    }
 
-  }
-
-  function modificarDatos() {
-    let id = $(e).attr("data-id");
-    $.ajax({
-      "url": "../funciones.php",
-      "type": "post",
-      "dataType": "json",
-      "data": {
-        "id": id,
-        "funcion": "modificar",
-      },
-      success: function(r) {
-        if (r.error == 0) {
-          console.log("Exitoso")
-        }
-      },
-    });
-  }
-</script>
+    function modificarDatos() {
+      let id = $(e).attr("data-id");
+      $.ajax({
+        "url": "../funciones.php",
+        "type": "post",
+        "dataType": "json",
+        "data": {
+          "id": id,
+          "funcion": "modificar",
+        },
+        success: function(r) {
+          if (r.error == 0) {
+            console.log("Exitoso")
+          }
+        },
+      });
+    }
+  </script>
+</body>
 
 </html>

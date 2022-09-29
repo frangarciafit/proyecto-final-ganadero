@@ -25,15 +25,15 @@
       <ul>
         <li>
           <label for="">Caravana propia</label>
-          <input type="text" name="txtCaravanaPropia" maxlength="12" min="0" required>
+          <input type="text" name="txtCaravanaPropia" minlength="10" maxlength="12" min="0" required>
         </li>
         <li>
           <label for="">Caravana ajena</label>
-          <input type="text" name="txtCaravanaAjena" maxlength="12" min="0" placeholder="Opcional">
+          <input type="text" name="txtCaravanaAjena" minlength="10" maxlength="12" min="0" placeholder="Opcional">
         </li>
         <li>
           <label for="">Raza</label>
-          <input type="text" name="txtRaza" required>
+          <input type="text" name="txtRaza" onkeyup="this.value=this.value.toLowerCase()" required>
         </li>
         <li>
           <label for="">Nacimiento</label>
@@ -41,7 +41,7 @@
         </li>
         <li>
           <label for="">Peso</label>
-          <input type="number" name="numPeso" id="numPeso" step="0.01" min="0" required>
+          <input type="number" name="numPeso" id="numPeso" step="0.01" min="120" max="9999" required>
         </li>
         <li>
           <label for="">Fecha ingreso</label>
@@ -49,11 +49,11 @@
         </li>
         <li>
           <label for="">Color</label>
-          <input type="text" name="txtColor" id="txtColor" required>
+          <input type="text" name="txtColor" id="txtColor" onkeyup="this.value=this.value.toLowerCase()" required>
         </li>
         <li>
           <label for="">Lugar</label>
-          <input type="text" name="txtLugar" id="txtLugar" required>
+          <input type="text" name="txtLugar" id="txtLugar" onkeyup="this.value=this.value.toLowerCase()" required>
         </li>
         <li>
           <label for="">Sexo</label>
@@ -63,10 +63,9 @@
           </select>
         </li>
       </ul>
-      <input class="enviar1" type="submit" name="subAgregar" id="subAgregar">
+      <input onclick="" class="enviar1" type="submit" name="subAgregar" id="subAgregar">
     </form>
   </section>
-
 </body>
 
 </html>

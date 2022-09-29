@@ -24,14 +24,20 @@
         $sql = "INSERT INTO t_lugar (caravanaPropia, fecha, lugar) VALUES ('$caravanaPropia', '$fecha', '$lugar') ";
         $result = mysqli_query($con, $sql);
 
+        // echo'<script type="text/javascript">
+        // alert("Animal agregado");
+        // </script>';
+
         // $stmt = $con->prepare($sql);
         // $stmt->execute();
-        // if (mysqli_num_rows($result) == 1) {
-        //     echo "<h3>Cargado exitoso</h3>";
-        //     return 1;
-        // } else {
-        //     echo "<h3>ERROR</h3>";
-        // }
+        if (mysqli_affected_rows($con) == 1) {
+            echo'<script type="text/javascript">
+            alert("ANIMAL AGREGADO");
+            </script>';
+            return 1;
+        } else {
+            echo "<h3>ERROR</h3>";
+        }
     }
     if (isset($_POST["subAgregarTernero"])) {
         global $con;
@@ -69,15 +75,20 @@
             echo "<h3>ERROR</h3>";
         }
     }
+    if (isset($_POST["subCambio"])) {
+        global $con;
 
+        $lugar = $_POST['txtCaravanaPropia'];
+        $fecha = $_POST['txtCaravanaAjena'];
+    }
     if ($funcion == "eliminar") {
         $id = isset($_POST['id']) ? $_POST["id"] : "";
+        echo "<h3> id $id </h3>";
         $sql = "UPDATE t_animal SET eliminada = 1 WHERE caravanaPropia = $id";
         $stmt = $con->prepare($sql);
         $stmt->execute();
         $resultado = $stmt->get_result();
     } else {
-
         if ($funcion == "modificar") {
             global $con;
             $id = isset($_POST['id']) ? $_POST["id"] : "";
@@ -100,8 +111,6 @@
     }
 
 
-
-
     if (isset($_POST["subLogin"])) {
         global $con;
         $usuario = $_POST['txtUsuario'];
@@ -111,17 +120,19 @@
         $result = mysqli_query($con, $sql);
 
         if (empty($usuario)) {
-            echo "<h3>Se necesita el usuario para ingresar.</h3>";
+            header("Location: login.php?error=El usuario se encuentra vacio");
+            exit();
         } else if (empty($password)) {
-            echo "<h3>Se necesita la contraseña para ingresar.</h3>";
+            header("Location: login.php?error=La contraseña se encuentra vacia");
+            exit();
         } else if (mysqli_num_rows($result) == 1) {
-
             ob_start();
             header('Location: index.php');
             ob_end_flush();
             return 1;
         } else {
-            echo "<h3>El usuario o contraseña son invalidos.</h3>";
+            header("Location: login.php?error=El usuario o contraseña son invalidos");
+            exit();
         }
     }
 
@@ -168,4 +179,16 @@
     //  {
     // }
 
+    function mostrarPeso()
+    {
+    }
+    function mostrarLugar()
+    {
+    }
+    function mostrarVacunas()
+    {
+    }
+    function mostrarEnfermedad()
+    {
+    }
     ?>
