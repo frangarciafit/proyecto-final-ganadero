@@ -173,6 +173,19 @@
         // mysqli_free_result($resultado);
     }
 
+    function obtenerAnimal($id) {
+
+        $id = intval($id);
+
+        $sql = "SELECT * FROM t_animal a CROSS JOIN t_peso p , t_lugar l WHERE a.caravanaPropia = p.caravanaPropia AND a.caravanaPropia = l.caravanaPropia ";
+        $sql.= "WHERE a.caravanaPropia = ? ";
+        $stmt = $con->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $resultado = $stmt->get_result();
+        return $resultado;
+    }
+
 
 
     //  function modificarVaca()

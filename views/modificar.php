@@ -11,6 +11,7 @@
 
   <title>Ganadero</title>
 
+  <?php $id = isset($_GET["id"]) ? $_GET["id"] : 0; ?>
 
 </head>
 
@@ -22,8 +23,8 @@
 
   <section class="formulario">
     <form action="" id="forminsert" method="">
-      <?php $datos   ?>
-      <?php while ($datas = $datoss->fetch_object()) { ?>
+      <?php $datos = obtener_animal($id) ?>
+      <?php while ($datas = $datos->fetch_object()) { ?>
         <ul>
           <li>
             <label for="">Caravana propia</label>
