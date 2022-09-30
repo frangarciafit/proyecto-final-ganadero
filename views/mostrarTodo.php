@@ -12,6 +12,8 @@
     <title>Ganadero</title>
 
 
+    <?php $id = isset($_GET["id"]) ? $_GET["id"] : 0; ?>
+
 </head>
 
 <body id="blur">
@@ -20,48 +22,48 @@
         <p>Historicos</p>
     </nav>
 
-    <div id="tabla" class="tabla">
-        <h1>Tabla Peso</h1>
-        <table class="table">
+    <h1 class="mostradoTotal">Tabla Peso</h1>
+    <?php $datas = cambioPeso($id); ?>
+    <div class="tabla tablasLugares">
+        <table class="table_lugares">
             <thead>
                 <tr>
-                    <th class="normal">Fecha</th>
-                    <th class="normal">Peso</th>
+                    <th>Peso</th>
+                    <th>Fecha</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
-
-                <?php
-                $datos = mostrarPeso()
-                ?>
-                <?php while ($data = $datos->fetch_object()) { ?>
+                <?php $i = 0; ?>
+                <?php foreach ($datas->pesos as $p) { ?>
                     <tr>
-                        <td class="normal"><?php echo $data->peso; ?></td>
-                        <td class="normal"><?php echo $data->fecha; ?></td>
+                        <td class="peso"><?php echo $p->peso ?></td>
+                        <td class="fecha"><?php echo $datas->fechas[$i]->fecha ?></td>
                     </tr>
+                    <?php $i++; ?>
                 <?php } ?>
             </tbody>
         </table>
     </div>
-    <div id="tabla" class="tabla">
-        <h1>Tabla Lugar</h1>
-        <table class="table">
+    <?php $datas = obtenerLugar($id); ?>
+    <h1 class="mostradoTotal">Tabla Lugar</h1>
+    <div class="tabla tablasLugares">
+        <table class="table_lugares">
             <thead>
                 <tr>
-                    <th class="normal">Fecha</th>
-                    <th class="grande">Lugar</th>
+                    <th>Lugar</th>
+                    <th>Fecha</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
-
-                <?php
-                $datos = mostrarLugar()
-                ?>
-                <?php while ($data = $datos->fetch_object()) { ?>
+                <?php $i = 0; ?>
+                <?php foreach ($datas->lugares as $l) { ?>
                     <tr>
-                        <td class="normal"><?php echo $data->fecha; ?></td>
-                        <td class="normal"><?php echo $data->lugar; ?></td>
+                        <td class="peso"><?php echo $l->lugar ?></td>
+                        <td class="fecha"><?php echo $datas->fechas[$i]->fecha ?></td>
                     </tr>
+                    <?php $i++; ?>
                 <?php } ?>
             </tbody>
         </table>

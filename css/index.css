@@ -1,4 +1,4 @@
-*{
+* {
     margin: 0;
     padding: 0;
     font-family: 'Kantumruy Pro', sans-serif;
@@ -6,7 +6,7 @@
     font-family: 'Trispace', sans-serif;
 }
 
-body{
+body {
     background-image: url(vaca.jpg);
     background-repeat: no-repeat;
     background-size: cover;
@@ -15,11 +15,11 @@ body{
     width: 100%;
 }
 
-#blur{
+#blur {
     backdrop-filter: blur(6px);
 }
 
-nav{
+nav {
     width: 100%;
     padding: 1.3rem 0;
     background-color: black;
@@ -29,7 +29,7 @@ nav{
     color: white;
 }
 
-nav a{
+nav a {
     position: relative;
     display: inline-block;
     color: white;
@@ -37,9 +37,11 @@ nav a{
     font-size: 18px;
     font-weight: bolder;
 }
-nav a:hover{
+
+nav a:hover {
     color: white;
 }
+
 nav a:after {
     content: "";
     position: absolute;
@@ -53,17 +55,19 @@ nav a:after {
     transform-origin: top right;
     transition: transform 0.3s ease;
 }
-nav a:hover:after{
+
+nav a:hover:after {
     transform: scaleX(1);
     transform-origin: bottom left;
 }
 
-nav p{
+nav p {
     color: grey;
     font-size: 18px;
     font-weight: bolder;
 }
-.formulario{
+
+.formulario {
     background-color: rgba(255, 255, 255, 0.61);
     margin: 0 auto;
     width: 40%;
@@ -74,32 +78,38 @@ nav p{
     transform: translate(-50%, -50%);
     border-radius: 15px;
 }
-.formulario form{
+
+.formulario form {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-.formulario form ul li{
+
+.formulario form ul li {
     text-decoration: none;
     padding: .7rem 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
-.formulario form ul li label{
+
+.formulario form ul li label {
     font-size: 25px;
     font-weight: bolder;
 }
-.formulario form ul li input{
+
+.formulario form ul li input {
     margin-left: 30px;
     padding: .4rem .8rem;
 }
-.formulario form ul li select{
+
+.formulario form ul li select {
     margin-left: 15px;
     padding: .4rem .8rem;
     font-size: 18px;
 }
-.enviar{
+
+.enviar {
     font-size: 16px;
     font-weight: bolder;
     padding: .5rem 2rem;
@@ -109,7 +119,8 @@ nav p{
     border-radius: 25px;
     cursor: pointer;
 }
-.enviar1{
+
+.enviar1 {
     font-size: 16px;
     font-weight: bolder;
     padding: .5rem 2rem;
@@ -119,13 +130,16 @@ nav p{
     border-radius: 25px;
     cursor: pointer;
 }
-.enviar:hover{
+
+.enviar:hover {
     background-color: rgb(156, 156, 156);
 }
-.enviar1:hover{
+
+.enviar1:hover {
     background-color: rgb(202, 202, 202);
 }
-.buscador{
+
+.buscador {
     background-color: rgba(20, 20, 20, 0.766);
     color: white;
     width: 90%;
@@ -134,19 +148,22 @@ nav p{
     border-radius: 20px;
     padding: .4rem .7rem;
 }
-.buscador select{
+
+.buscador select {
     padding: .2rem .5rem;
 }
 
-.buscador input{
+.buscador input {
     width: 170px;
 }
-.formularioconsulta{
+
+.formularioconsulta {
     display: flex;
     flex-direction: column;
 
 }
-.tabla{
+
+.tabla {
     background-color: white;
     width: 98%;
     margin: 20px auto;
@@ -155,81 +172,123 @@ nav p{
     text-align: center;
 }
 
-.alinear{
+.alinear {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
     margin: 15px 0;
 
 }
-table{
+
+table {
     padding: .5rem;
 }
-table tr .grande{
+
+table tr .grande {
     width: 15%;
 }
-table tr .normal{
+
+table tr .normal {
     width: 10%;
 }
-table tr .chico{
+
+table tr .chico {
     width: 4%;
 }
-table tr .chico button{
+
+table tr .chico button {
     cursor: pointer;
 }
-table th{
+
+table th {
     background-color: rgb(255, 255, 255);
 }
+
 tr:nth-child(odd) {
     background-color: #d5f2dc;
-  }
-table tr{
+}
+
+table tr {
     font-size: 20px;
     text-align: center;
 }
-table tr td button{
+
+table tr td button {
     border: none;
     background: none;
 }
-table tr td .icons{
+
+table tr td .icons {
     font-size: 25px;
     color: rgb(0, 0, 0);
     padding: 0px 5px;
 }
-table tr td .fa-trash{
+
+table tr td .fa-trash {
     font-size: 25px;
     color: red;
     padding: 0px 5px;
 }
 
-#insertar2{
+.mostradoTotal {
+    text-align: center;
+    padding: 30px 0 0 0;
+    font-weight: bolder;
+    color: rgb(0, 0, 0);
+}
+
+.tablasLugares {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tablasLugares td {
+    padding: 5px 12px;
+}
+
+.tablasLugares a {
+    text-decoration: none;
+    color: red;
+    font-weight: bolder;
+}
+
+.tablasLugares a:hover {
+    color: black;
+    cursor: pointer;
+}
+
+#insertar2 {
     background-color: rgb(255, 255, 255);
     color: black;
     font-weight: bolder;
 }
-#insertar2:hover{
+
+#insertar2:hover {
     background-color: rgba(150, 150, 150, 0.885);
     color: black;
     font-weight: bolder;
 }
 
-.login{
+.login {
     width: 30%;
     font-size: 26px;
     font-weight: bolder;
     text-align: center;
 }
 
-.login input{
+.login input {
     margin-bottom: 40px;
     width: 60%;
     padding: .4rem 0;
 }
- .login h1{
+
+.login h1 {
     font-size: 45px;
     font-weight: bolder;
     margin-bottom: 30px;
 }
+
 .error {
     color: #b30000;
     padding: 10px;
@@ -237,9 +296,9 @@ table tr td .fa-trash{
     border-radius: 5px;
     margin: 0 auto 35px auto;
     font-size: 28px;
- }
+}
 
-footer{
+footer {
     padding: .5rem 0;
     width: 100%;
     color: white;
@@ -253,52 +312,51 @@ footer{
 }
 
 #menu ul li {
-    color:#fff;
+    color: #fff;
     background-color: rgb(0, 0, 0);
 }
 
 #menu ul {
-  list-style:none;
-  margin:0;
-  padding:0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 #menu ul a {
-  display:block;
-  text-decoration:none;
-  font-weight:400;
-  font-size:18px;
-  font-weight: bolder;
-  padding:6px 5px 4px 7px;
-  letter-spacing:1px;
+    display: block;
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 18px;
+    font-weight: bolder;
+    padding: 6px 5px 4px 7px;
+    letter-spacing: 1px;
 }
 
 #menu ul li {
-  position:relative;
-  float:left;
-  margin:0;
-  padding:0;
+    position: relative;
+    float: left;
+    margin: 0;
+    padding: 0;
 }
 
 #menu ul ul {
-  display:none;
-  position:absolute;
-  top:100%;
-  left:0%;
-  padding:0;
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0%;
+    padding: 0;
 }
 
 #menu ul ul li {
-  float:none;
-  width:150px
+    float: none;
+    width: 150px
 }
 
 #menu ul ul a {
-  line-height:120%;
-  padding:10px 15px;
+    line-height: 120%;
+    padding: 10px 15px;
 }
 
-#menu ul li:hover > ul {
-  display:block;
+#menu ul li:hover>ul {
+    display: block;
 }
-
