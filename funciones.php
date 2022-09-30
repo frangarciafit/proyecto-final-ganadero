@@ -225,7 +225,39 @@ if ($funcion == "cambioPesos") {
 
         $peso = $peso["peso"];
         $sql = "INSERT INTO t_peso (caravanaPropia, fecha, peso) ";
-        $sql .= "VALUES ('$id', '$fecha', '$peso') ";
+        $sql .= "VALUES ('$id', '$nuevaFecha', '$nuevoPeso') ";
+        $stmt = $con->prepare($sql);
+        $stmt->execute();
+    }
+}
+if ($funcion == "cambioVacunas") {
+    global $con;
+    $vacunas = $_POST["vacunas"];
+    $fechas = $_POST["fechas"];
+    $drogas = $_POST["drogas"];
+    $obligatorias = $_POST["obligatorias"];
+    $descripciones = $_POST["descripciones"];
+    $nuevaVacuna = $_POST["vacuna"];
+    $nuevaFecha = $_POST["fecha"];
+    $nuevaDroga = $_POST["droga"];
+    $nuevoObligatoria = $_POST["obligatoria"];
+    $nuevaDescripcion = $_POST["descripcion"];
+    $id = $_POST["id"];
+
+    // $sql = "INSERT INTO t_lugar (caravanaPropia, fecha, lugar) VALUES ('$id', '$nuevaFecha', '$nuevoLugar')";
+    // $stmt = $con->prepare($sql);
+    // $stmt->execute();
+    // print_r($sql);
+
+    // $sql = "DELETE FROM t_lugar WHERE caravanaPropia = '$id' ";
+    // $stmt = $con->prepare($sql);
+    // $stmt->execute();
+
+    foreach ($vacunas as $vacuna) {
+
+        $vacuna = $vacuna["peso"];
+        $sql = "INSERT INTO t_vacuna (caravanaPropia, vacuna ,fecha, droga, obligatoria, veterinario, descripcion) ";
+        $sql .= "VALUES ('$id', '$nuevaVacuna', '$nuevaFecha', '$nuevaDroga', '$nuevoObligatoria', '$nuevoVeterinario', '$nuevaDescripcion') ";
         $stmt = $con->prepare($sql);
         $stmt->execute();
     }
@@ -354,6 +386,41 @@ function cambioPeso($id)
     while ($data = $resultado->fetch_object()) {
         $row->pesos[] = $data;
         $row->fechas[] = $data;
+    }
+
+    return $row;
+}
+function cambioVacunas2($id)
+{
+
+    global $con;
+    $id = intval($id);
+
+    $sql = "SELECT TA.* FROM t_animal TA WHERE TA.caravanaPropia = ? ";
+    $stmt = $con->prepare($sql);
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+    $row = $resultado->fetch_object();
+
+    $row->vacunas = array();
+    $row->fechas = array();
+    $row->drogas = array();
+    $row->obligatorias = array();
+    $row->veterinarios = array();
+    $row->descripciones = array();
+    $sql = "SELECT TV.* FROM t_vacuna TV WHERE TV.caravanaPropia = ? ";
+    $stmt = $con->prepare($sql);
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+    while ($data = $resultado->fetch_object()) {
+        $row->vacunas[] = $data;
+        $row->fechas[] = $data;
+        $row->drogas[] = $data;
+        $row->obligatorias[] = $data;
+        $row->veterinarios[] = $data;
+        $row->descripciones[] = $data;
     }
 
     return $row;

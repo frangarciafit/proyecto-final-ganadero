@@ -21,7 +21,7 @@
     <p>Vacunacion</p>
   </nav>
 
-  <?php $datas = obtenerLugar($id); ?>
+  <?php $datas = cambioVacunas2($id); ?>
   <section class="formulario">
     <form action="" id="forminsert" method="">
       <ul>
@@ -55,7 +55,9 @@
       </ul>
       <input class="enviar1" onclick="guardar_elemento(<?php echo $id; ?>)" type="submit" name="subVacunas" id="subVacunas">
     </form>
-
+    </section>
+    
+  <section>
     <div class="tabla tablasLugares">
       <table class="table_lugares">
         <thead>
@@ -64,6 +66,7 @@
             <th>Fecha</th>
             <th>Droga</th>
             <th>Obligatoria</th>
+            <th>Veterinario</th>
             <th>Descripcion</th>
             <th></th>
           </tr>
@@ -76,6 +79,7 @@
               <td class="fecha"><?php echo $datas->fechas[$i]->fecha ?></td>
               <td class="droga"><?php echo $datas->drogas[$i]->droga ?></td>
               <td class="obligatoria"><?php echo $datas->obligatorias[$i]->obligatoria ?></td>
+              <td class="veterinario"><?php echo $datas->veterinarios[$i]->veterinario ?></td>
               <td class="descripcion"><?php echo $datas->descripciones[$i]->descripcion ?></td>
               <td>
                 <a href="javascript:void(0)" onclick="remove_element(this)">Eliminar</a>
@@ -86,8 +90,81 @@
         </tbody>
       </table>
     </div>
-
-
   </section>
+
+  <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    function remove_element(e) {
+      $(e).parent().parent().remove();
+    }
+
+    function guardar_elemento(id) {
+      var vacunas = new Array();
+      var fechas = new Array();
+      var drogas = new Array();
+      var obligatorias = new Array();
+      var veterinarios = new Array();
+      var descripciones = new Array();
+      let nuevaVacuna = $("#txtVacuna").val();
+      let nuevaFecha = $("#datFecha").val();
+      let nuevaDroga = $("#txtDroga").val();
+      let nuevoObligatoria = $("#txtObligatoria").val();
+      let nuevoVeterinario = $("#txtVeterinario").val();
+      let nuevaDescripcion = $("#txtDescripcion").val();
+
+      $(".table_lugares tbody tr").each(function(i, e) {
+        var vacuna = $(e).find(".vacuna").text();
+        var fecha = $(e).find(".fecha").date();
+        var droga = $(e).find(".droga").text();
+        var obligatoria = $(e).find(".obligatoria").text();
+        var veterinario = $(e).find(".veterinario").text();
+        var descripcion = $(e).find(".descripcion").text();
+        vacunas.push({
+          "vacuna": vacuna,
+        });
+        fechas.push({
+          "fecha": fecha,
+        });
+        drogas.push({
+          "droga": droga,
+        });
+        obligatorias.push({
+          "obligatoria": obligatoria,
+        });
+        veterinarios.push({
+          "veterinario": veterinario,
+        });
+        descripciones.push({
+          "descripcion": descripcion,
+        });
+      });
+      $.ajax({
+        "url": "../funciones.php",
+        "type": "post",
+        "dataType": "json",
+        "data": {
+          "id": id,
+          "funcion": "cambioVacunas",
+          "vacunas": vacunas,
+          "fechas": fechas,
+          "drogas": drogas,
+          "obligatorias": obligatorias,
+          "veterinarios": veterinarios,
+          "descripciones": descripciones,
+          "vacuna": nuevaVacuna,
+          "fecha": nuevaFecha,
+          "droga": nuevaDroga,
+          "obligatoria": nuevoObligatoria,
+          "veterinario": nuevoVeterinario,
+          "descripcion": nuevaDescripcion,
+        },
+        success: function(r) {
+          if (r.error == 0) {
+            console.log("Exitoso")
+          }
+        },
+      });
+    }
+  </script>
 </body>
 </html>
