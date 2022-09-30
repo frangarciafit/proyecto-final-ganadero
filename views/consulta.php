@@ -115,12 +115,21 @@
                 <td class="normal"><?php echo $data->color; ?></td>
                 <td class="normal"><?php echo $data->lugar; ?></td>
                 <td class="normal"><?php echo $data->sexo; ?></td>
+<<<<<<< HEAD
                 <td class="chico"><a href="./mostrarTodo.php?id=<?php echo $data->caravanaPropia ?> " target="_blank"><i class="fa fa-plus icons" aria-hidden="true"></i></a></td>
                 <td class="chico"><a href="./peso.php?id=<?php echo $data->caravanaPropia ?> " target="_blank"><i class="fa fa-balance-scale icons" aria-hidden="true"></i></a></td>
                 <td class="chico"><a href="./vacunas.php?id=<?php echo $data->caravanaPropia ?> " target="_blank"><i class="fa fa-eyedropper icons" aria-hidden="true"></i></a></td>
                 <td class="chico"><a href="./enfermedades.php?id=<?php echo $data->caravanaPropia ?> " target="_blank"><i class="fa fa-user-md icons" aria-hidden="true"></i></a></td>
                 <td class="chico"><a href="./lugar.php?id=<?php echo $data->caravanaPropia ?> " target="_blank"><i class="fa fa-home icons" aria-hidden="true"></i></a></td>
                 <td class="chico"><a href="./modificar.php?id=<?php echo $data->caravanaPropia ?> " target="_blank"><i class="fa fa-pencil-square-o icons" aria-hidden="true"></i></a></td>
+=======
+                <td class="chico"><a href="./mostrarTodo.php" target="_blank"><button data-id="<?php echo $data->caravanaPropia; ?>" onclick="mostrarTodo(this)"><button><i class="fa fa-plus icons" aria-hidden="true"></i></button></a></td>
+                <td class="chico"><a href="./peso.php" target="_blank"><button data-id="<?php echo $data->caravanaPropia; ?>" onclick="agregarPeso(this)"><button><i class="fa fa-balance-scale icons" aria-hidden="true"></i></button></a></td>
+                <td class="chico"><a href="./vacunas.php" target="_blank"><button data-id="<?php echo $data->caravanaPropia; ?>" onclick="agregarVacuna(this)"><button><i class="fa fa-eyedropper icons" aria-hidden="true"></i></button></a></td>
+                <td class="chico"><a href="./enfermedades.php" target="_blank"><button data-id="<?php echo $data->caravanaPropia; ?>" onclick="agregarEnfermedad(this)"><button><i class="fa fa-user-md icons" aria-hidden="true"></i></button></a></td>
+                <td class="chico"><a href="./lugar.php" target="_blank"><button data-id="<?php echo $data->caravanaPropia; ?>" onclick="cambioLugar(this)"><i class="fa fa-home icons" aria-hidden="true"></i></button></a></td>
+                <td class="chico"><a href="./modificar.php?id=<?php echo $data->caravanaPropia ?> " target="_blank"><button data-id="<?php echo $data->caravanaPropia; ?>" onclick="modificarDatos(this)"><i class="fa fa-pencil-square-o icons" aria-hidden="true"></i></button></a></td>
+>>>>>>> 7c4329527a3dc727de5befc7106eee7b09ccaeaf
                 <td class="chico"><button data-id="<?php echo $data->caravanaPropia; ?>" onclick="eliminarAnimal(this)"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
               </tr>
             <?php } ?>
