@@ -164,7 +164,6 @@ if ($funcion == "modificarLugar") {
     }
 }
 
-<<<<<<< HEAD
 if ($funcion == "modificar_campo") {
     global $con;
     $lugares = $_POST["lugares"];
@@ -172,49 +171,6 @@ if ($funcion == "modificar_campo") {
     $id = $_POST["id"];
     $hoy = date("Y-m-d");
     $raza = $_POST["raza"];
-=======
-    if ($funcion == "modificar_campo") {
-        global $con;
-        $lugares = $_POST["lugares"];
-        $pesos = $_POST["pesos"];
-        $id = $_POST["id"];
-        $hoy = date("Y-m-d");
-        $raza = $_POST["raza"];
-
-        $sql = "UPDATE t_animal SET raza = '$raza' WHERE caravanaPropia = '$id' ";
-        $stmt = $con->prepare($sql);
-        $stmt->execute();
-        
-        $sql = "DELETE FROM t_lugar WHERE caravanaPropia = '$id' ";
-        $stmt = $con->prepare($sql);
-        $stmt->execute();
-        foreach ($lugares as $lugar) {
-
-            $lugar = $lugar["lugar"];
-
-            $sql = "INSERT INTO t_lugar (caravanaPropia, fecha, lugar) ";
-            $sql.= "VALUES ('$id', '$hoy', '$lugar') ";
-            $stmt = $con->prepare($sql);
-            $stmt->execute();
-        }
-
-
-        $sql = "DELETE FROM t_peso WHERE caravanaPropia = '$id' ";
-        $stmt = $con->prepare($sql);
-        $stmt->execute();
-        foreach ($pesos as $peso) {
-
-            $peso = $peso["peso"];
-
-            $sql = "INSERT INTO t_peso (caravanaPropia, fecha, peso) ";
-            $sql.= "VALUES ('$id', '$hoy', '$peso') ";
-            $stmt = $con->prepare($sql);
-            $stmt->execute();
-        }
-
-    }
-
->>>>>>> 7c4329527a3dc727de5befc7106eee7b09ccaeaf
 
     $sql = "UPDATE t_animal SET raza = '$raza' WHERE caravanaPropia = '$id' ";
     $stmt = $con->prepare($sql);
@@ -261,7 +217,6 @@ if ($funcion == "cambioPesos") {
     // $stmt->execute();
     // print_r($sql);
 
-<<<<<<< HEAD
     // $sql = "DELETE FROM t_lugar WHERE caravanaPropia = '$id' ";
     // $stmt = $con->prepare($sql);
     // $stmt->execute();
@@ -271,43 +226,8 @@ if ($funcion == "cambioPesos") {
         $peso = $peso["peso"];
         $sql = "INSERT INTO t_peso (caravanaPropia, fecha, peso) ";
         $sql .= "VALUES ('$id', '$fecha', '$peso') ";
-=======
-        global $con;
-        $id = intval($id);
-
-        $sql = "SELECT TA.* FROM t_animal TA WHERE TA.caravanaPropia = ? ";
->>>>>>> 7c4329527a3dc727de5befc7106eee7b09ccaeaf
         $stmt = $con->prepare($sql);
         $stmt->execute();
-<<<<<<< HEAD
-=======
-        $resultado = $stmt->get_result();
-        $row = $resultado->fetch_object();
-
-        $row->pesos = array();
-        $sql = "SELECT TP.* FROM t_peso TP WHERE TP.caravanaPropia = ? ";
-        $stmt = $con->prepare($sql);
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        $resultado = $stmt->get_result();
-            
-        while ($data = $resultado->fetch_object()) {
-            $row->pesos[] = $data;
-        }
-
-
-        $row->lugares = array();
-        $sql = "SELECT TL.* FROM t_lugar TL WHERE TL.caravanaPropia = ? ";
-        $stmt = $con->prepare($sql);
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        $resultado = $stmt->get_result();
-        while ($data = $resultado->fetch_object()) {
-            $row->lugares[] = $data;
-        }
-
-        return $row;
->>>>>>> 7c4329527a3dc727de5befc7106eee7b09ccaeaf
     }
 }
 
