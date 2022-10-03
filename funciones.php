@@ -335,6 +335,7 @@ function obtenerAnimal($id)
 
     return $row;
 }
+
 function obtenerLugar($id)
 {
 
@@ -363,9 +364,9 @@ function obtenerLugar($id)
 
     return $row;
 }
+
 function cambioPeso($id)
 {
-
     global $con;
     $id = intval($id);
 
@@ -390,9 +391,9 @@ function cambioPeso($id)
 
     return $row;
 }
+
 function cambioVacunas2($id)
 {
-
     global $con;
     $id = intval($id);
 

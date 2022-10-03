@@ -14,6 +14,10 @@
 
 
 <body id="blur">
+  <nav class="invisible">
+
+  </nav>
+
   <section class="login formulario">
     <h1>Iniciar Sesion</h1>
     <form action="" method="post">

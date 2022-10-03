@@ -22,7 +22,6 @@
   </nav>
 
   <?php $datas = cambioPeso($id); ?>
-  <?php print_r($id) ?>
   <section class="formulario">
     <form action="" id="forminsert" method="">
       <ul>

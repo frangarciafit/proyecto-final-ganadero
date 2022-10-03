@@ -42,7 +42,7 @@
                     </tr>
                     <?php $i++; ?>
                 <?php } ?>
-            </tbody>
+            </tbody> 
         </table>
     </div>
     <?php $datas = obtenerLugar($id); ?>
