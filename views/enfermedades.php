@@ -12,30 +12,99 @@
   <title>Ganadero</title>
 
   <?php $id = isset($_GET["id"]) ? $_GET["id"] : 0; ?>
-  
+
 </head>
 
 <body id="blur">
 
   <nav>
-    <p>Enfermedades del animal</p>
+    <p>Registro de enfermedades</p>
   </nav>
 
+  <?php $datas = registroEnfermedad($id); ?>
   <section class="formulario">
-    <form action="" id="forminsert" method="">
-        <ul>
-          <li>
-            <label for="">Fecha </label>
-            <input type="date" name="datFecha"  required>
-          </li>
-          <li>
-            <label for="">Descripcion de la enfermedad</label>
-            <textarea name="textArea" rows="10" cols="50" placeholder="Descripcion"></textarea>
-          </li>
-        </ul>
-      <input class="enviar1" type="submit" name="subEnfermedades" id="subEnfermedades">
+    <form action="" id="forminsert" method="post">
+      <ul>
+        <li>
+          <label for="">Fecha de registro</label>
+          <input type="date" name="datFecha" id="datFecha" required>
+        </li>
+        <li>
+          <label for="">Descripcion de la enfermedad</label>
+          <input type="text" name="txtDescripcion" id="txtDescripcion" required>
+        </li>
+      </ul>
+      <input class="enviar1" onclick="guardar_elemento(<?php echo $id; ?>)" type="submit" name="subCambio" id="subCambio">
     </form>
-  </section>
 
+    <div class="tabla tablasLugares">
+      <table class="table_lugares">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Descripcion</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php $i = 0; ?>
+          <?php foreach ($datas->descripciones as $d) { ?>
+            <tr>
+              <td class="peso"><?php echo $d->descripcion ?></td>
+              <td class="fecha"><?php echo $datas->fechas[$i]->fecha ?></td>
+              <td>
+                <a href="javascript:void(0)" onclick="remove_element(this)">Eliminar</a>
+              </td>
+            </tr>
+            <?php $i++; ?>
+          <?php } ?>
+        </tbody>
+      </table>
+    </div>
+
+  </section>
+  <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    function remove_element(e) {
+      $(e).parent().parent().remove();
+    }
+
+    function guardar_elemento(id) {
+      var descripciones = new Array();
+      var fechas = new Array();
+      let nuevaDescrripcion = $("#txtDescripcion").val();
+      let nuevaFecha = $("#datFecha").val();
+
+      $(".table_lugares tbody tr").each(function(i, e) {
+        var descripcion = $(e).find(".descripcion").text();
+        var fecha = $(e).find(".fecha").date();
+        descripciones.push({
+          "descripcion": descripcion,
+        });
+        fechas.push({
+          "fecha": fecha,
+        });
+      });
+      $.ajax({
+        "url": "../funciones.php",
+        "type": "post",
+        "dataType": "json",
+        "data": {
+          "id": id,
+          "funcion": "registroEnfermedades",
+          "descripciones": descripciones,
+          "fechas": fechas,
+          "descripcion": nuevaDescripcion,
+          "fecha": nuevaFecha,
+        },
+        success: function(r) {
+          if (r.error == 0) {
+            console.log("Exitoso")
+          }
+        },
+      });
+    }
+  </script>
 </body>
+
 </html>

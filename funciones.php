@@ -203,6 +203,7 @@ if ($funcion == "modificar_campo") {
         $stmt->execute();
     }
 }
+
 if ($funcion == "cambioPesos") {
     global $con;
     $pesos = $_POST["pesos"];
@@ -230,6 +231,7 @@ if ($funcion == "cambioPesos") {
         $stmt->execute();
     }
 }
+
 if ($funcion == "cambioVacunas") {
     global $con;
     $vacunas = $_POST["vacunas"];
@@ -258,6 +260,33 @@ if ($funcion == "cambioVacunas") {
         $vacuna = $vacuna["peso"];
         $sql = "INSERT INTO t_vacuna (caravanaPropia, vacuna ,fecha, droga, obligatoria, veterinario, descripcion) ";
         $sql .= "VALUES ('$id', '$nuevaVacuna', '$nuevaFecha', '$nuevaDroga', '$nuevoObligatoria', '$nuevoVeterinario', '$nuevaDescripcion') ";
+        $stmt = $con->prepare($sql);
+        $stmt->execute();
+    }
+}
+
+if ($funcion == "registroEnfermedades") {
+    global $con;
+    $descripciones = $_POST["descripciones"];
+    $fechas = $_POST["fechas"];
+    $nuevaDescripcion = $_POST["descripcion"];
+    $nuevaFecha = $_POST["fecha"];
+    $id = $_POST["id"];
+
+    // $sql = "INSERT INTO t_lugar (caravanaPropia, fecha, lugar) VALUES ('$id', '$nuevaFecha', '$nuevoLugar')";
+    // $stmt = $con->prepare($sql);
+    // $stmt->execute();
+    // print_r($sql);
+
+    // $sql = "DELETE FROM t_lugar WHERE caravanaPropia = '$id' ";
+    // $stmt = $con->prepare($sql);
+    // $stmt->execute();
+
+    foreach ($descripciones as $descripcion) {
+
+        $descripcion = $descripcion["descripcion"];
+        $sql = "INSERT INTO t_enfermedades (caravanaPropia, fecha, descripcion) ";
+        // $sql .= "VALUES ('$id', '$hoy', '$lugar') ";
         $stmt = $con->prepare($sql);
         $stmt->execute();
     }
@@ -427,7 +456,33 @@ function cambioVacunas2($id)
     return $row;
 }
 
+function registroEnfermedad($id)
+{
+    global $con;
+    $id = intval($id);
 
+    $sql = "SELECT TA.* FROM t_animal TA WHERE TA.caravanaPropia = ? ";
+    $stmt = $con->prepare($sql);
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+    $row = $resultado->fetch_object();
+
+
+    $row->descripciones = array();
+    $row->fechas = array();
+    $sql = "SELECT TE.* FROM t_enfermedades TE WHERE TE.caravanaPropia = ? ";
+    $stmt = $con->prepare($sql);
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+    while ($data = $resultado->fetch_object()) {
+        $row->descripciones[] = $data;
+        $row->fechas[] = $data;
+    }
+
+    return $row;
+}
 //  function modificarVaca()
 //  {
 // }

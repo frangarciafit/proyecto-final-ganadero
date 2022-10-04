@@ -59,7 +59,7 @@
       </ul>
 
 
-      <table class="table_pesos">
+      <!-- <table class="table_pesos">
         <thead>
           <tr>
             <th>Peso</th>
@@ -78,7 +78,7 @@
             </tr>
           <?php } ?>
         </tbody>
-      </table>
+      </table> -->
      
       <input class="enviar1" onclick="guardar_elemento(<?php echo $id; ?>)" type="submit" name="subModificar" id="subModificar">
 
