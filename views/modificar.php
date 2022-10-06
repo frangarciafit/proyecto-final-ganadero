@@ -41,10 +41,10 @@
           <label for="">Nacimiento</label>
           <input type="date" name="datNacimiento" value="<?php echo $datas->nacimiento ?>" id="datNacimiento" required>
         </li>
-        <li>
+        <!-- <li>
           <label for="">Fecha ingreso</label>
           <input type="date" name="datFecha" value="<?php echo $datas->fecha ?>" required>
-        </li>
+        </li> -->
         <li>
           <label for="">Color</label>
           <input type="text" name="txtColor" value="<?php echo $datas->color ?>" id="txtColor" required>
@@ -93,23 +93,28 @@
   }
 
   function guardar_elemento(id) {
-    var lugares = new Array();
-    var pesos = new Array();
+    // var lugares = new Array();
+    // var pesos = new Array();
     var raza = $("#txtRaza").val();
+    var caravanaPropia = $("#txtCaravanaPropia").val();
+    var caravanaAjena = $("#txtCaravanaAjena").val();
+    var nacimiento = $("#datNacimiento").val();
+    var color = $("#txtColor").val();
+    var sexo = $("#selSexo").val();
 
-    $(".table_lugares tbody tr").each(function(i, e){
-      var lugar = $(e).find(".lugar").text();
-      lugares.push({
-        "lugar": lugar,
-      });
-    });
+    // $(".table_lugares tbody tr").each(function(i, e){
+    //   var lugar = $(e).find(".lugar").text();
+    //   lugares.push({
+    //     "lugar": lugar,
+    //   });
+    // });
 
-    $(".table_pesos tbody tr").each(function(i, e){
-      var peso = $(e).find(".peso").text();
-      pesos.push({
-        "peso": peso,
-      });
-    });
+    // $(".table_pesos tbody tr").each(function(i, e){
+    //   var peso = $(e).find(".peso").text();
+    //   pesos.push({
+    //     "peso": peso,
+    //   });
+    // });
 
     $.ajax({
       "url": "../funciones.php",
@@ -118,9 +123,13 @@
       "data": {
         "id": id,
         "funcion": "modificar_campo",
-        "lugares": lugares,
-        "pesos": pesos,
+        // "lugar":lugares,
         "raza": raza,
+        "caravanaPropia": caravanaPropia,
+        "caravanaAjena": caravanaAjena,
+        "nacimiento": nacimiento,
+        "color": color,
+        "sexo": sexo,
       },
       success: function(r) {
         if (r.error == 0) {
@@ -131,7 +140,5 @@
   }
 
 </script>
-
 </body>
-
 </html>

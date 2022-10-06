@@ -26,11 +26,11 @@
       <ul>
         <li>
           <label for="">Caravana propia</label>
-          <input type="text" name="txtCaravanaPropia" minlength="10" maxlength="12" min="0" required>
+          <input type="text" name="txtCaravanaPropia" minlength="10" maxlength="12" min="0" onkeyup="this.value=this.value.toLowerCase()" required>
         </li>
         <li>
           <label for="">Caravana madre</label>
-          <input type="text" name="txtCaravanaMadre" minlength="10" maxlength="12" min="0" placeholder="Opcional">
+          <input type="text" name="txtCaravanaMadre" minlength="10" maxlength="12" min="0" onkeyup="this.value=this.value.toLowerCase()" placeholder="Opcional">
         </li>
         <li>
           <label for="">Raza</label>

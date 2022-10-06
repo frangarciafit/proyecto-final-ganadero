@@ -61,7 +61,7 @@ if (isset($_POST["subAgregarTernero"])) {
         $result = mysqli_query($con, $sql);
         $sql = "INSERT INTO t_lugar (caravanaPropia, fecha, lugar) VALUES ('$caravanaPropia', '$nacimiento', '$lugar') ";
         $result = mysqli_query($con, $sql);
-        $sql = "INSERT INTO t_ternero (caravanaTernero, caravanaMadre) VALUES ('$caravanaPropia','$caravanaMadre') ";
+        $sql = "INSERT INTO t_ternero (caravanaMadre, caravanaTernero) VALUES ('$caravanaMadre','$caravanaPropia') ";
         $result = mysqli_query($con, $sql);
         // $stmt = $con->prepare($sql);
         // $stmt->execute();
@@ -75,12 +75,13 @@ if (isset($_POST["subAgregarTernero"])) {
         echo "<h3>ERROR</h3>";
     }
 }
-if (isset($_POST["subCambio"])) {
-    global $con;
+// if (isset($_POST["subCambio"])) {
+//     global $con;
 
-    $lugar = $_POST['txtCaravanaPropia'];
-    $fecha = $_POST['txtCaravanaAjena'];
-}
+//     $lugar = $_POST['txtCaravanaPropia'];
+//     $fecha = $_POST['txtCaravanaAjena'];
+// }
+
 if ($funcion == "eliminar") {
     $id = isset($_POST['id']) ? $_POST["id"] : "";
     echo "<h3> id $id </h3>";
@@ -109,7 +110,6 @@ if ($funcion == "eliminar") {
         return $resultado;
     }
 }
-
 
 if (isset($_POST["subLogin"])) {
     global $con;
@@ -166,53 +166,63 @@ if ($funcion == "modificarLugar") {
 
 if ($funcion == "modificar_campo") {
     global $con;
-    $lugares = $_POST["lugares"];
-    $pesos = $_POST["pesos"];
+    // $lugares = $_POST["lugares"];
+    // $pesos = $_POST["pesos"];
     $id = $_POST["id"];
-    $hoy = date("Y-m-d");
+    // $hoy = date("Y-m-d");
     $raza = $_POST["raza"];
+    $caravanaPropia = $_POST["caravanaPropia"];
+    $caravanaAjena = $_POST["caravanaAjena"];
+    $nacimiento = $_POST["nacimiento"];
+    $color = $_POST["color"];
+    $sexo = $_POST["sexo"];
 
     $sql = "UPDATE t_animal SET raza = '$raza' WHERE caravanaPropia = '$id' ";
+    // $sql = "UPDATE t_animal SET caravanaPropia = '$caravanaPropia' WHERE caravanaPropia = '$id' ";
+    // $sql = "UPDATE t_animal SET caravanaAjena = '$caravanaAjena' WHERE caravanaPropia = '$id' ";
+    // $sql = "UPDATE t_animal SET nacimiento = '$nacimiento' WHERE caravanaPropia = '$id' ";
+    // $sql = "UPDATE t_animal SET color = '$color' WHERE caravanaPropia = '$id' ";
+    // $sql = "UPDATE t_animal SET sexo = '$sexo' WHERE caravanaPropia = '$id' ";
+
     $stmt = $con->prepare($sql);
     $stmt->execute();
 
-    $sql = "DELETE FROM t_lugar WHERE caravanaPropia = '$id' ";
-    $stmt = $con->prepare($sql);
-    $stmt->execute();
+    // $sql = "DELETE FROM t_lugar WHERE caravanaPropia = '$id' ";
+    // $stmt = $con->prepare($sql);
+    // $stmt->execute();
 
-    foreach ($lugares as $lugar) {
+    // foreach ($lugares as $lugar) {
+    //     $lugar = $lugar["lugar"];
+    //     $sql = "INSERT INTO t_lugar (caravanaPropia, fecha, lugar) ";
+    //     $sql .= "VALUES ('$id', '$hoy', '$lugar') ";
+    //     $stmt = $con->prepare($sql);
+    //     $stmt->execute();
+    // }
 
-        $lugar = $lugar["lugar"];
-        $sql = "INSERT INTO t_lugar (caravanaPropia, fecha, lugar) ";
-        $sql .= "VALUES ('$id', '$hoy', '$lugar') ";
-        $stmt = $con->prepare($sql);
-        $stmt->execute();
-    }
+    // $sql = "DELETE FROM t_peso WHERE caravanaPropia = '$id' ";
+    // $stmt = $con->prepare($sql);
+    // $stmt->execute();
+    // foreach ($pesos as $peso) {
 
-
-    $sql = "DELETE FROM t_peso WHERE caravanaPropia = '$id' ";
-    $stmt = $con->prepare($sql);
-    $stmt->execute();
-    foreach ($pesos as $peso) {
-
-        $peso = $peso["peso"];
-
-        $sql = "INSERT INTO t_peso (caravanaPropia, fecha, peso) ";
-        $sql .= "VALUES ('$id', '$hoy', '$peso') ";
-        $stmt = $con->prepare($sql);
-        $stmt->execute();
-    }
+    //     $peso = $peso["peso"];
+    //     $sql = "INSERT INTO t_peso (caravanaPropia, fecha, peso) ";
+    //     $sql .= "VALUES ('$id', '$hoy', '$peso') ";
+    //     $stmt = $con->prepare($sql);
+    //     $stmt->execute();
+    // }
 }
 
 if ($funcion == "cambioPesos") {
     global $con;
-    $pesos = $_POST["pesos"];
-    $fechas = $_POST["fechas"];
-    $nuevoPeso = $_POST["peso"];
-    $nuevaFecha = $_POST["fecha"];
+    $pesos = $_POST['pesos'];
+    $fechas = $_POST['fechas'];
+    $nuevoPeso = $_POST['peso'];
+    $nuevaFecha = $_POST['fecha'];
     // $hoy = date("Y-m-d");
-    $id = $_POST["id"];
-
+    $id = $_POST['id'];
+    print_r($nuevoPeso);
+    print_r($nuevaFecha);
+    print_r($id);
     // $sql = "INSERT INTO t_lugar (caravanaPropia, fecha, lugar) VALUES ('$id', '$nuevaFecha', '$nuevoLugar')";
     // $stmt = $con->prepare($sql);
     // $stmt->execute();
@@ -221,15 +231,24 @@ if ($funcion == "cambioPesos") {
     // $sql = "DELETE FROM t_lugar WHERE caravanaPropia = '$id' ";
     // $stmt = $con->prepare($sql);
     // $stmt->execute();
+    // $peso = $peso["peso"];-
+    $sql = "INSERT INTO t_peso (caravanaPropia, fecha, peso) VALUES ('$id', '$nuevaFecha', '$nuevoPeso') ";
+    $result = mysqli_query($con, $sql);
+    // $stmt = $con->prepare($sql);
+    // $stmt->execute();
 
-    foreach ($pesos as $peso) {
-
-        $peso = $peso["peso"];
-        $sql = "INSERT INTO t_peso (caravanaPropia, fecha, peso) ";
-        $sql .= "VALUES ('$id', '$nuevaFecha', '$nuevoPeso') ";
-        $stmt = $con->prepare($sql);
-        $stmt->execute();
+    if (mysqli_affected_rows($con) == 1) {
+        echo '<script type="text/javascript">
+        alert("PESO AGREGADO");
+        </script>';
+        return 1;
+    } else {
+        echo "<h3>ERROR</h3>";
     }
+    // foreach ($pesos as $peso) {
+
+   
+    // }
 }
 
 if ($funcion == "cambioVacunas") {
@@ -305,7 +324,7 @@ function cargarTodo($conf = array())
     $lugar = isset($conf['lugar']) ? $conf["lugar"] : "";
 
     $sql = " SELECT * FROM t_animal a CROSS JOIN t_peso p , t_lugar l WHERE a.caravanaPropia = p.caravanaPropia AND a.caravanaPropia = l.caravanaPropia ";
-
+    /*ORDER BY p.id DESC LIMIT 1 */
     if ($caravanaPropia != "") $sql .= "AND a.caravanaPropia LIKE '%$caravanaPropia%' ";
     if ($caravanaAjena != "") $sql .= "AND caravanaAjena LIKE '%$caravanaAjena%' ";
     if ($sexo != "") $sql .= "AND sexo LIKE '%$sexo%' ";
@@ -328,9 +347,16 @@ function cargarTodo($conf = array())
     // mysqli_free_result($resultado);
 }
 
+// function verificarLogin(){
+//     if empty($user->username) {
+// redirect("http://dominio/moodle/index2.html");
+// exit;
+// }
+// }
+
+
 function obtenerAnimal($id)
 {
-
     global $con;
     $id = intval($id);
 
@@ -341,33 +367,31 @@ function obtenerAnimal($id)
     $resultado = $stmt->get_result();
     $row = $resultado->fetch_object();
 
+    return $row;
     // $row->pesos = array();
     // $sql = "SELECT TP.* FROM t_peso TP WHERE TP.caravanaPropia = ? ";
     // $stmt = $con->prepare($sql);
     // $stmt->bind_param("i", $id);
     // $stmt->execute();
-    // $resultado = $stmt->get_result(); 
+    // $resultado = $stmt->get_result();
     // while ($data = $resultado->fetch_object()) {
     //     $row->pesos[] = $data;
     // }
 
+    // $row->lugares = array();
+    // $sql = "SELECT TL.* FROM t_lugar TL WHERE TL.caravanaPropia = ? ";
+    // $stmt = $con->prepare($sql);
+    // $stmt->bind_param("i", $id);
+    // $stmt->execute();
+    // $resultado = $stmt->get_result();
+    // while ($data = $resultado->fetch_object()) {
+    //     $row->lugares[] = $data;
+    // }
 
-    $row->lugares = array();
-    $sql = "SELECT TL.* FROM t_lugar TL WHERE TL.caravanaPropia = ? ";
-    $stmt = $con->prepare($sql);
-    $stmt->bind_param("i", $id);
-    $stmt->execute();
-    $resultado = $stmt->get_result();
-    while ($data = $resultado->fetch_object()) {
-        $row->lugares[] = $data;
-    }
-
-    return $row;
 }
 
 function obtenerLugar($id)
 {
-
     global $con;
     $id = intval($id);
 
@@ -487,15 +511,31 @@ function registroEnfermedad($id)
 //  {
 // }
 
-function mostrarPeso()
+function mostrarTernero($id)
 {
+    global $con;
+    $id = intval($id);
+
+    $sql = "SELECT TA.* FROM t_animal TA WHERE TA.caravanaPropia = ? ";
+    $stmt = $con->prepare($sql);
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+    $row = $resultado->fetch_object();
+
+
+    $row->lugares = array();
+    $row->fechas = array();
+    $sql = "SELECT TL.* FROM t_lugar TL WHERE TL.caravanaPropia = ? ";
+    $stmt = $con->prepare($sql);
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+    while ($data = $resultado->fetch_object()) {
+        $row->lugares[] = $data;
+        $row->fechas[] = $data;
+    }
+
+    return $row;
 }
-function mostrarLugar()
-{
-}
-function mostrarVacunas()
-{
-}
-function mostrarEnfermedad()
-{
-}
+

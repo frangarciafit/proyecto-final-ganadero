@@ -12,7 +12,8 @@
 </head>
 
 
-<body>
+<body onload="verificarLogin()">
+  
   <nav id="menu">
     <ul>
       <li><a href="">Agregar animal</a>

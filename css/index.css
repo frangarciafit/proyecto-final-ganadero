@@ -79,21 +79,26 @@ nav p {
 .formulario {
     background-color: rgba(255, 255, 255, 0.61);
     margin: 0px auto;
-    width: 47%;
-    max-width: 600px;
+    width: 30%;
     padding: 2rem;
+    margin-top: 7%;
     /* position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%); */
     border-radius: 15px;
 }
+.formvacunas {
+    width: 65% !important;
+} 
+
 
 .formulario form {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+
 
 .formulario form ul li {
     text-decoration: none;
@@ -133,6 +138,7 @@ nav p {
 .enviar1 {
     font-size: 16px;
     font-weight: bolder;
+    margin-top: 30px;
     padding: .5rem 2rem;
     background-color: rgb(123, 122, 122);
     color: black;
@@ -172,11 +178,14 @@ nav p {
     flex-direction: column;
 
 }
+.vacio{
+    height: 50px;
+}
 
 .tabla {
     background-color: white;
     width: 98%;
-    margin: 20px auto;
+    margin: 40px auto 50px auto;
     border-radius: 15px;
     flex: 1;
     text-align: center;
@@ -197,7 +206,12 @@ table {
 table tr .grande {
     width: 15%;
 }
-
+table tr .grandef {
+    width: 22%;
+}
+table tr .grandeplus {
+    width: 40%;
+}
 table tr .normal {
     width: 10%;
 }
@@ -241,10 +255,14 @@ table tr td .fa-trash {
 }
 
 .mostradoTotal {
+    background-color: rgba(20, 20, 20, 0.766);
     text-align: center;
-    padding: 30px 0 0 0;
+    padding: 20px 0;
     font-weight: bolder;
-    color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    width: 20%;
+    margin: 0 auto;
+    border-radius: 15px;
 }
 
 .tablasLugares {
@@ -253,6 +271,18 @@ table tr td .fa-trash {
     justify-content: center;
 }
 
+.tablasTodo {
+    width: 26%;
+}
+.tablasVacunas{
+    width: 70%;
+}
+.formEnfermedades{
+    width: 45%;
+}
+.tablasEnfermedades{
+    width: 40%;
+}
 .tablasLugares td {
     padding: 5px 12px;
 }

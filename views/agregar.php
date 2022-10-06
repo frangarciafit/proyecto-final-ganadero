@@ -25,11 +25,11 @@
       <ul>
         <li>
           <label for="">Caravana propia</label>
-          <input type="text" name="txtCaravanaPropia" minlength="10" maxlength="12" min="0" required>
+          <input type="text" name="txtCaravanaPropia" minlength="10" maxlength="12" min="0" onkeyup="this.value=this.value.toLowerCase()" required>
         </li>
         <li>
           <label for="">Caravana ajena</label>
-          <input type="text" name="txtCaravanaAjena" minlength="10" maxlength="12" min="0" placeholder="Opcional">
+          <input type="text" name="txtCaravanaAjena" minlength="10" maxlength="12" min="0" onkeyup="this.value=this.value.toLowerCase()" placeholder="Opcional">
         </li>
         <li>
           <label for="">Raza</label>
@@ -37,7 +37,7 @@
         </li>
         <li>
           <label for="">Nacimiento</label>
-          <input type="date" name="datNacimiento" id="datNacimiento" required>
+          <input type="date" name="datNacimiento" id="datNacimiento">
         </li>
         <li>
           <label for="">Peso</label>
@@ -67,5 +67,4 @@
     </form>
   </section>
 </body>
-
 </html>

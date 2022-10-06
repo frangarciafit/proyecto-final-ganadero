@@ -15,7 +15,6 @@
 
 <body id="blur">
   <nav class="invisible">
-
   </nav>
 
   <section class="login formulario">

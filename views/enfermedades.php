@@ -22,7 +22,7 @@
   </nav>
 
   <?php $datas = registroEnfermedad($id); ?>
-  <section class="formulario">
+  <section class="formulario formEnfermedades">
     <form action="" id="forminsert" method="post">
       <ul>
         <li>
@@ -41,16 +41,16 @@
       <table class="table_lugares">
         <thead>
           <tr>
-            <th>Fecha</th>
-            <th>Descripcion</th>
-            <th></th>
+            <th class="grandef" >Descripcion</th>
+            <th class="grandef" >Fecha</th>
+            <th class="chico"></th>
           </tr>
         </thead>
         <tbody>
           <?php $i = 0; ?>
           <?php foreach ($datas->descripciones as $d) { ?>
             <tr>
-              <td class="peso"><?php echo $d->descripcion ?></td>
+              <td class="descripcion"><?php echo $d->descripcion ?></td>
               <td class="fecha"><?php echo $datas->fechas[$i]->fecha ?></td>
               <td>
                 <a href="javascript:void(0)" onclick="remove_element(this)">Eliminar</a>

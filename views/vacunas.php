@@ -22,7 +22,7 @@
   </nav>
 
   <?php $datas = cambioVacunas2($id); ?>
-  <section class="formulario">
+  <section class="formulario formvacunas">
     <form action="" id="forminsert" method="">
       <ul>
       <li>
@@ -40,8 +40,8 @@
         <li>
           <label for="">Obligatoria</label>
           <select name="selObligatoria" id="selObligatoria" required>
-            <option value="si">Si</option>
-            <option value="no" selected>No</option>
+            <option value="si">SI</option>
+            <option value="no" selected>NO</option>
           </select>
         </li>
         <li>
@@ -49,21 +49,19 @@
           <input type="text" name="txtVeterinario" id="txtVeterinario" required>
         </li>
         <li>
-          <label for="">Descripcion de la vacunacion</label>
-          <textarea name="textArea" rows="10" cols="50" placeholder="Descripcion"></textarea>
+          <label for="">Descripcion</label>
+          <textarea name="textArea" rows="10" cols="30" placeholder="Descripcion"></textarea>
         </li>
       </ul>
       <input class="enviar1" onclick="guardar_elemento(<?php echo $id; ?>)" type="submit" name="subVacunas" id="subVacunas">
     </form>
-    </section>
     
-  <section>
     <div class="tabla tablasLugares">
       <table class="table_lugares">
         <thead>
           <tr>
-            <th>Vacuna</th>
-            <th>Fecha</th>
+            <th class="grande">Vacuna</th>
+            <th class="grande">Fecha</th>
             <th>Droga</th>
             <th>Obligatoria</th>
             <th>Veterinario</th>
@@ -166,5 +164,8 @@
       });
     }
   </script>
+  <div class="vacio">
+
+</div>
 </body>
 </html>

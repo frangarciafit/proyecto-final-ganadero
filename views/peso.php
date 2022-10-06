@@ -34,7 +34,8 @@
           <input type="number" name="numPeso" id="numPeso" required>
         </li>
       </ul>
-      <input class="enviar1" onclick="guardar_elemento(<?php echo $id; ?>)" type="submit" name="subPesada" id="subPesada">
+      <input class="enviar1" onclick="guardar_elemento(<?php echo $id; ?>)" type="submit" name="subCambio" id="subCambio">
+      <!-- <button class="enviar1" onclick="guardar_elemento(<?php echo $id; ?>)" type="submit" name="subPesada" id="subPesada">Enviar</button> -->
     </form>
 
     <div class="tabla tablasLugares">
@@ -70,21 +71,23 @@
     }
 
     function guardar_elemento(id) {
-      var pesos = new Array();
-      var fechas = new Array();
+      // var pesos = new Array();
+      // var fechas = new Array();
       let nuevoPeso = $("#numPeso").val();
       let nuevaFecha = $("#datFecha").val();
+      print_r(nuevoPeso);
 
-      $(".table_lugares tbody tr").each(function(i, e) {
-        var peso = $(e).find(".peso").text();
-        var fecha = $(e).find(".fecha").date();
-        pesos.push({
-          "peso": peso,
-        });
-        fechas.push({
-          "fecha": fecha,
-        });
-      });
+      // $(".table_lugares tbody tr").each(function(i, e) {
+      //   var peso = $(e).find(".peso").text();
+      //   var fecha = $(e).find(".fecha").date();
+      //   pesos.push({
+      //     "peso": peso,
+      //   });
+      //   fechas.push({
+      //     "fecha": fecha,
+      //   });
+      // });
+
       $.ajax({
         "url": "../funciones.php",
         "type": "post",
@@ -92,8 +95,8 @@
         "data": {
           "id": id,
           "funcion": "cambioPesos",
-          "pesos": pesos,
-          "fechas": fechas,
+          // "pesos": pesos,
+          // "fechas": fechas,
           "peso": nuevoPeso,
           "fecha": nuevaFecha,
         },

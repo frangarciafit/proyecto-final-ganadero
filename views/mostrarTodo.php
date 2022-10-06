@@ -16,16 +16,18 @@
 
 </head>
 
-<body id="blur">
+<body>
 
     <nav>
         <p>Historicos</p>
     </nav>
 
-    <h1 class="mostradoTotal">Tabla Peso</h1>
+
     <?php $datas = cambioPeso($id); ?>
-    <div class="tabla tablasLugares">
+    <h1 class="mostradoTotal">Tabla Peso</h1>
+    <div class="tabla tablasLugares tablasTodo">
         <table class="table_lugares">
+
             <thead>
                 <tr>
                     <th>Peso</th>
@@ -42,12 +44,12 @@
                     </tr>
                     <?php $i++; ?>
                 <?php } ?>
-            </tbody> 
+            </tbody>
         </table>
     </div>
     <?php $datas = obtenerLugar($id); ?>
     <h1 class="mostradoTotal">Tabla Lugar</h1>
-    <div class="tabla tablasLugares">
+    <div class="tabla tablasLugares tablasTodo">
         <table class="table_lugares">
             <thead>
                 <tr>
@@ -68,58 +70,62 @@
             </tbody>
         </table>
     </div>
-    <div id="tabla" class="tabla">
-        <h1>Tabla Vacunas</h1>
-        <table class="table">
+    <?php $datas = registroEnfermedad($id); ?>
+    <h1 class="mostradoTotal">Tabla Enfermedades</h1>
+    <div class="tabla tablasLugares tablasEnfermedades">
+        <table class="table_lugares">
             <thead>
                 <tr>
-                    <th class="normal">Fecha</th>
+                    <th class="grandef">Fecha</th>
+                    <th class="grandeplus">Descripcion</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php $i = 0; ?>
+                <?php foreach ($datas->fechas as $f) { ?>
+                    <tr>
+                        <td class="fecha"><?php echo $f->fecha ?></td>
+                        <td class="descripcion"><?php echo $datas->descripciones[$i]->descripcion ?></td>
+                    </tr>
+                    <?php $i++; ?>
+                <?php } ?>
+            </tbody>
+        </table>
+    </div>
+    <?php $datas = cambioVacunas2($id); ?>
+    <h1 class="mostradoTotal">Tabla Vacunas</h1>
+    <div class="tabla tablasLugares tablasVacunas">
+        <table class="table_lugares">
+            <thead>
+                <tr>
+                    <th class="normal">Vacuna</th>
+                    <th class="grande">Fecha</th>
                     <th class="grande">Droga</th>
-                    <th class="chico">Obligatoriedad</th>
+                    <th class="chico">Obligatoria</th>
                     <th class="chico">Veterinario</th>
-                    <th class="grande">Descripcion</th>
+                    <th class="grandeplus">Descripcion</th>
                 </tr>
             </thead>
             <tbody>
-
-                <?php
-                $datos = mostrarVacunas()
-                ?>
-                <?php while ($data = $datos->fetch_object()) { ?>
+            <?php $i = 0; ?>
+                <?php foreach ($datas->vacunas as $v) { ?>
                     <tr>
-                        <td class="grande"><?php echo $data->fecha; ?></td>
-                        <td class="normal"><?php echo $data->droga; ?></td>
-                        <td class="normal"><?php echo $data->obligatoria; ?></td>
-                        <td class="normal"><?php echo $data->veterinario; ?></td>
-                        <td class="normal"><?php echo $data->descripcion; ?></td>
+                        <td class="vacuna"><?php echo $v->vacuna ?></td>
+                        <td class="fecha"><?php echo $datas->fechas[$i]->fecha ?></td>
+                        <td class="droga"><?php echo $datas->drogas[$i]->droga ?></td>
+                        <td class="obligatorio"><?php echo $datas->obligatorias[$i]->obligatoria ?></td>
+                        <td class="veterinario"><?php echo $datas->veterinarios[$i]->veterinario ?></td>
+                        <td class="descripcion"><?php echo $datas->descripciones[$i]->descripcion ?></td>
                     </tr>
+                    <?php $i++; ?>
                 <?php } ?>
             </tbody>
         </table>
     </div>
-    <div id="tabla" class="tabla">
-        <h1>Tabla Enfermedades</h1>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th class="normal"> Fecha</th>
-                    <th class="grande"> Detalles</th>
-                </tr>
-            </thead>
-            <tbody>
+    <div class="vacio">
 
-                <?php
-                $datos = mostrarEnfermedad()
-                ?>
-                <?php while ($data = $datos->fetch_object()) { ?>
-                    <tr>
-                        <td class="grande"><?php echo $data->fecha; ?></td>
-                        <td class="normal"><?php echo $data->descripcion; ?></td>
-                    </tr>
-                <?php } ?>
-            </tbody>
-        </table>
     </div>
+
 </body>
 
 </html>
