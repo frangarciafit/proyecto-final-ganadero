@@ -19,15 +19,12 @@
 
   <section class="login formulario">
     <h1>Iniciar Sesion</h1>
-    <form action="" method="post">
-      <?php if (isset($_GET['error'])) { ?>
-        <p class="error"><?php echo $_GET['error']; ?></p>
-      <?php } ?>
+    <form>
       <label for="">Usuario</label>
       <input type="text" name="txtUsuario" id="usuario">
       <label for="">Contraseña</label>
       <input type="password" name="pasPassword" id="password">
-      <input class="enviar1" value="Ingresar" type="submit" name="subLogin" id="login">
+      <a class="enviar1" name="subLogin" onclick="login()" id="login">Ingresar</a>
     </form>
   </section>
 
@@ -42,11 +39,21 @@
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-<!-- <script>
+<script>
   function login() {
     let usuario = $("#usuario").val();
     let password = $("#password").val();
-    console.log(usuario, password);
+    
+    if (usuario == "") {
+      alert ("Por favor ingrese un usuario");
+      return false;
+    }
+
+    if (password == "") {
+      alert ("Por favor ingrese un password");
+      return false;
+    }
+
     $.ajax({
       "url": "./funciones.php",
       "type": "post",
@@ -58,14 +65,14 @@
       },
       success: function(r) {
         if (r.error == 0) {
-          console.log("Exitoso")
+          location.href="index.php"
         } else {
-          console.log(r.error);
+          alert("No logeado")
         }
       },
     })
 
   }
-</script> -->
+</script>
 
 </html>

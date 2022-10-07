@@ -1,18 +1,9 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-  <meta charset="UTF-8" />
-  <link rel="stylesheet" href="../css/index.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@200&family=Splash&family=Trispace:wght@200&display=swap" rel="stylesheet">
+<?php include_once("includes/head.php"); ?>
 
-  <title>Ganadero</title>
-</head>
-
-
-<body onload="verificarLogin()">
+<body>
   
   <nav id="menu">
     <ul>
@@ -24,6 +15,8 @@
       </li>
     </ul>
     <a href="/views/consulta.php">Consulta de datos</a>
+
+    <a href="/cerrar_sesion.php">Cerrar Session</a>
   </nav>
 
 

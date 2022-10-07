@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@200&family=Splash&family=Trispace:wght@200&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <title>Ganadero</title>
 
@@ -23,28 +24,28 @@
 
   <?php $datas = cambioPeso($id); ?>
   <section class="formulario">
-    <form action="" id="forminsert" method="">
-      <ul>
-        <li>
-          <label for="">Fecha</label>
-          <input type="date" name="datFecha" id="datFecha" required>
-        </li>
-        <li>
-          <label for="">Peso</label>
-          <input type="number" name="numPeso" id="numPeso" required>
-        </li>
-      </ul>
-      <input class="enviar1" onclick="guardar_elemento(<?php echo $id; ?>)" type="submit" name="subCambio" id="subCambio">
-      <!-- <button class="enviar1" onclick="guardar_elemento(<?php echo $id; ?>)" type="submit" name="subPesada" id="subPesada">Enviar</button> -->
-    </form>
+  	<form>
+	    <ul>
+	      <li>
+	        <label for="">Fecha</label>
+	        <input type="date" name="datFecha" id="datFecha">
+	      </li>
+	      <li>
+	        <label for="">Peso</label>
+	        <input type="number" name="numPeso" id="numPeso">
+	      </li>
+	    </ul>
+	    <!-- En vez de guardar de una, lo que hacemos es agregar un nuevo peso -->
+	    <input class="enviar1" onclick="agregar_nuevo_peso()" name="subCambio" id="subCambio" value="Agregar nuevo peso">
+	  </form>
 
-    <div class="tabla tablasLugares">
-      <table class="table_lugares">
+    <div class="tabla tablasPesos">
+      <table class="table_pesos">
         <thead>
           <tr>
             <th>Peso</th>
             <th>Fecha</th>
-            <th></th>
+            <th>Opciones</th>
           </tr>
         </thead>
         <tbody>
@@ -54,7 +55,7 @@
               <td class="peso"><?php echo $p->peso ?></td>
               <td class="fecha"><?php echo $datas->fechas[$i]->fecha ?></td>
               <td>
-                <a href="javascript:void(0)" onclick="remove_element(this)">Eliminar</a>
+                <a href="javascript:void(0)" onclick="remove_element(this)"><i class="fa fa-times iconito-eliminar"></i></a>
               </td>
             </tr>
             <?php $i++; ?>
@@ -63,30 +64,55 @@
       </table>
     </div>
 
+    <input class="enviar1" onclick="guardar_elemento(<?php echo $id ?>)" name="subCambio" id="subCambio" value="Guardar Pesos">
+
   </section>
   <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
   <script type="text/javascript">
     function remove_element(e) {
-      $(e).parent().parent().remove();
+    	if (confirm("Estas seguro que desea eliminar el elemento?")){
+      	$(e).parent().parent().remove();
+    	}
+    }
+
+    function agregar_nuevo_peso() {
+    	//Obtenemos los valores
+    	let fecha = $("#datFecha").val();
+    	let peso = $("#numPeso").val();
+    	//Verificamos los valores
+    	if (fecha == "") {
+    		alert ("Por favor ingrese una fecha");
+    		return false;
+    	}
+
+    	if (peso == "") {
+    		alert ("Por favor ingrese un peso");
+    		return false;
+    	}
+    	//Agregamos el nuevo peso a la tabla
+    	let elemento_peso = `
+    		<tr>
+    			<td class="peso">${peso}</td>
+    			<td class="fecha">${fecha}</td>
+    			<td>
+    				<a href="javascript:void(0)" onclick="remove_element(this)"><i class="fa fa-times iconito-eliminar"></i></a>
+    			</td>
+    		</tr>
+    	`;
+    	$(".table_pesos tbody").append(elemento_peso);
     }
 
     function guardar_elemento(id) {
-      // var pesos = new Array();
-      // var fechas = new Array();
-      let nuevoPeso = $("#numPeso").val();
-      let nuevaFecha = $("#datFecha").val();
-      print_r(nuevoPeso);
+      var pesos = new Array();
 
-      // $(".table_lugares tbody tr").each(function(i, e) {
-      //   var peso = $(e).find(".peso").text();
-      //   var fecha = $(e).find(".fecha").date();
-      //   pesos.push({
-      //     "peso": peso,
-      //   });
-      //   fechas.push({
-      //     "fecha": fecha,
-      //   });
-      // });
+      $(".table_pesos tbody tr").each(function(i, e) {
+        var peso = $(e).find(".peso").text();
+        var fecha = $(e).find(".fecha").text();
+        pesos.push({
+          "peso": peso,
+          "fecha": fecha,
+        });
+      });
 
       $.ajax({
         "url": "../funciones.php",
@@ -95,14 +121,12 @@
         "data": {
           "id": id,
           "funcion": "cambioPesos",
-          // "pesos": pesos,
-          // "fechas": fechas,
-          "peso": nuevoPeso,
-          "fecha": nuevaFecha,
+          "pesos": pesos,
         },
         success: function(r) {
           if (r.error == 0) {
-            console.log("Exitoso")
+            alert("Exitoso");
+            location.reload();
           }
         },
       });

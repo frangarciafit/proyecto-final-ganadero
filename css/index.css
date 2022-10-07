@@ -201,6 +201,7 @@ nav p {
 
 table {
     padding: .5rem;
+    width: 100%;
 }
 
 table tr .grande {
@@ -400,3 +401,6 @@ footer {
 #menu ul li:hover>ul {
     display: block;
 }
+
+
+.iconito-eliminar{color: red;}

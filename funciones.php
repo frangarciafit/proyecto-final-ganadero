@@ -136,6 +136,32 @@ if (isset($_POST["subLogin"])) {
     }
 }
 
+if ($funcion == "login") {
+    global $con;
+    $usuario = $_POST['usuario'];
+    $password = $_POST['password'];
+
+    $sql = "SELECT * FROM t_login WHERE usuario = '$usuario' and password = '$password' LIMIT 0,1";
+    $result = mysqli_query($con, $sql);
+
+    if (mysqli_num_rows($result) == 1) {
+        /*
+        session_start();
+        $_SESSION["nombre_usuario"] = $usuario;
+        print_r($_SESSION);*/
+        setcookie("usuario_logeado", $usuario, time() + (86400 * 30), "/"); 
+        //Se logeo exitosamente
+        echo json_encode(array(
+            "error"=>0, 
+        ));
+
+    } else {
+        echo json_encode(array(
+            "error"=>1, 
+        ));
+    }
+}
+
 if ($funcion == "modificarLugar") {
     global $con;
     $lugares = $_POST["lugares"];
@@ -214,41 +240,30 @@ if ($funcion == "modificar_campo") {
 
 if ($funcion == "cambioPesos") {
     global $con;
+    //Obtenemos los pesos
     $pesos = $_POST['pesos'];
-    $fechas = $_POST['fechas'];
-    $nuevoPeso = $_POST['peso'];
-    $nuevaFecha = $_POST['fecha'];
-    // $hoy = date("Y-m-d");
     $id = $_POST['id'];
-    print_r($nuevoPeso);
-    print_r($nuevaFecha);
-    print_r($id);
-    // $sql = "INSERT INTO t_lugar (caravanaPropia, fecha, lugar) VALUES ('$id', '$nuevaFecha', '$nuevoLugar')";
-    // $stmt = $con->prepare($sql);
-    // $stmt->execute();
-    // print_r($sql);
 
-    // $sql = "DELETE FROM t_lugar WHERE caravanaPropia = '$id' ";
-    // $stmt = $con->prepare($sql);
-    // $stmt->execute();
-    // $peso = $peso["peso"];-
-    $sql = "INSERT INTO t_peso (caravanaPropia, fecha, peso) VALUES ('$id', '$nuevaFecha', '$nuevoPeso') ";
-    $result = mysqli_query($con, $sql);
-    // $stmt = $con->prepare($sql);
-    // $stmt->execute();
+    //Lo primero que hacemos es eliminar todos los pesos de la base de datos
+    //Ya que tenemos guardados todos dentro de un array
+    //Entonces si no los borramos, los duplicariamos
+    $sql = "DELETE FROM t_peso WHERE caravanaPropia = '$id' ";
+    $stmt = $con->prepare($sql);
+    $stmt->execute();
 
-    if (mysqli_affected_rows($con) == 1) {
-        echo '<script type="text/javascript">
-        alert("PESO AGREGADO");
-        </script>';
-        return 1;
-    } else {
-        echo "<h3>ERROR</h3>";
+    //Una vez borrados, recorremos los pesos guardados en el array y los insertamos
+    foreach ($pesos as $peso) {
+        $valor_peso = $peso["peso"];
+        $valor_fecha = $peso["fecha"];
+        $sql = "INSERT INTO t_peso (caravanaPropia, fecha, peso) VALUES ('$id', '$valor_fecha', '$valor_peso') ";
+        mysqli_query($con, $sql);
     }
-    // foreach ($pesos as $peso) {
 
-   
-    // }
+
+    //Como estamos trabajando con json, debemos retonar json!
+    echo json_encode(array(
+        "error"=>0,
+    ));
 }
 
 if ($funcion == "cambioVacunas") {
@@ -432,7 +447,7 @@ function cambioPeso($id)
 
     $row->pesos = array();
     $row->fechas = array();
-    $sql = "SELECT TP.* FROM t_peso TP WHERE TP.caravanaPropia = ? ";
+    $sql = "SELECT TP.* FROM t_peso TP WHERE TP.caravanaPropia = ? ORDER BY fecha ASC ";
     $stmt = $con->prepare($sql);
     $stmt->bind_param("i", $id);
     $stmt->execute();
