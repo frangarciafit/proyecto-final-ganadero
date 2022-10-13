@@ -113,7 +113,7 @@ if (!isset($_COOKIE["usuario_logeado"]) || empty($_COOKIE["usuario_logeado"])) {
             "lugar" => $lugar,
           ));
           ?>
-          <?php while ($data = $datos->fetch_object()) { ?>
+          <?php foreach ($datos as $data) { ?>
             <?php if ($data->eliminada == 0) { ?>
               <tr>
                 <td class="grande"><?php echo $data->caravanaPropia; ?></td>

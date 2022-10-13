@@ -302,25 +302,56 @@ function cargarTodo($conf = array())
     $sexo = isset($conf["sexo"]) ? $conf["sexo"] : "";
     $color = isset($conf['color']) ? $conf["color"] : "";
     $raza = isset($conf['raza']) ? $conf["raza"] : "";
-    $peso = isset($conf['peso']) ? $conf["peso"] : "";
+    $filtro_peso = isset($conf['peso']) ? $conf["peso"] : "";
     $nacimiento = isset($conf['nacimiento']) ? $conf["nacimiento"] : "";
-    $lugar = isset($conf['lugar']) ? $conf["lugar"] : "";
+    $filtro_lugar = isset($conf['lugar']) ? $conf["lugar"] : "";
 
-    $sql = " SELECT * FROM t_animal a CROSS JOIN t_peso p , t_lugar l WHERE a.caravanaPropia = p.caravanaPropia AND a.caravanaPropia = l.caravanaPropia ";
+    $sql = " SELECT * FROM t_animal a ";//CROSS JOIN t_peso p , t_lugar l WHERE a.caravanaPropia = p.caravanaPropia AND a.caravanaPropia = l.caravanaPropia ";
     /*ORDER BY p.id DESC LIMIT 1 */
     if ($caravanaPropia != "") $sql .= "AND a.caravanaPropia LIKE '%$caravanaPropia%' ";
     if ($caravanaAjena != "") $sql .= "AND caravanaAjena LIKE '%$caravanaAjena%' ";
     if ($sexo != "") $sql .= "AND sexo LIKE '%$sexo%' ";
     if ($color != "") $sql .= "AND color LIKE '%$color%' ";
     if ($raza != "") $sql .= "AND raza LIKE '%$raza%' ";
-    if ($peso != "") $sql .= "AND peso LIKE '%$peso%' ";
+    //if ($peso != "") $sql .= "AND peso LIKE '%$peso%' ";
     if ($nacimiento != "") $sql .= "AND nacimiento LIKE '%$nacimiento%' ";
-    if ($lugar != "") $sql .= "AND lugar LIKE '%$lugar%' ";
+    //if ($lugar != "") $sql .= "AND lugar LIKE '%$lugar%' ";
 
     $stmt = $con->prepare($sql);
     $stmt->execute();
     $resultado = $stmt->get_result();
-    return $resultado;
+
+    $salida = array();
+    while ($res = $resultado->fetch_object()) {
+
+        $se_agrega = 1;
+
+        $sql = "SELECT * FROM t_peso WHERE caravanaPropia = '$res->caravanaPropia' ORDER BY fecha DESC LIMIT 0,1";
+        $stmt = $con->prepare($sql);
+        $stmt->execute();
+        $res_peso = $stmt->get_result();     
+        $peso = $res_peso->fetch_object();
+        $res->peso = $peso->peso;
+
+        $sql = "SELECT * FROM t_lugar WHERE caravanaPropia = '$res->caravanaPropia' ORDER BY fecha DESC LIMIT 0,1";
+        $stmt = $con->prepare($sql);
+        $stmt->execute();
+        $res_lugar = $stmt->get_result();     
+        $lugar = $res_lugar->fetch_object();
+        $res->lugar = $lugar->lugar;
+
+        if ($filtro_peso != "" && $peso->peso != $filtro_peso) {
+            $se_agrega = 0;
+        } 
+
+        if ($filtro_lugar != "" && $lugar->lugar != $filtro_lugar) {
+            $se_agrega = 0;
+        } 
+
+        if ($se_agrega == 1) $salida[] = $res;
+    }
+
+    return $salida;
 
     #$stmt->bind_param("sss", $firstname, $lastname, $email);
     // $resultado = mysqli_query($con, $sql);
