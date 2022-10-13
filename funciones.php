@@ -179,7 +179,7 @@ if ($funcion == "modificar_campo") {
     $color = $_POST["color"];
     $sexo = $_POST["sexo"];
 
-    $sql = "UPDATE t_animal SET raza = '$raza' WHERE caravanaPropia = '$id' ";
+    $sql = "UPDATE t_animal SET raza = '$raza', color = '$color', sexo = '$sexo', nacimiento = '$nacimiento', caravanaAjena = '$caravanaAjena' WHERE caravanaPropia = '$id' ";
     // $sql = "UPDATE t_animal SET caravanaPropia = '$caravanaPropia' WHERE caravanaPropia = '$id' ";
     // $sql = "UPDATE t_animal SET caravanaAjena = '$caravanaAjena' WHERE caravanaPropia = '$id' ";
     // $sql = "UPDATE t_animal SET nacimiento = '$nacimiento' WHERE caravanaPropia = '$id' ";
@@ -212,6 +212,10 @@ if ($funcion == "modificar_campo") {
     //     $stmt = $con->prepare($sql);
     //     $stmt->execute();
     // }
+
+    echo json_encode(array(
+        "error"=>0,
+    ));
 }
 
 if ($funcion == "cambioPesos") {

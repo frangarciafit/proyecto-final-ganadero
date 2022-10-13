@@ -29,16 +29,17 @@ if (!isset($_COOKIE["usuario_logeado"]) || empty($_COOKIE["usuario_logeado"])) {
   </nav>
 
   <section class="formulario">
-    <form action="" id="forminsert" method="">
-      <?php $datas = obtenerAnimal($id); ?>
+    
+    <?php $datas = obtenerAnimal($id); ?>
+    <form>
       <ul>
         <li>
           <label for="">Caravana propia</label>
-          <input type="text" id="caravanaPropia" name="txtCaravanaPropia" value="<?php echo $datas->caravanaPropia; ?>" min="0" required>
+          <input type="text" id="caravanaPropia" disabled name="txtCaravanaPropia" value="<?php echo $datas->caravanaPropia; ?>" min="0" required>
         </li>
         <li>
           <label for="">Caravana ajena</label>
-          <input type="text" name="txtCaravanaAjena" value="<?php echo $datas->caravanaAjena; ?>" min="0" placeholder="Opcional">
+          <input type="text" name="txtCaravanaAjena" id="caravanaAjena" value="<?php echo $datas->caravanaAjena; ?>" min="0" placeholder="Opcional">
         </li>
         <li>
           <label for="">Raza</label>
@@ -64,32 +65,32 @@ if (!isset($_COOKIE["usuario_logeado"]) || empty($_COOKIE["usuario_logeado"])) {
           </select>
         </li>
       </ul>
-
-
-      <!-- <table class="table_pesos">
-        <thead>
-          <tr>
-            <th>Peso</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php foreach ($datas->pesos as $p) { ?>
-            <tr>
-              <td class="peso"><?php echo $p->peso ?></td>
-              <td>
-                
-                <a href="javascript:void(0)" onclick="remove_element(this)">Eliminar</a>
-
-              </td>
-            </tr>
-          <?php } ?>
-        </tbody>
-      </table> -->
-     
-      <input class="enviar1" onclick="guardar_elemento(<?php echo $id; ?>)" type="submit" name="subModificar" id="subModificar">
-
     </form>
+
+
+    <!-- <table class="table_pesos">
+      <thead>
+        <tr>
+          <th>Peso</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php foreach ($datas->pesos as $p) { ?>
+          <tr>
+            <td class="peso"><?php echo $p->peso ?></td>
+            <td>
+              
+              <a href="javascript:void(0)" onclick="remove_element(this)">Eliminar</a>
+
+            </td>
+          </tr>
+        <?php } ?>
+      </tbody>
+    </table> -->
+   
+    <input class="enviar1" onclick="guardar_elemento(<?php echo $id; ?>)" type="submit" name="subModificar" id="subModificar">
+
   </section>
 
 <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
@@ -103,8 +104,8 @@ if (!isset($_COOKIE["usuario_logeado"]) || empty($_COOKIE["usuario_logeado"])) {
     // var lugares = new Array();
     // var pesos = new Array();
     var raza = $("#txtRaza").val();
-    var caravanaPropia = $("#txtCaravanaPropia").val();
-    var caravanaAjena = $("#txtCaravanaAjena").val();
+    var caravanaPropia = $("#caravanaPropia").val();
+    var caravanaAjena = $("#caravanaAjena").val();
     var nacimiento = $("#datNacimiento").val();
     var color = $("#txtColor").val();
     var sexo = $("#selSexo").val();
@@ -140,10 +141,12 @@ if (!isset($_COOKIE["usuario_logeado"]) || empty($_COOKIE["usuario_logeado"])) {
       },
       success: function(r) {
         if (r.error == 0) {
-          console.log("Exitoso")
+          location.reload();
         }
       },
     });
+
+    return false;
   }
 
 </script>
