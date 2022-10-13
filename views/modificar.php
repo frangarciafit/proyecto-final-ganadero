@@ -3,6 +3,12 @@
 <?php include("../funciones.php") ?>
 
 <head>
+<?php 
+if (!isset($_COOKIE["usuario_logeado"]) || empty($_COOKIE["usuario_logeado"])) {
+	header("Location: ../login.php");
+	exit;
+}
+?>
   <meta charset="UTF-8" />
   <link rel="stylesheet" href="../css/index.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,6 +25,7 @@
 
   <nav>
     <p>Modificando datos</p>
+    <p>Caravana N°: <?php echo $id ?> </p>
   </nav>
 
   <section class="formulario">

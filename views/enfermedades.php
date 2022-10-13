@@ -3,11 +3,18 @@
 <?php include("../funciones.php") ?>
 
 <head>
+<?php 
+if (!isset($_COOKIE["usuario_logeado"]) || empty($_COOKIE["usuario_logeado"])) {
+	header("Location: ../login.php");
+	exit;
+}
+?>
   <meta charset="UTF-8" />
   <link rel="stylesheet" href="../css/index.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@200&family=Splash&family=Trispace:wght@200&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <title>Ganadero</title>
 
@@ -19,6 +26,7 @@
 
   <nav>
     <p>Registro de enfermedades</p>
+    <p>Caravana N°: <?php echo $id ?> </p>
   </nav>
 
   <?php $datas = registroEnfermedad($id); ?>
@@ -34,7 +42,7 @@
           <input type="text" name="txtDescripcion" id="txtDescripcion" required>
         </li>
       </ul>
-      <input class="enviar1" onclick="guardar_elemento(<?php echo $id; ?>)" type="submit" name="subCambio" id="subCambio">
+	    <input class="enviar1" onclick="agregarEnfermedad()" name="subCambio" id="subCambio" value="Agregar Enfermedad">
     </form>
 
     <div class="tabla tablasLugares">
@@ -43,7 +51,7 @@
           <tr>
             <th class="grandef" >Descripcion</th>
             <th class="grandef" >Fecha</th>
-            <th class="chico"></th>
+            <th class="chico"> Opciones</th>
           </tr>
         </thead>
         <tbody>
@@ -53,7 +61,7 @@
               <td class="descripcion"><?php echo $d->descripcion ?></td>
               <td class="fecha"><?php echo $datas->fechas[$i]->fecha ?></td>
               <td>
-                <a href="javascript:void(0)" onclick="remove_element(this)">Eliminar</a>
+              <a href="javascript:void(0)" onclick="remove_element(this)"><i class="fa fa-times iconito-eliminar"></i></a>
               </td>
             </tr>
             <?php $i++; ?>
@@ -62,29 +70,57 @@
       </table>
     </div>
 
+    <input class="enviar1" onclick="guardar_elemento(<?php echo $id ?>)" name="subCambio" id="subCambio" value="Guardar">
+
   </section>
   <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
   <script type="text/javascript">
     function remove_element(e) {
-      $(e).parent().parent().remove();
+    	if (confirm("Estas seguro que desea eliminar el elemento?")){
+      	$(e).parent().parent().remove();
+        console.log(e);
+    	}
+    }
+
+    function agregarEnfermedad() {
+    	//Obtenemos los valores
+    	let fecha = $("#datFecha").val();
+    	let descripcion = $("#txtDescripcion").val();
+    	//Verificamos los valores
+    	if (fecha == "") {
+    		alert ("Por favor ingrese una fecha");
+    		return false;
+    	}
+
+    	if (descripcion == "") {
+    		alert ("Por favor ingrese una descripcion");
+    		return false;
+    	}
+  
+    	let elemento_descripcion = `
+    		<tr>
+    			<td class="descripcion">${descripcion}</td>
+    			<td class="fecha">${fecha}</td>
+    			<td>
+    				<a href="javascript:void(0)" onclick="remove_element(this)"><i class="fa fa-times iconito-eliminar"></i></a>
+    			</td>
+    		</tr>
+    	`;
+    	$(".table_lugares tbody").append(elemento_descripcion);
     }
 
     function guardar_elemento(id) {
       var descripciones = new Array();
-      var fechas = new Array();
-      let nuevaDescrripcion = $("#txtDescripcion").val();
-      let nuevaFecha = $("#datFecha").val();
 
       $(".table_lugares tbody tr").each(function(i, e) {
         var descripcion = $(e).find(".descripcion").text();
-        var fecha = $(e).find(".fecha").date();
+        var fecha = $(e).find(".fecha").text();
         descripciones.push({
           "descripcion": descripcion,
-        });
-        fechas.push({
           "fecha": fecha,
         });
       });
+
       $.ajax({
         "url": "../funciones.php",
         "type": "post",
@@ -93,13 +129,11 @@
           "id": id,
           "funcion": "registroEnfermedades",
           "descripciones": descripciones,
-          "fechas": fechas,
-          "descripcion": nuevaDescripcion,
-          "fecha": nuevaFecha,
         },
         success: function(r) {
           if (r.error == 0) {
-            console.log("Exitoso")
+            alert("Exitoso");
+            location.reload();
           }
         },
       });

@@ -36,7 +36,9 @@ if (isset($_POST["subAgregar"])) {
         </script>';
         return 1;
     } else {
-        echo "<h3>ERROR</h3>";
+        echo '<script type="text/javascript">
+        alert("Error");
+        </script>';
     }
 }
 if (isset($_POST["subAgregarTernero"])) {
@@ -63,6 +65,10 @@ if (isset($_POST["subAgregarTernero"])) {
         $result = mysqli_query($con, $sql);
         $sql = "INSERT INTO t_ternero (caravanaMadre, caravanaTernero) VALUES ('$caravanaMadre','$caravanaPropia') ";
         $result = mysqli_query($con, $sql);
+
+        echo '<script type="text/javascript">
+        alert("ANIMAL AGREGADO");
+        </script>';
         // $stmt = $con->prepare($sql);
         // $stmt->execute();
         // if (mysqli_num_rows($result) == 1) {
@@ -72,15 +78,11 @@ if (isset($_POST["subAgregarTernero"])) {
         //     echo "<h3>ERROR</h3>";
         // }
     } else {
-        echo "<h3>ERROR</h3>";
+        echo '<script type="text/javascript">
+        alert("Error");
+        </script>';
     }
 }
-// if (isset($_POST["subCambio"])) {
-//     global $con;
-
-//     $lugar = $_POST['txtCaravanaPropia'];
-//     $fecha = $_POST['txtCaravanaAjena'];
-// }
 
 if ($funcion == "eliminar") {
     $id = isset($_POST['id']) ? $_POST["id"] : "";
@@ -108,31 +110,6 @@ if ($funcion == "eliminar") {
         $stmt->execute();
         $resultado = $stmt->get_result();
         return $resultado;
-    }
-}
-
-if (isset($_POST["subLogin"])) {
-    global $con;
-    $usuario = $_POST['txtUsuario'];
-    $password = $_POST['pasPassword'];
-
-    $sql = "SELECT * FROM t_login WHERE usuario = '$usuario' and password = '$password'";
-    $result = mysqli_query($con, $sql);
-
-    if (empty($usuario)) {
-        header("Location: login.php?error=El usuario se encuentra vacio");
-        exit();
-    } else if (empty($password)) {
-        header("Location: login.php?error=La contraseña se encuentra vacia");
-        exit();
-    } else if (mysqli_num_rows($result) == 1) {
-        ob_start();
-        header('Location: index.php');
-        ob_end_flush();
-        return 1;
-    } else {
-        header("Location: login.php?error=El usuario o contraseña son invalidos");
-        exit();
     }
 }
 
@@ -164,30 +141,29 @@ if ($funcion == "login") {
 
 if ($funcion == "modificarLugar") {
     global $con;
-    $lugares = $_POST["lugares"];
-    $fechas = $_POST["fechas"];
-    $nuevoLugar = $_POST["lugar"];
-    $nuevaFecha = $_POST["fecha"];
-    // $hoy = date("Y-m-d");
-    $id = $_POST["id"];
+    //Obtenemos los pesos
+    $lugares = $_POST['lugares'];
+    $id = $_POST['id'];
 
-    // $sql = "INSERT INTO t_lugar (caravanaPropia, fecha, lugar) VALUES ('$id', '$nuevaFecha', '$nuevoLugar')";
-    // $stmt = $con->prepare($sql);
-    // $stmt->execute();
-    // print_r($sql);
+    //Lo primero que hacemos es eliminar todos los pesos de la base de datos
+    //Ya que tenemos guardados todos dentro de un array
+    //Entonces si no los borramos, los duplicariamos
+    $sql = "DELETE FROM t_lugar WHERE caravanaPropia = '$id' ";
+    $stmt = $con->prepare($sql);
+    $stmt->execute();
 
-    // $sql = "DELETE FROM t_lugar WHERE caravanaPropia = '$id' ";
-    // $stmt = $con->prepare($sql);
-    // $stmt->execute();
-
+    //Una vez borrados, recorremos los pesos guardados en el array y los insertamos
     foreach ($lugares as $lugar) {
-
-        $lugar = $lugar["lugar"];
-        $sql = "INSERT INTO t_lugar (caravanaPropia, fecha, lugar) ";
-        $sql .= "VALUES ('$id', '$hoy', '$lugar') ";
-        $stmt = $con->prepare($sql);
-        $stmt->execute();
+        $valorLugar = $lugar["lugar"];
+        $valorFecha = $lugar["fecha"];
+        $sql = "INSERT INTO t_lugar (caravanaPropia, fecha, lugar) VALUES ('$id', '$valorFecha', '$valorLugar') ";
+        mysqli_query($con, $sql);
     }
+
+    //Como estamos trabajando con json, debemos retonar json!
+    echo json_encode(array(
+        "error"=>0,
+    ));
 }
 
 if ($funcion == "modificar_campo") {
@@ -253,12 +229,11 @@ if ($funcion == "cambioPesos") {
 
     //Una vez borrados, recorremos los pesos guardados en el array y los insertamos
     foreach ($pesos as $peso) {
-        $valor_peso = $peso["peso"];
-        $valor_fecha = $peso["fecha"];
-        $sql = "INSERT INTO t_peso (caravanaPropia, fecha, peso) VALUES ('$id', '$valor_fecha', '$valor_peso') ";
+        $valorPeso = $peso["peso"];
+        $valorFecha = $peso["fecha"];
+        $sql = "INSERT INTO t_peso (caravanaPropia, fecha, peso) VALUES ('$id', '$valorFecha', '$valorPeso') ";
         mysqli_query($con, $sql);
     }
-
 
     //Como estamos trabajando con json, debemos retonar json!
     echo json_encode(array(
@@ -269,15 +244,6 @@ if ($funcion == "cambioPesos") {
 if ($funcion == "cambioVacunas") {
     global $con;
     $vacunas = $_POST["vacunas"];
-    $fechas = $_POST["fechas"];
-    $drogas = $_POST["drogas"];
-    $obligatorias = $_POST["obligatorias"];
-    $descripciones = $_POST["descripciones"];
-    $nuevaVacuna = $_POST["vacuna"];
-    $nuevaFecha = $_POST["fecha"];
-    $nuevaDroga = $_POST["droga"];
-    $nuevoObligatoria = $_POST["obligatoria"];
-    $nuevaDescripcion = $_POST["descripcion"];
     $id = $_POST["id"];
 
     // $sql = "INSERT INTO t_lugar (caravanaPropia, fecha, lugar) VALUES ('$id', '$nuevaFecha', '$nuevoLugar')";
@@ -285,45 +251,47 @@ if ($funcion == "cambioVacunas") {
     // $stmt->execute();
     // print_r($sql);
 
-    // $sql = "DELETE FROM t_lugar WHERE caravanaPropia = '$id' ";
-    // $stmt = $con->prepare($sql);
-    // $stmt->execute();
+    $sql = "DELETE FROM t_vacuna WHERE caravanaPropia = '$id' ";
+    $stmt = $con->prepare($sql);
+    $stmt->execute();
 
     foreach ($vacunas as $vacuna) {
+        $nuevaVacuna = $vacuna["vacuna"];
+        $nuevaFecha = $vacuna["fecha"];
+        $nuevaDroga = $vacuna["droga"];
+        $nuevoObligatoria = $vacuna["obligatoria"];
+        $nuevoVeterinario = $vacuna["veterinario"];
+        $nuevaDescripcion = $vacuna["descripcion"];
 
-        $vacuna = $vacuna["peso"];
-        $sql = "INSERT INTO t_vacuna (caravanaPropia, vacuna ,fecha, droga, obligatoria, veterinario, descripcion) ";
-        $sql .= "VALUES ('$id', '$nuevaVacuna', '$nuevaFecha', '$nuevaDroga', '$nuevoObligatoria', '$nuevoVeterinario', '$nuevaDescripcion') ";
-        $stmt = $con->prepare($sql);
-        $stmt->execute();
+        $sql = "INSERT INTO t_vacuna (caravanaPropia, vacuna , fecha, droga, obligatoria, veterinario, descripcion) VALUES ('$id', '$nuevaVacuna', '$nuevaFecha', '$nuevaDroga', '$nuevoObligatoria', '$nuevoVeterinario', '$nuevaDescripcion') ";
+        mysqli_query($con, $sql);
     }
+
+    echo json_encode(array(
+        "error"=>0,
+    ));
 }
 
 if ($funcion == "registroEnfermedades") {
     global $con;
-    $descripciones = $_POST["descripciones"];
-    $fechas = $_POST["fechas"];
-    $nuevaDescripcion = $_POST["descripcion"];
-    $nuevaFecha = $_POST["fecha"];
-    $id = $_POST["id"];
 
-    // $sql = "INSERT INTO t_lugar (caravanaPropia, fecha, lugar) VALUES ('$id', '$nuevaFecha', '$nuevoLugar')";
-    // $stmt = $con->prepare($sql);
-    // $stmt->execute();
-    // print_r($sql);
+    $descripciones = $_POST['descripciones'];
+    $id = $_POST['id'];
 
-    // $sql = "DELETE FROM t_lugar WHERE caravanaPropia = '$id' ";
-    // $stmt = $con->prepare($sql);
-    // $stmt->execute();
+    $sql = "DELETE FROM t_enfermedades WHERE caravanaPropia = '$id' ";
+    $stmt = $con->prepare($sql);
+    $stmt->execute();
 
     foreach ($descripciones as $descripcion) {
-
-        $descripcion = $descripcion["descripcion"];
-        $sql = "INSERT INTO t_enfermedades (caravanaPropia, fecha, descripcion) ";
-        // $sql .= "VALUES ('$id', '$hoy', '$lugar') ";
-        $stmt = $con->prepare($sql);
-        $stmt->execute();
+        $valorDescripcion = $descripcion["descripcion"];
+        $valorFecha = $descripcion["fecha"];
+        $sql = "INSERT INTO t_enfermedades (caravanaPropia, fecha, descripcion) VALUES ('$id', '$valorFecha', '$valorDescripcion') ";
+        mysqli_query($con, $sql);
     }
+
+    echo json_encode(array(
+        "error"=>0,
+    ));
 }
 
 function cargarTodo($conf = array())
@@ -361,14 +329,6 @@ function cargarTodo($conf = array())
     // }
     // mysqli_free_result($resultado);
 }
-
-// function verificarLogin(){
-//     if empty($user->username) {
-// redirect("http://dominio/moodle/index2.html");
-// exit;
-// }
-// }
-
 
 function obtenerAnimal($id)
 {
@@ -522,9 +482,6 @@ function registroEnfermedad($id)
 
     return $row;
 }
-//  function modificarVaca()
-//  {
-// }
 
 function mostrarTernero($id)
 {
@@ -554,3 +511,36 @@ function mostrarTernero($id)
     return $row;
 }
 
+function esHija($id){
+    global $con;
+    $id = intval($id);
+
+    $sql = "SELECT * FROM t_ternero WHERE caravanaTernero = ? ";
+
+    $stmt = $con->prepare($sql);
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+
+    // if (mysqli_num_rows($resultado) == 1) { 
+
+    // return $resultado ; } else {
+    //     echo ("Error");
+    // }
+    return $resultado;
+}
+
+
+function esMadre($id){
+    global $con;
+    $id = intval($id);
+
+    $sql = "SELECT * FROM t_ternero WHERE caravanaMadre = ? ";
+
+    $stmt = $con->prepare($sql);
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+
+    return $resultado;
+}

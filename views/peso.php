@@ -3,6 +3,12 @@
 <?php include("../funciones.php") ?>
 
 <head>
+<?php 
+if (!isset($_COOKIE["usuario_logeado"]) || empty($_COOKIE["usuario_logeado"])) {
+	header("Location: ../login.php");
+	exit;
+}
+?>
   <meta charset="UTF-8" />
   <link rel="stylesheet" href="../css/index.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,6 +26,7 @@
 
   <nav>
     <p>Nuevas pesadas</p>
+    <p>Caravana N°: <?php echo $id ?> </p>
   </nav>
 
   <?php $datas = cambioPeso($id); ?>
@@ -72,6 +79,7 @@
     function remove_element(e) {
     	if (confirm("Estas seguro que desea eliminar el elemento?")){
       	$(e).parent().parent().remove();
+        console.log(e);
     	}
     }
 

@@ -3,6 +3,12 @@
 <?php include("../funciones.php") ?>
 
 <head>
+    <?php
+    if (!isset($_COOKIE["usuario_logeado"]) || empty($_COOKIE["usuario_logeado"])) {
+        header("Location: ../login.php");
+        exit;
+    }
+    ?>
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="../css/index.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,6 +26,7 @@
 
     <nav>
         <p>Historicos</p>
+        <p>Caravana N°: <?php echo $id ?> </p>
     </nav>
 
 
@@ -81,7 +88,7 @@
                 </tr>
             </thead>
             <tbody>
-            <?php $i = 0; ?>
+                <?php $i = 0; ?>
                 <?php foreach ($datas->fechas as $f) { ?>
                     <tr>
                         <td class="fecha"><?php echo $f->fecha ?></td>
@@ -107,7 +114,7 @@
                 </tr>
             </thead>
             <tbody>
-            <?php $i = 0; ?>
+                <?php $i = 0; ?>
                 <?php foreach ($datas->vacunas as $v) { ?>
                     <tr>
                         <td class="vacuna"><?php echo $v->vacuna ?></td>
@@ -122,6 +129,54 @@
             </tbody>
         </table>
     </div>
+
+    <?php $datas = esHija($id); ?>
+    <?php $datos = $datas->fetch_object() ?>
+    <h1 class="mostradoTotal">Es Hija de: </h1>
+    <div class="tabla tablasLugares tablasTodo">
+        <table class="table_lugares">
+
+            <thead>
+                <tr>
+                    <th>Caravana Madre</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php if (mysqli_num_rows($datas) == 1) { ?>
+                <tr>
+                    <td class="caravanaMadre"><?php echo $datos->caravanaMadre ?></td>
+                </tr>
+                <?php } else {?>
+                    <td>No tiene madre registrada</td>
+                <?php } ?>
+            </tbody>
+        </table>
+    </div>
+
+    <?php $datas = esMadre($id); ?>
+    <h1 class="mostradoTotal">Es Madre de: </h1>
+    <div class="tabla tablasLugares tablasTodo">
+        <table class="table_lugares">
+
+            <thead>
+                <tr>
+                    <th>Caravana</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php while($datos = $datas->fetch_object()) {?>
+                <tr>
+                    <td class="caravanaTernero"><?php echo $datos->caravanaTernero ?></td>
+                </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+    </div>
+
+
+
     <div class="vacio">
 
     </div>

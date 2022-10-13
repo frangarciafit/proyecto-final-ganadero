@@ -1,7 +1,7 @@
 <?php 
 
 if (!isset($_COOKIE["usuario_logeado"]) || empty($_COOKIE["usuario_logeado"])) {
-	header("Location: login.php");
+	header("Location: ../login.php");
 	exit;
 }
 ?>

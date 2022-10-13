@@ -87,6 +87,7 @@ nav p {
     left: 50%;
     transform: translate(-50%, -50%); */
     border-radius: 15px;
+    text-align: center;
 }
 .formvacunas {
     width: 65% !important;
@@ -145,6 +146,7 @@ nav p {
     border: none;
     border-radius: 25px;
     cursor: pointer;
+    text-align: center;
 }
 
 .enviar:hover {
