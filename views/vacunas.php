@@ -4,7 +4,7 @@
 
 <head>
 <?php 
-if (!isset($_COOKIE["usuario_logeado"]) || empty($_COOKIE["usuario_logeado"])) {
+if (!isset($_COOKIE["usuarioLogeado"]) || empty($_COOKIE["usuarioLogeado"])) {
 	header("Location: ../login.php");
 	exit;
 }
@@ -74,7 +74,7 @@ if (!isset($_COOKIE["usuario_logeado"]) || empty($_COOKIE["usuario_logeado"])) {
             <th>Obligatoria</th>
             <th>Veterinario</th>
             <th>Descripcion</th>
-            <th>Opciones</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>

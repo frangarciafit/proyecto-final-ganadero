@@ -4,7 +4,7 @@
 
 <head>
 <?php 
-if (!isset($_COOKIE["usuario_logeado"]) || empty($_COOKIE["usuario_logeado"])) {
+if (!isset($_COOKIE["usuarioLogeado"]) || empty($_COOKIE["usuarioLogeado"])) {
 	header("Location: ../login.php");
 	exit;
 }
@@ -51,7 +51,7 @@ if (!isset($_COOKIE["usuario_logeado"]) || empty($_COOKIE["usuario_logeado"])) {
           <tr>
             <th class="grandef" >Descripcion</th>
             <th class="grandef" >Fecha</th>
-            <th class="chico"> Opciones</th>
+            <th class="chico"></th>
           </tr>
         </thead>
         <tbody>

@@ -4,7 +4,7 @@
 
 <head>
     <?php
-    if (!isset($_COOKIE["usuario_logeado"]) || empty($_COOKIE["usuario_logeado"])) {
+    if (!isset($_COOKIE["usuarioLogeado"]) || empty($_COOKIE["usuarioLogeado"])) {
         header("Location: ../login.php");
         exit;
     }
@@ -31,7 +31,7 @@
 
 
     <?php $datas = cambioPeso($id); ?>
-    <h1 class="mostradoTotal">Tabla Peso</h1>
+    <h1 class="mostradoTotal">Historico de Peso</h1>
     <div class="tabla tablasLugares tablasTodo">
         <table class="table_lugares">
 
@@ -55,7 +55,7 @@
         </table>
     </div>
     <?php $datas = obtenerLugar($id); ?>
-    <h1 class="mostradoTotal">Tabla Lugar</h1>
+    <h1 class="mostradoTotal">Historico de Lugar</h1>
     <div class="tabla tablasLugares tablasTodo">
         <table class="table_lugares">
             <thead>
@@ -78,7 +78,7 @@
         </table>
     </div>
     <?php $datas = registroEnfermedad($id); ?>
-    <h1 class="mostradoTotal">Tabla Enfermedades</h1>
+    <h1 class="mostradoTotal">Historico de Enfermedades</h1>
     <div class="tabla tablasLugares tablasEnfermedades">
         <table class="table_lugares">
             <thead>
@@ -100,7 +100,7 @@
         </table>
     </div>
     <?php $datas = cambioVacunas2($id); ?>
-    <h1 class="mostradoTotal">Tabla Vacunas</h1>
+    <h1 class="mostradoTotal">Historico de Vacunas</h1>
     <div class="tabla tablasLugares tablasVacunas">
         <table class="table_lugares">
             <thead>
@@ -132,7 +132,7 @@
 
     <?php $datas = esHija($id); ?>
     <?php $datos = $datas->fetch_object() ?>
-    <h1 class="mostradoTotal">Es Hija de: </h1>
+    <h1 class="mostradoTotal">Es Hija de</h1>
     <div class="tabla tablasLugares tablasTodo">
         <table class="table_lugares">
 
@@ -143,11 +143,11 @@
                 </tr>
             </thead>
             <tbody>
-            <?php if (mysqli_num_rows($datas) == 1) { ?>
-                <tr>
-                    <td class="caravanaMadre"><?php echo $datos->caravanaMadre ?></td>
-                </tr>
-                <?php } else {?>
+                <?php if (mysqli_num_rows($datas) == 1) { ?>
+                    <tr>
+                        <td class="caravanaMadre"><?php echo $datos->caravanaMadre ?></td>
+                    </tr>
+                <?php } else { ?>
                     <td>No tiene madre registrada</td>
                 <?php } ?>
             </tbody>
@@ -155,7 +155,7 @@
     </div>
 
     <?php $datas = esMadre($id); ?>
-    <h1 class="mostradoTotal">Es Madre de: </h1>
+    <h1 class="mostradoTotal">Es Madre de</h1>
     <div class="tabla tablasLugares tablasTodo">
         <table class="table_lugares">
 
@@ -166,10 +166,14 @@
                 </tr>
             </thead>
             <tbody>
-            <?php while($datos = $datas->fetch_object()) {?>
-                <tr>
-                    <td class="caravanaTernero"><?php echo $datos->caravanaTernero ?></td>
-                </tr>
+                <?php if (mysqli_num_rows($datas) > 0) { ?>
+                    <?php while ($datos = $datas->fetch_object()) { ?>
+                        <tr>
+                            <td class="caravanaTernero"><?php echo $datos->caravanaTernero ?></td>
+                        </tr>
+                    <?php } ?>
+                <?php } else { ?>
+                    <td>No tiene terneros registrados</td>
                 <?php } ?>
             </tbody>
         </table>

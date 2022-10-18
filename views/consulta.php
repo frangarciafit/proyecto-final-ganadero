@@ -4,7 +4,7 @@
 
 <head>
 <?php 
-if (!isset($_COOKIE["usuario_logeado"]) || empty($_COOKIE["usuario_logeado"])) {
+if (!isset($_COOKIE["usuarioLogeado"]) || empty($_COOKIE["usuarioLogeado"])) {
 	header("Location: ../login.php");
 	exit;
 }
@@ -58,6 +58,7 @@ if (!isset($_COOKIE["usuario_logeado"]) || empty($_COOKIE["usuario_logeado"])) {
         </div>
         <div class="alinear">
           <label for="">Peso</label>
+          <!-- SELECT * FROM `t_peso` where caravanaPropia = 1234567894 and peso BETWEEN 100 and 200; CONSULTA POR RANGO -->
           <input type="number" value="<?php echo $peso ?>" name="numPeso" id="numPeso" step="0.01" min="0">
 
           <label for="">Color</label>

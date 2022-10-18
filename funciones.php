@@ -56,7 +56,7 @@ if (isset($_POST["subAgregarTernero"])) {
     $sql = "SELECT * FROM t_animal WHERE caravanaPropia = '$caravanaMadre'";
     $result = mysqli_query($con, $sql);
 
-    if (mysqli_num_rows($result) == 1) {
+    if (mysqli_num_rows($result) == 1 && $caravanaMadre != $caravanaPropia) {
         $sql = "INSERT INTO t_animal (caravanaPropia, caravanaAjena, raza, nacimiento, color, sexo, eliminada) VALUES ('$caravanaPropia', '', '$raza', '$nacimiento', '$color','$sexo', 'FALSE') ";
         $result = mysqli_query($con, $sql);
         $sql = "INSERT INTO t_peso (caravanaPropia, fecha, peso) VALUES ('$caravanaPropia', '$nacimiento', '$peso') ";
@@ -126,15 +126,14 @@ if ($funcion == "login") {
         session_start();
         $_SESSION["nombre_usuario"] = $usuario;
         print_r($_SESSION);*/
-        setcookie("usuario_logeado", $usuario, time() + (86400 * 30), "/"); 
+        setcookie("usuarioLogeado", $usuario, time() + (86400 * 30), "/");
         //Se logeo exitosamente
         echo json_encode(array(
-            "error"=>0, 
+            "error" => 0,
         ));
-
     } else {
         echo json_encode(array(
-            "error"=>1, 
+            "error" => 1,
         ));
     }
 }
@@ -162,16 +161,13 @@ if ($funcion == "modificarLugar") {
 
     //Como estamos trabajando con json, debemos retonar json!
     echo json_encode(array(
-        "error"=>0,
+        "error" => 0,
     ));
 }
 
-if ($funcion == "modificar_campo") {
+if ($funcion == "modificarCampo") {
     global $con;
-    // $lugares = $_POST["lugares"];
-    // $pesos = $_POST["pesos"];
     $id = $_POST["id"];
-    // $hoy = date("Y-m-d");
     $raza = $_POST["raza"];
     $caravanaPropia = $_POST["caravanaPropia"];
     $caravanaAjena = $_POST["caravanaAjena"];
@@ -180,41 +176,12 @@ if ($funcion == "modificar_campo") {
     $sexo = $_POST["sexo"];
 
     $sql = "UPDATE t_animal SET raza = '$raza', color = '$color', sexo = '$sexo', nacimiento = '$nacimiento', caravanaAjena = '$caravanaAjena' WHERE caravanaPropia = '$id' ";
-    // $sql = "UPDATE t_animal SET caravanaPropia = '$caravanaPropia' WHERE caravanaPropia = '$id' ";
-    // $sql = "UPDATE t_animal SET caravanaAjena = '$caravanaAjena' WHERE caravanaPropia = '$id' ";
-    // $sql = "UPDATE t_animal SET nacimiento = '$nacimiento' WHERE caravanaPropia = '$id' ";
-    // $sql = "UPDATE t_animal SET color = '$color' WHERE caravanaPropia = '$id' ";
-    // $sql = "UPDATE t_animal SET sexo = '$sexo' WHERE caravanaPropia = '$id' ";
 
     $stmt = $con->prepare($sql);
     $stmt->execute();
 
-    // $sql = "DELETE FROM t_lugar WHERE caravanaPropia = '$id' ";
-    // $stmt = $con->prepare($sql);
-    // $stmt->execute();
-
-    // foreach ($lugares as $lugar) {
-    //     $lugar = $lugar["lugar"];
-    //     $sql = "INSERT INTO t_lugar (caravanaPropia, fecha, lugar) ";
-    //     $sql .= "VALUES ('$id', '$hoy', '$lugar') ";
-    //     $stmt = $con->prepare($sql);
-    //     $stmt->execute();
-    // }
-
-    // $sql = "DELETE FROM t_peso WHERE caravanaPropia = '$id' ";
-    // $stmt = $con->prepare($sql);
-    // $stmt->execute();
-    // foreach ($pesos as $peso) {
-
-    //     $peso = $peso["peso"];
-    //     $sql = "INSERT INTO t_peso (caravanaPropia, fecha, peso) ";
-    //     $sql .= "VALUES ('$id', '$hoy', '$peso') ";
-    //     $stmt = $con->prepare($sql);
-    //     $stmt->execute();
-    // }
-
     echo json_encode(array(
-        "error"=>0,
+        "error" => 0,
     ));
 }
 
@@ -241,7 +208,7 @@ if ($funcion == "cambioPesos") {
 
     //Como estamos trabajando con json, debemos retonar json!
     echo json_encode(array(
-        "error"=>0,
+        "error" => 0,
     ));
 }
 
@@ -272,7 +239,7 @@ if ($funcion == "cambioVacunas") {
     }
 
     echo json_encode(array(
-        "error"=>0,
+        "error" => 0,
     ));
 }
 
@@ -294,7 +261,7 @@ if ($funcion == "registroEnfermedades") {
     }
 
     echo json_encode(array(
-        "error"=>0,
+        "error" => 0,
     ));
 }
 
@@ -310,7 +277,7 @@ function cargarTodo($conf = array())
     $nacimiento = isset($conf['nacimiento']) ? $conf["nacimiento"] : "";
     $filtro_lugar = isset($conf['lugar']) ? $conf["lugar"] : "";
 
-    $sql = " SELECT * FROM t_animal a ";//CROSS JOIN t_peso p , t_lugar l WHERE a.caravanaPropia = p.caravanaPropia AND a.caravanaPropia = l.caravanaPropia ";
+    $sql = " SELECT * FROM t_animal a "; //CROSS JOIN t_peso p , t_lugar l WHERE a.caravanaPropia = p.caravanaPropia AND a.caravanaPropia = l.caravanaPropia ";
     /*ORDER BY p.id DESC LIMIT 1 */
     if ($caravanaPropia != "") $sql .= "AND a.caravanaPropia LIKE '%$caravanaPropia%' ";
     if ($caravanaAjena != "") $sql .= "AND caravanaAjena LIKE '%$caravanaAjena%' ";
@@ -325,6 +292,7 @@ function cargarTodo($conf = array())
     $stmt->execute();
     $resultado = $stmt->get_result();
 
+
     $salida = array();
     while ($res = $resultado->fetch_object()) {
 
@@ -333,24 +301,24 @@ function cargarTodo($conf = array())
         $sql = "SELECT * FROM t_peso WHERE caravanaPropia = '$res->caravanaPropia' ORDER BY fecha DESC LIMIT 0,1";
         $stmt = $con->prepare($sql);
         $stmt->execute();
-        $res_peso = $stmt->get_result();     
+        $res_peso = $stmt->get_result();
         $peso = $res_peso->fetch_object();
         $res->peso = $peso->peso;
 
         $sql = "SELECT * FROM t_lugar WHERE caravanaPropia = '$res->caravanaPropia' ORDER BY fecha DESC LIMIT 0,1";
         $stmt = $con->prepare($sql);
         $stmt->execute();
-        $res_lugar = $stmt->get_result();     
+        $res_lugar = $stmt->get_result();
         $lugar = $res_lugar->fetch_object();
         $res->lugar = $lugar->lugar;
 
         if ($filtro_peso != "" && $peso->peso != $filtro_peso) {
             $se_agrega = 0;
-        } 
+        }
 
         if ($filtro_lugar != "" && $lugar->lugar != $filtro_lugar) {
             $se_agrega = 0;
-        } 
+        }
 
         if ($se_agrega == 1) $salida[] = $res;
     }
@@ -518,6 +486,28 @@ function registroEnfermedad($id)
     return $row;
 }
 
+function cantidadAnimales()
+{
+    global $con;
+
+    $sql = "SELECT * FROM t_animal where eliminada = 0";
+    if ($stmt = $con->prepare($sql)) {
+        $stmt->execute();
+        $stmt->store_result();
+        // printf("Number of rows: %d.\n", $stmt->num_rows);
+    }
+    return $stmt;
+
+    //     $row = mysql_fetch_assoc($result);
+    //     $count = $row['count'];
+    //     $result = mysql_query("SELECT COUNT(*) AS `count` FROM `Students`");
+    //     $row = mysql_fetch_assoc($result);
+    //     $count = $row['count'];
+
+    //     print_r($row[0]);
+    //     return $row;
+}
+
 function mostrarTernero($id)
 {
     global $con;
@@ -546,7 +536,8 @@ function mostrarTernero($id)
     return $row;
 }
 
-function esHija($id){
+function esHija($id)
+{
     global $con;
     $id = intval($id);
 
@@ -566,7 +557,8 @@ function esHija($id){
 }
 
 
-function esMadre($id){
+function esMadre($id)
+{
     global $con;
     $id = intval($id);
 

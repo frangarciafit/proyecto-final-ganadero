@@ -67,7 +67,7 @@
         if (r.error == 0) {
           location.href="index.php"
         } else {
-          alert("No logeado")
+          alert("El usuario o contraseña son incorrectos.")
         }
       },
     })

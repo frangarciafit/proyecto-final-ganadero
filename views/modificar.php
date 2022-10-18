@@ -4,7 +4,7 @@
 
 <head>
 <?php 
-if (!isset($_COOKIE["usuario_logeado"]) || empty($_COOKIE["usuario_logeado"])) {
+if (!isset($_COOKIE["usuarioLogeado"]) || empty($_COOKIE["usuarioLogeado"])) {
 	header("Location: ../login.php");
 	exit;
 }
@@ -130,8 +130,7 @@ if (!isset($_COOKIE["usuario_logeado"]) || empty($_COOKIE["usuario_logeado"])) {
       "dataType": "json",
       "data": {
         "id": id,
-        "funcion": "modificar_campo",
-        // "lugar":lugares,
+        "funcion": "modificarCampo",
         "raza": raza,
         "caravanaPropia": caravanaPropia,
         "caravanaAjena": caravanaAjena,

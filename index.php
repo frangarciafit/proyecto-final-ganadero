@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<?php include("./funciones.php") ?>
 
 <?php include_once("includes/head.php"); ?>
 
@@ -16,9 +17,12 @@
     </ul>
     <a href="/views/consulta.php">Consulta de datos</a>
 
-    <a href="/cerrar_sesion.php">Cerrar Session</a>
+    <a href="/cerrarSesion.php">Logout <i class="fa fa-sign-out" aria-hidden="true"></i></a>
   </nav>
 
+<?php $datos=cantidadAnimales()?>
+
+<p class="mostradoTotal">Cantidad de animales: <?php echo $datos->num_rows?></p>
 
   <footer>
 
