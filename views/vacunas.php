@@ -58,7 +58,7 @@ if (!isset($_COOKIE["usuarioLogeado"]) || empty($_COOKIE["usuarioLogeado"])) {
         </li>
         <li>
           <label for="">Descripcion</label>
-          <textarea name="txtArea" id="txtArea" rows="10" cols="30" placeholder="Descripcion"></textarea>
+          <input name="text" id="txtDescripcion" placeholder="Descripcion"></input>
         </li>
       </ul>
 	    <input class="enviar1" onclick="agregarNuevaVacuna()" name="subCambio" id="subCambio" value="Agregar Vacuna">
@@ -115,7 +115,7 @@ if (!isset($_COOKIE["usuarioLogeado"]) || empty($_COOKIE["usuarioLogeado"])) {
     	let droga = $("#txtDroga").val();
     	let obligatoria = $("#selObligatoria").val();
     	let veterinario = $("#txtVeterinario").val();
-      let descripcion = $("#txtArea").val();
+      let descripcion = $("#txtDescripcion").val();
 
 
     	if (fecha == "") {

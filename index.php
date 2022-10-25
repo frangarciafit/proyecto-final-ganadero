@@ -17,7 +17,15 @@
     </ul>
     <a href="/views/consulta.php">Consulta de datos</a>
 
-    <a href="/cerrarSesion.php">Logout <i class="fa fa-sign-out" aria-hidden="true"></i></a>
+   <ul>
+      <li><a href=""><i class="fa fa-user-circle" aria-hidden="true"></i></a>
+        <ul>
+          <li><a href="/cambiarContraseña.php">Cambiar Contraseña</a></li>
+          <li><a href="/cerrarSesion.php">Logout <i class="fa fa-sign-out" aria-hidden="true"></i></a></li>
+        </ul>
+      </li>
+    </ul>
+
   </nav>
 
 <?php $datos=cantidadAnimales()?>
@@ -33,5 +41,4 @@
 
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
 </html>

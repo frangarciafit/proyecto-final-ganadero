@@ -337,6 +337,10 @@ table tr td .fa-trash {
     margin-bottom: 30px;
 }
 
+.fa-user-circle:before{
+    font-size: 36px;
+}
+
 .error {
     color: #b30000;
     padding: 10px;

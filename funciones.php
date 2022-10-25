@@ -264,6 +264,30 @@ if ($funcion == "registroEnfermedades") {
         "error" => 0,
     ));
 }
+if($funcion == "newContraseña"){
+
+    global $con;
+    $newContraseña = $_POST['newContraseña'];
+    $oldContraseña = $_POST['oldContraseña'];
+
+    $sql = "SELECT * FROM t_login WHERE password = '$oldContraseña'";
+    $result = mysqli_query($con, $sql);
+
+    if (mysqli_num_rows($result) == 1) {
+        $sql = "UPDATE t_login SET password = '$newContraseña'";
+
+        $stmt = $con->prepare($sql);
+        $stmt->execute();
+
+        echo json_encode(array(
+            "error" => 0,
+        ));
+    } else {
+        echo json_encode(array(
+            "error" => 1,
+        ));
+    }
+}
 
 function cargarTodo($conf = array())
 {
@@ -571,3 +595,4 @@ function esMadre($id)
 
     return $resultado;
 }
+

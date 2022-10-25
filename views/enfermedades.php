@@ -39,7 +39,7 @@ if (!isset($_COOKIE["usuarioLogeado"]) || empty($_COOKIE["usuarioLogeado"])) {
         </li>
         <li>
           <label for="">Descripcion de la enfermedad</label>
-          <input type="text" name="txtDescripcion" id="txtDescripcion" required>
+          <textarea name="txtArea" id="txtArea" rows="8" cols="25" placeholder="Descripcion" required></textarea>
         </li>
       </ul>
 	    <input class="enviar1" onclick="agregarEnfermedad()" name="subCambio" id="subCambio" value="Agregar Enfermedad">
@@ -85,7 +85,7 @@ if (!isset($_COOKIE["usuarioLogeado"]) || empty($_COOKIE["usuarioLogeado"])) {
     function agregarEnfermedad() {
     	//Obtenemos los valores
     	let fecha = $("#datFecha").val();
-    	let descripcion = $("#txtDescripcion").val();
+    	let descripcion = $("#txtArea").val();
     	//Verificamos los valores
     	if (fecha == "") {
     		alert ("Por favor ingrese una fecha");
