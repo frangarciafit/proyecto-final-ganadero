@@ -179,8 +179,6 @@
         </table>
     </div>
 
-
-
     <div class="vacio">
 
     </div>

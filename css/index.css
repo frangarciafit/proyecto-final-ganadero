@@ -77,7 +77,7 @@ nav p {
 }
 
 .formulario {
-    background-color: rgba(255, 255, 255, 0.61);
+    background-color: rgba(255, 255, 255, 0.717);
     margin: 0px auto;
     width: 40%;
     padding: 2rem;
@@ -87,7 +87,7 @@ nav p {
     left: 50%;
     transform: translate(-50%, -50%); */
     border-radius: 15px;
-    text-align: center;
+    /* text-align: center; */
 }
 .formvacunas {
     width: 65% !important;
@@ -148,7 +148,12 @@ nav p {
     cursor: pointer;
     text-align: center;
 }
+.enviar2{
+    margin: 10px auto;
+    display: flex;
+    align-items: center;
 
+}
 .enviar:hover {
     background-color: rgb(156, 156, 156);
 }
@@ -258,7 +263,7 @@ table tr td .fa-trash {
 }
 
 .mostradoTotal {
-    background-color: rgba(20, 20, 20, 0.766);
+    background-color: rgba(20, 20, 20, 0.865);
     text-align: center;
     padding: 20px 0;
     font-weight: bolder;

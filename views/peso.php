@@ -22,7 +22,7 @@ if (!isset($_COOKIE["usuarioLogeado"]) || empty($_COOKIE["usuarioLogeado"])) {
 
 </head>
 
-<body id="blur">
+<body>
 
   <nav>
     <p>Nuevas pesadas</p>
@@ -43,8 +43,9 @@ if (!isset($_COOKIE["usuarioLogeado"]) || empty($_COOKIE["usuarioLogeado"])) {
 	      </li>
 	    </ul>
 	    <!-- En vez de guardar de una, lo que hacemos es agregar un nuevo peso -->
-	    <input class="enviar1" onclick="agregar_nuevo_peso()" name="subCambio" id="subCambio" value="Agregar nuevo peso">
-	  </form>
+	    <input class="enviar1" onclick="agregarNuevoPeso()" name="subCambio" id="subCambio" value="Agregar nuevo peso">
+    </form>
+    <input class="enviar1 enviar2" onclick="guardarElemento(<?php echo $id ?>)" name="subCambio" id="subCambio" value="Guardar Pesos">
 
     <div class="tabla tablasPesos">
       <table class="table_pesos">
@@ -62,7 +63,7 @@ if (!isset($_COOKIE["usuarioLogeado"]) || empty($_COOKIE["usuarioLogeado"])) {
               <td class="peso"><?php echo $p->peso ?></td>
               <td class="fecha"><?php echo $datas->fechas[$i]->fecha ?></td>
               <td>
-                <a href="javascript:void(0)" onclick="remove_element(this)"><i class="fa fa-times iconito-eliminar"></i></a>
+                <a href="javascript:void(0)" onclick="removeElement(this)"><i class="fa fa-times iconito-eliminar"></i></a>
               </td>
             </tr>
             <?php $i++; ?>
@@ -71,19 +72,18 @@ if (!isset($_COOKIE["usuarioLogeado"]) || empty($_COOKIE["usuarioLogeado"])) {
       </table>
     </div>
 
-    <input class="enviar1" onclick="guardar_elemento(<?php echo $id ?>)" name="subCambio" id="subCambio" value="Guardar Pesos">
 
   </section>
   <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
   <script type="text/javascript">
-    function remove_element(e) {
+    function removeElement(e) {
     	if (confirm("Estas seguro que desea eliminar el elemento?")){
       	$(e).parent().parent().remove();
         console.log(e);
     	}
     }
 
-    function agregar_nuevo_peso() {
+    function agregarNuevoPeso() {
     	//Obtenemos los valores
     	let fecha = $("#datFecha").val();
     	let peso = $("#numPeso").val();
@@ -110,7 +110,7 @@ if (!isset($_COOKIE["usuarioLogeado"]) || empty($_COOKIE["usuarioLogeado"])) {
     	$(".table_pesos tbody").append(elemento_peso);
     }
 
-    function guardar_elemento(id) {
+    function guardarElemento(id) {
       var pesos = new Array();
 
       $(".table_pesos tbody tr").each(function(i, e) {

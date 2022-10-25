@@ -73,7 +73,7 @@ if (!isset($_COOKIE["usuarioLogeado"]) || empty($_COOKIE["usuarioLogeado"])) {
             <option <?php echo ($sexo == "hembra") ? 'selected' : '' ?> value="hembra">Hembra</option>
             <option <?php echo ($sexo == "") ? 'selected' : '' ?> value="">Ambos</option>
           </select>
-          <button type="submit" class="enviar" id="insertar" onclick="cargarTodo()">Buscar</button>
+          <button type="submit" class="enviar" id="insertar" onclick="cargarTodo()">Filtrar</button>
         </div>
       </div>
     </form>

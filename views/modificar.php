@@ -89,18 +89,18 @@ if (!isset($_COOKIE["usuarioLogeado"]) || empty($_COOKIE["usuarioLogeado"])) {
       </tbody>
     </table> -->
    
-    <input class="enviar1" onclick="guardar_elemento(<?php echo $id; ?>)" type="submit" name="subModificar" id="subModificar">
+    <input class="enviar1 enviar2" onclick="guardarElemento(<?php echo $id; ?>)" type="submit" name="subModificar" id="subModificar">
 
   </section>
 
 <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
 <script type="text/javascript">
 
-  function remove_element(e){
-    $(e).parent().parent().remove();
-  }
+  // function removeElement(e){
+  //   $(e).parent().parent().remove();
+  // }
 
-  function guardar_elemento(id) {
+  function guardarElemento(id) {
     // var lugares = new Array();
     // var pesos = new Array();
     var raza = $("#txtRaza").val();

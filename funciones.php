@@ -190,7 +190,7 @@ if ($funcion == "cambioPesos") {
     //Obtenemos los pesos
     $pesos = $_POST['pesos'];
     $id = $_POST['id'];
-
+    
     //Lo primero que hacemos es eliminar todos los pesos de la base de datos
     //Ya que tenemos guardados todos dentro de un array
     //Entonces si no los borramos, los duplicariamos

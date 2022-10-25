@@ -22,7 +22,7 @@ if (!isset($_COOKIE["usuarioLogeado"]) || empty($_COOKIE["usuarioLogeado"])) {
 
 </head>
 
-<body id="blur">
+<body>
 
   <nav>
     <p>Registro de enfermedades</p>
@@ -44,6 +44,7 @@ if (!isset($_COOKIE["usuarioLogeado"]) || empty($_COOKIE["usuarioLogeado"])) {
       </ul>
 	    <input class="enviar1" onclick="agregarEnfermedad()" name="subCambio" id="subCambio" value="Agregar Enfermedad">
     </form>
+    <input class="enviar1 enviar2" onclick="guardarElemento(<?php echo $id ?>)" name="subCambio" id="subCambio" value="Guardar">
 
     <div class="tabla tablasLugares">
       <table class="table_lugares">
@@ -61,7 +62,7 @@ if (!isset($_COOKIE["usuarioLogeado"]) || empty($_COOKIE["usuarioLogeado"])) {
               <td class="descripcion"><?php echo $d->descripcion ?></td>
               <td class="fecha"><?php echo $datas->fechas[$i]->fecha ?></td>
               <td>
-              <a href="javascript:void(0)" onclick="remove_element(this)"><i class="fa fa-times iconito-eliminar"></i></a>
+              <a href="javascript:void(0)" onclick="removeElement(this)"><i class="fa fa-times iconito-eliminar"></i></a>
               </td>
             </tr>
             <?php $i++; ?>
@@ -70,12 +71,11 @@ if (!isset($_COOKIE["usuarioLogeado"]) || empty($_COOKIE["usuarioLogeado"])) {
       </table>
     </div>
 
-    <input class="enviar1" onclick="guardar_elemento(<?php echo $id ?>)" name="subCambio" id="subCambio" value="Guardar">
 
   </section>
   <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
   <script type="text/javascript">
-    function remove_element(e) {
+    function removeElement(e) {
     	if (confirm("Estas seguro que desea eliminar el elemento?")){
       	$(e).parent().parent().remove();
         console.log(e);
@@ -109,7 +109,7 @@ if (!isset($_COOKIE["usuarioLogeado"]) || empty($_COOKIE["usuarioLogeado"])) {
     	$(".table_lugares tbody").append(elemento_descripcion);
     }
 
-    function guardar_elemento(id) {
+    function guardarElemento(id) {
       var descripciones = new Array();
 
       $(".table_lugares tbody tr").each(function(i, e) {
