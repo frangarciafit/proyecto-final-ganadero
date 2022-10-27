@@ -413,5 +413,19 @@ footer {
     display: block;
 }
 
-
+.excel{
+    text-decoration: none;
+    color: black;
+    background-color: #39d45d;
+    font-size: 20px;
+    font-weight: bolder;
+    padding: .5rem 1.5rem;
+    width: 15%;
+    text-align: center;
+    margin: 20px auto 0px auto;
+    border-radius: 25px;
+}
+.excel:hover{
+    background-color: #85d998;
+}
 .iconito-eliminar{color: red;}

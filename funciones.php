@@ -470,15 +470,20 @@ function cambioVacunas2($id)
     $stmt->bind_param("i", $id);
     $stmt->execute();
     $resultado = $stmt->get_result();
+
+    if(mysqli_num_rows($resultado) > 0){
     while ($data = $resultado->fetch_object()) {
         $row->vacunas[] = $data;
         $row->fechas[] = $data;
         $row->drogas[] = $data;
         $row->obligatorias[] = $data;
         $row->veterinarios[] = $data;
-        $row->descripciones[] = $data;
+        $row->descripciones[] = $data; 
     }
-
+    $row->opcion[] = 1;
+    }else{
+        $row->opcion[] = 0;
+    }
     return $row;
 }
 
@@ -502,11 +507,15 @@ function registroEnfermedad($id)
     $stmt->bind_param("i", $id);
     $stmt->execute();
     $resultado = $stmt->get_result();
+    if(mysqli_num_rows($resultado) > 0){
     while ($data = $resultado->fetch_object()) {
         $row->descripciones[] = $data;
         $row->fechas[] = $data;
+    }   
+    $row->opcion[] = 1;
+    }else{
+        $row->opcion[] = 0;
     }
-
     return $row;
 }
 
@@ -572,11 +581,6 @@ function esHija($id)
     $stmt->execute();
     $resultado = $stmt->get_result();
 
-    // if (mysqli_num_rows($resultado) == 1) { 
-
-    // return $resultado ; } else {
-    //     echo ("Error");
-    // }
     return $resultado;
 }
 
@@ -596,3 +600,17 @@ function esMadre($id)
     return $resultado;
 }
 
+function sexo($id){
+    global $con;
+    $id = intval($id);
+
+    $sql = "SELECT * FROM t_animal WHERE caravanaPropia = ? ";
+
+    $stmt = $con->prepare($sql);
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+
+    return $resultado;
+
+}

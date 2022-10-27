@@ -54,6 +54,7 @@
             </tbody>
         </table>
     </div>
+
     <?php $datas = obtenerLugar($id); ?>
     <h1 class="mostradoTotal">Historico de Lugar</h1>
     <div class="tabla tablasLugares tablasTodo">
@@ -77,18 +78,30 @@
             </tbody>
         </table>
     </div>
+
     <?php $datas = registroEnfermedad($id); ?>
     <h1 class="mostradoTotal">Historico de Enfermedades</h1>
     <div class="tabla tablasLugares tablasEnfermedades">
         <table class="table_lugares">
-            <thead>
-                <tr>
-                    <th class="grandef">Fecha</th>
-                    <th class="grandeplus">Descripcion</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php $i = 0; ?>
+
+            <?php $i = 0; ?>
+            <?php if ($datas->opcion[0] == 0) {
+                echo "
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                    <td> No tiene Enfermedades registradas</td>";
+            } else {
+                echo '<thead>
+                    <tr>
+                        <th class="grandef">Fecha</th>
+                        <th class="grandeplus">Descripcion</th>
+                    </tr>
+                </thead>
+                <tbody>';?>
                 <?php foreach ($datas->fechas as $f) { ?>
                     <tr>
                         <td class="fecha"><?php echo $f->fecha ?></td>
@@ -96,43 +109,63 @@
                     </tr>
                     <?php $i++; ?>
                 <?php } ?>
+            <?php } ?>
             </tbody>
         </table>
     </div>
+
     <?php $datas = cambioVacunas2($id); ?>
     <h1 class="mostradoTotal">Historico de Vacunas</h1>
     <div class="tabla tablasLugares tablasVacunas">
         <table class="table_lugares">
-            <thead>
-                <tr>
-                    <th class="normal">Vacuna</th>
-                    <th class="grande">Fecha</th>
-                    <th class="grande">Droga</th>
-                    <th class="chico">Obligatoria</th>
-                    <th class="chico">Veterinario</th>
-                    <th class="grandeplus">Descripcion</th>
-                </tr>
-            </thead>
-            <tbody>
                 <?php $i = 0; ?>
-                <?php foreach ($datas->vacunas as $v) { ?>
+                <?php if ($datas->opcion[0] == 0) {
+                    echo"
+                                <thead>
+                                         <tr>
+                                             <th></th>
+                                         </tr>
+                                </thead>
+                                     <tbody>
+                    <td> No tiene Vacunas registradas </td>";
+                } else { 
+                    echo'
+                    <thead>
                     <tr>
-                        <td class="vacuna"><?php echo $v->vacuna ?></td>
-                        <td class="fecha"><?php echo $datas->fechas[$i]->fecha ?></td>
-                        <td class="droga"><?php echo $datas->drogas[$i]->droga ?></td>
-                        <td class="obligatorio"><?php echo $datas->obligatorias[$i]->obligatoria ?></td>
-                        <td class="veterinario"><?php echo $datas->veterinarios[$i]->veterinario ?></td>
-                        <td class="descripcion"><?php echo $datas->descripciones[$i]->descripcion ?></td>
+                        <th class="normal">Vacuna</th>
+                        <th class="grande">Fecha</th>
+                        <th class="grande">Droga</th>
+                        <th class="chico">Obligatoria</th>
+                        <th class="grande">Veterinario</th>
+                        <th class="grandeplus">Descripcion</th>
                     </tr>
-                    <?php $i++; ?>
+                </thead>
+                <tbody>';?>
+                    <?php foreach ($datas->vacunas as $v) { ?>
+                        <tr>
+                            <td class="vacuna"><?php echo $v->vacuna ?></td>
+                            <td class="fecha"><?php echo $datas->fechas[$i]->fecha ?></td>
+                            <td class="droga"><?php echo $datas->drogas[$i]->droga ?></td>
+                            <td class="obligatorio"><?php echo $datas->obligatorias[$i]->obligatoria ?></td>
+                            <td class="veterinario"><?php echo $datas->veterinarios[$i]->veterinario ?></td>
+                            <td class="descripcion"><?php echo $datas->descripciones[$i]->descripcion ?></td>
+                        </tr>
+                        <?php $i++; ?>
+                    <?php } ?>
                 <?php } ?>
             </tbody>
         </table>
     </div>
 
     <?php $datas = esHija($id); ?>
+    <?php $datasSexo = sexo($id); ?>
+    <?php $data = $datasSexo->fetch_object() ?>
     <?php $datos = $datas->fetch_object() ?>
-    <h1 class="mostradoTotal">Es Hija de</h1>
+    <h1 class="mostradoTotal">Es <?php if ($data->sexo == 'macho') {
+                                        echo "Hijo ";
+                                    } else {
+                                        echo "Hija ";
+                                    } ?> de</h1>
     <div class="tabla tablasLugares tablasTodo">
         <table class="table_lugares">
 
@@ -155,7 +188,12 @@
     </div>
 
     <?php $datas = esMadre($id); ?>
-    <h1 class="mostradoTotal">Es Madre de</h1>
+    <h1 class="mostradoTotal">Es <?php if ($data->sexo == 'macho') {
+                                        echo "Padre ";
+                                    } else {
+                                        echo "Madre ";
+                                    } ?>de</h1>
+
     <div class="tabla tablasLugares tablasTodo">
         <table class="table_lugares">
 

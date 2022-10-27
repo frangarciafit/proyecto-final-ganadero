@@ -78,6 +78,7 @@ if (!isset($_COOKIE["usuarioLogeado"]) || empty($_COOKIE["usuarioLogeado"])) {
       </div>
     </form>
 
+    <a class="excel" href="../exportar.php">Exportar Excel</a>
 
     <div id="tabla" class="tabla">
       <table class="table">
