@@ -303,6 +303,7 @@ function cargarTodo($conf = array())
 
     $sql = " SELECT * FROM t_animal a "; //CROSS JOIN t_peso p , t_lugar l WHERE a.caravanaPropia = p.caravanaPropia AND a.caravanaPropia = l.caravanaPropia ";
     /*ORDER BY p.id DESC LIMIT 1 */
+    $sql .= "WHERE 1 = 1 ";
     if ($caravanaPropia != "") $sql .= "AND a.caravanaPropia LIKE '%$caravanaPropia%' ";
     if ($caravanaAjena != "") $sql .= "AND caravanaAjena LIKE '%$caravanaAjena%' ";
     if ($sexo != "") $sql .= "AND sexo LIKE '%$sexo%' ";
@@ -311,7 +312,6 @@ function cargarTodo($conf = array())
     //if ($peso != "") $sql .= "AND peso LIKE '%$peso%' ";
     if ($nacimiento != "") $sql .= "AND nacimiento LIKE '%$nacimiento%' ";
     //if ($lugar != "") $sql .= "AND lugar LIKE '%$lugar%' ";
-
     $stmt = $con->prepare($sql);
     $stmt->execute();
     $resultado = $stmt->get_result();
