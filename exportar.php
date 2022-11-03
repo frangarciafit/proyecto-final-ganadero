@@ -33,10 +33,11 @@ class Conexion{
         $this->cnx = null;
     }
 }
+
 class Consulta{
 
     private $_db;
-    private  $listaAnimales;
+    public $listaAnimales;
 
     public function __construct(){
         $this->_db = new Conexion();
@@ -49,22 +50,20 @@ class Consulta{
         $stmt = $this->_db->cnx->prepare("SELECT * FROM t_animal where eliminada = 0");
         $stmt->execute();
         while ($res = $stmt->fetch(PDO::FETCH_OBJ)) {
-    
+            
             $sql = "SELECT * FROM t_peso WHERE caravanaPropia = '$res->caravanaPropia' ORDER BY fecha DESC LIMIT 0,1";
-            $stmt = $this->_db->cnx->prepare($sql);
-            $stmt->execute();
-            // $res_peso = $stmt->get_result();
-            $peso = $stmt->fetch(PDO::FETCH_OBJ);
+            $stmt_peso = $this->_db->cnx->prepare($sql);
+            $stmt_peso->execute();
+            $peso = $stmt_peso->fetch(PDO::FETCH_OBJ);
             $res->peso = $peso->peso;
     
             $sql = "SELECT * FROM t_lugar WHERE caravanaPropia = '$res->caravanaPropia' ORDER BY fecha DESC LIMIT 0,1";
-            $stmt = $this->_db->cnx->prepare($sql);
-            $stmt->execute();
-            // $res_lugar = $stmt->get_result();
-            $lugar = $stmt->fetch(PDO::FETCH_OBJ);
+            $stmt_lugar = $this->_db->cnx->prepare($sql);
+            $stmt_lugar->execute();
+            $lugar = $stmt_lugar->fetch(PDO::FETCH_OBJ);
             $res->lugar = $lugar->lugar;
 
-            $this->listaAnimales[] =$res;
+            $this->listaAnimales[] = $res;
         }
         // $consulta->execute();
         
@@ -78,11 +77,13 @@ class Consulta{
 
 }
 
-$animales = new Consulta();
+$consulta = new Consulta();
+$animales = $consulta->buscar();
+
 $salida = "";
 $salida .= "<table>";
 $salida .= "<thead> <th>Caravana</th> <th>Caravana Ajena</th><th>Raza</th><th>Peso</th><th>Nacimiento</th><th>Color</th><th>Lugar</th><th>Sexo</th></thead>";
-foreach($animales->buscar() as $r){
+foreach($animales as $r){
     $salida .= "<tr> <td>".$r->caravanaPropia."</td> <td>".$r->caravanaAjena."</td><td>".$r->raza."</td><td>".$r->peso."</td><td>".$r->nacimiento."</td><td>".$r->color."</td><td>".$r->lugar."</td><td>".$r->sexo."</td></tr>";
 }
 $salida .= "</table>";
