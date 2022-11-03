@@ -89,7 +89,7 @@ if (!isset($_COOKIE["usuarioLogeado"]) || empty($_COOKIE["usuarioLogeado"])) {
       </tbody>
     </table> -->
    
-    <input class="enviar1 enviar2" onclick="guardarElemento(<?php echo $id; ?>)" type="submit" name="subModificar" id="subModificar">
+    <input class="enviar1 enviar2" onclick="guardarElemento('<?php echo $id; ?>')" type="submit" name="subModificar" id="subModificar">
 
   </section>
 

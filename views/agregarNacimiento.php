@@ -32,7 +32,7 @@
         </li>
         <li>
           <label for="">Peso</label>
-          <input type="number" name="numPeso" id="numPeso" step="0.01" min="100" max="9999" required>
+          <input type="number" name="numPeso" id="numPeso" step="0.01" min="80" max="1500" required>
         </li>
         <li>
           <label for="">Color</label>

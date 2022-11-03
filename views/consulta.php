@@ -130,7 +130,7 @@ if (!isset($_COOKIE["usuarioLogeado"]) || empty($_COOKIE["usuarioLogeado"])) {
                 <td class="chico"><a href="./enfermedades.php?id=<?php echo $data->caravanaPropia ?> " target="_blank"><i class="fa fa-user-md icons" aria-hidden="true"></i></a></td>
                 <td class="chico"><a href="./lugar.php?id=<?php echo $data->caravanaPropia ?> " target="_blank"><i class="fa fa-home icons" aria-hidden="true"></i></a></td>
                 <td class="chico"><a href="./modificar.php?id=<?php echo $data->caravanaPropia ?> " target="_blank"><i class="fa fa-pencil-square-o icons" aria-hidden="true"></i></a></td>
-                <td class="chico"><button data-id="<?php echo $data->caravanaPropia; ?>" onclick="eliminarAnimal(this)"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
+                <td class="chico"><button data-id="'<?php echo $data->caravanaPropia; ?>'" onclick="eliminarAnimal(this)"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
               </tr>
             <?php } ?>
           <?php } ?>

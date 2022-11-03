@@ -46,7 +46,7 @@ if (!isset($_COOKIE["usuarioLogeado"]) || empty($_COOKIE["usuarioLogeado"])) {
       
     </form>
 
-    <input class="enviar1 enviar2" onclick="guardarElemento(<?php echo $id ?>)" name="subCambio" id="subCambio" value="Guardar">
+    <input class="enviar1 enviar2" onclick="guardarElemento('<?php echo $id ?>')" name="subCambio" id="subCambio" value="Guardar">
 
     <div class="tabla tablasLugares">
       <table class="table_lugares">
