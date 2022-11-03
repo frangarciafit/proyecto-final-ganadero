@@ -52,6 +52,7 @@ if (isset($_POST["subAgregarTernero"])) {
     $color = $_POST['txtColor'];
     $lugar = $_POST['txtLugar'];
     $sexo = $_POST['selSexo'];
+    $razaPadre = $_POST['txtRazaPadre'];
 
     $sql = "SELECT * FROM t_animal WHERE caravanaPropia = '$caravanaMadre'";
     $result = mysqli_query($con, $sql);
@@ -63,7 +64,7 @@ if (isset($_POST["subAgregarTernero"])) {
         $result = mysqli_query($con, $sql);
         $sql = "INSERT INTO t_lugar (caravanaPropia, fecha, lugar) VALUES ('$caravanaPropia', '$nacimiento', '$lugar') ";
         $result = mysqli_query($con, $sql);
-        $sql = "INSERT INTO t_ternero (caravanaMadre, caravanaTernero) VALUES ('$caravanaMadre','$caravanaPropia') ";
+        $sql = "INSERT INTO t_ternero (caravanaMadre, caravanaTernero, razaPadre) VALUES ('$caravanaMadre','$caravanaPropia','$razaPadre') ";
         $result = mysqli_query($con, $sql);
 
         echo '<script type="text/javascript">
@@ -190,7 +191,7 @@ if ($funcion == "cambioPesos") {
     //Obtenemos los pesos
     $pesos = $_POST['pesos'];
     $id = $_POST['id'];
-    
+
     //Lo primero que hacemos es eliminar todos los pesos de la base de datos
     //Ya que tenemos guardados todos dentro de un array
     //Entonces si no los borramos, los duplicariamos
@@ -264,7 +265,7 @@ if ($funcion == "registroEnfermedades") {
         "error" => 0,
     ));
 }
-if($funcion == "newContraseña"){
+if ($funcion == "newContraseña") {
 
     global $con;
     $newContraseña = $_POST['newContraseña'];
@@ -321,30 +322,75 @@ function cargarTodo($conf = array())
     while ($res = $resultado->fetch_object()) {
 
         $se_agrega = 1;
-
-        $sql = "SELECT * FROM t_peso WHERE caravanaPropia = '$res->caravanaPropia' ORDER BY fecha DESC LIMIT 0,1";
-        $stmt = $con->prepare($sql);
-        $stmt->execute();
-        $res_peso = $stmt->get_result();
-        $peso = $res_peso->fetch_object();
-        $res->peso = $peso->peso;
+        $ress = 0;
 
         $sql = "SELECT * FROM t_lugar WHERE caravanaPropia = '$res->caravanaPropia' ORDER BY fecha DESC LIMIT 0,1";
         $stmt = $con->prepare($sql);
         $stmt->execute();
         $res_lugar = $stmt->get_result();
         $lugar = $res_lugar->fetch_object();
-        $res->lugar = $lugar->lugar;
 
-        if ($filtro_peso != "" && $peso->peso != $filtro_peso) {
-            $se_agrega = 0;
+        // $sql = "SELECT * FROM t_peso WHERE caravanaPropia = '$res->caravanaPropia' ORDER BY fecha DESC LIMIT 0,1";
+        $sql = "SELECT * FROM `t_peso` where caravanaPropia = '$res->caravanaPropia' ORDER BY fecha DESC LIMIT 0,1";
+        $stmt = $con->prepare($sql);
+        $stmt->execute();
+        $res_peso = $stmt->get_result();
+        $peso = $res_peso->fetch_object();
+
+
+        if ($filtro_peso == '') {
+            $res->peso = $peso->peso;
+            $res->lugar = $lugar->lugar;
+            $ress = 1;
+        } else {
+            if ($filtro_peso == '<200' && $peso->peso < 200) {
+                $res->peso = $peso->peso;
+                $res->lugar = $lugar->lugar;
+                $ress = 1;
+            } else {
+                if ($filtro_peso == '200-300' && $peso->peso >= 200 && $peso->peso < 300) {
+                    $res->peso = $peso->peso;
+                    $res->lugar = $lugar->lugar;
+                    $ress = 1;
+                } else {
+                    if ($filtro_peso == '300-400' && $peso->peso >= 300 && $peso->peso < 400) {
+                        $res->peso = $peso->peso;
+                        $res->lugar = $lugar->lugar;
+                        $ress = 1;
+                    } else {
+                        if ($filtro_peso == '400-500' && $peso->peso >= 400 && $peso->peso < 500) {
+                            $res->peso = $peso->peso;
+                            $res->lugar = $lugar->lugar;
+                            $ress = 1;
+                        } else {
+                            if ($filtro_peso == '500-600' && $peso->peso >= 500 && $peso->peso < 600) {
+                                $res->peso = $peso->peso;
+                                $res->lugar = $lugar->lugar;
+                                $ress = 1;
+                            } else {
+                                if ($filtro_peso == '>600' && $peso->peso > 600 ) {
+                                    $res->peso = $peso->peso;
+                                    $res->lugar = $lugar->lugar;
+                                    $ress = 1;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
+
+       
+
+        // if ($filtro_peso != "" && $peso->peso != $filtro_peso) {
+        //     $se_agrega = 0;
+        // }
 
         if ($filtro_lugar != "" && $lugar->lugar != $filtro_lugar) {
             $se_agrega = 0;
         }
 
-        if ($se_agrega == 1) $salida[] = $res;
+        if ($se_agrega == 1 && $ress == 1) $salida[] = $res;
     }
 
     return $salida;
@@ -471,17 +517,17 @@ function cambioVacunas2($id)
     $stmt->execute();
     $resultado = $stmt->get_result();
 
-    if(mysqli_num_rows($resultado) > 0){
-    while ($data = $resultado->fetch_object()) {
-        $row->vacunas[] = $data;
-        $row->fechas[] = $data;
-        $row->drogas[] = $data;
-        $row->obligatorias[] = $data;
-        $row->veterinarios[] = $data;
-        $row->descripciones[] = $data; 
-    }
-    $row->opcion[] = 1;
-    }else{
+    if (mysqli_num_rows($resultado) > 0) {
+        while ($data = $resultado->fetch_object()) {
+            $row->vacunas[] = $data;
+            $row->fechas[] = $data;
+            $row->drogas[] = $data;
+            $row->obligatorias[] = $data;
+            $row->veterinarios[] = $data;
+            $row->descripciones[] = $data;
+        }
+        $row->opcion[] = 1;
+    } else {
         $row->opcion[] = 0;
     }
     return $row;
@@ -507,13 +553,13 @@ function registroEnfermedad($id)
     $stmt->bind_param("i", $id);
     $stmt->execute();
     $resultado = $stmt->get_result();
-    if(mysqli_num_rows($resultado) > 0){
-    while ($data = $resultado->fetch_object()) {
-        $row->descripciones[] = $data;
-        $row->fechas[] = $data;
-    }   
-    $row->opcion[] = 1;
-    }else{
+    if (mysqli_num_rows($resultado) > 0) {
+        while ($data = $resultado->fetch_object()) {
+            $row->descripciones[] = $data;
+            $row->fechas[] = $data;
+        }
+        $row->opcion[] = 1;
+    } else {
         $row->opcion[] = 0;
     }
     return $row;
@@ -584,7 +630,6 @@ function esHija($id)
     return $resultado;
 }
 
-
 function esMadre($id)
 {
     global $con;
@@ -600,7 +645,8 @@ function esMadre($id)
     return $resultado;
 }
 
-function sexo($id){
+function sexo($id)
+{
     global $con;
     $id = intval($id);
 
@@ -612,5 +658,18 @@ function sexo($id){
     $resultado = $stmt->get_result();
 
     return $resultado;
+}
+
+function recuperarRaza($id){
+    global $con;
+    $resultado = esHija($id);
+    $res = $resultado->fetch_object();
+
+    $sql = "SELECT raza FROM t_animal WHERE caravanaPropia = $res->caravanaMadre ";
+    $stmt = $con->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    return $result;
 
 }

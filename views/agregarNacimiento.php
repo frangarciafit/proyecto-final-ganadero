@@ -23,6 +23,10 @@
           <input type="text" name="txtCaravanaMadre" minlength="10" maxlength="12" min="0" onkeyup="this.value=this.value.toLowerCase()" required>
         </li>
         <li>
+          <label for="">Raza padre</label>
+          <input type="text" name="txtRazaPadre"  onkeyup="this.value=this.value.toLowerCase()" placeholder="Opcional">
+        </li>
+        <li>
           <label for="">Raza</label>
           <input type="text" name="txtRaza" onkeyup="this.value=this.value.toLowerCase()" required>
         </li>

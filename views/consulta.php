@@ -25,7 +25,7 @@ if (!isset($_COOKIE["usuarioLogeado"]) || empty($_COOKIE["usuarioLogeado"])) {
   $sexo = isset($_POST["selSexo"]) ? $_POST["selSexo"] : "";
   $color = isset($_POST['txtColor']) ? $_POST["txtColor"] : "";
   $raza = isset($_POST['txtRaza']) ? $_POST["txtRaza"] : "";
-  $peso = isset($_POST['numPeso']) ? $_POST["numPeso"] : "";
+  $peso = isset($_POST['selPeso']) ? $_POST["selPeso"] : "";
   $nacimiento = isset($_POST['datNacimiento']) ? $_POST["datNacimiento"] : "";
   $lugar = isset($_POST['txtLugar']) ? $_POST["txtLugar"] : "";
   ?>
@@ -58,8 +58,17 @@ if (!isset($_COOKIE["usuarioLogeado"]) || empty($_COOKIE["usuarioLogeado"])) {
         </div>
         <div class="alinear">
           <label for="">Peso</label>
+          <select name="selPeso" id="selPeso">
+            <option <?php echo ($peso == "<200") ? 'selected' : '' ?> value="<200">200 o menos</option>
+            <option <?php echo ($peso == "200-300") ? 'selected' : '' ?> value="200-300">200-300</option>
+            <option <?php echo ($peso == "300-400") ? 'selected' : '' ?> value="300-400">300-400</option>
+            <option <?php echo ($peso == "400-500") ? 'selected' : '' ?> value="400-500">400-500</option>
+            <option <?php echo ($peso == "500-600") ? 'selected' : '' ?> value="500-600">500-600</option>
+            <option <?php echo ($peso == ">600") ? 'selected' : '' ?> value=">600">600 o más</option>
+            <option <?php echo ($peso == "") ? 'selected' : '' ?> value="">Todos</option>
+          </select>
           <!-- SELECT * FROM `t_peso` where caravanaPropia = 1234567894 and peso BETWEEN 100 and 200; CONSULTA POR RANGO -->
-          <input type="number" value="<?php echo $peso ?>" name="numPeso" id="numPeso" step="0.01" min="0">
+          <!-- <input type="number" value="<?php echo $peso ?>" name="numPeso" id="numPeso" step="0.01" min="0"> -->
 
           <label for="">Color</label>
           <input type="text" value="<?php echo $color ?>" name="txtColor" id="txtColor">
