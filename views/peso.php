@@ -45,7 +45,7 @@ if (!isset($_COOKIE["usuarioLogeado"]) || empty($_COOKIE["usuarioLogeado"])) {
 	    <!-- En vez de guardar de una, lo que hacemos es agregar un nuevo peso -->
 	    <input class="enviar1" onclick="agregarNuevoPeso()" name="subCambio" id="subCambio" value="Agregar nuevo peso">
     </form>
-    <input class="enviar1 enviar2" onclick="guardarElemento(<?php echo $id ?>)" name="subCambio" id="subCambio" value="Guardar Pesos">
+    <input class="enviar1 enviar2" onclick="guardarElemento('<?php echo $id ?>')" name="subCambio" id="subCambio" value="Guardar Pesos">
 
     <div class="tabla tablasPesos">
       <table class="table_pesos">
