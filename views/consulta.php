@@ -67,8 +67,6 @@ if (!isset($_COOKIE["usuarioLogeado"]) || empty($_COOKIE["usuarioLogeado"])) {
             <option <?php echo ($peso == ">600") ? 'selected' : '' ?> value=">600">600 o más</option>
             <option <?php echo ($peso == "") ? 'selected' : '' ?> value="">Todos</option>
           </select>
-          <!-- SELECT * FROM `t_peso` where caravanaPropia = 1234567894 and peso BETWEEN 100 and 200; CONSULTA POR RANGO -->
-          <!-- <input type="number" value="<?php echo $peso ?>" name="numPeso" id="numPeso" step="0.01" min="0"> -->
 
           <label for="">Color</label>
           <input type="text" value="<?php echo $color ?>" name="txtColor" id="txtColor">

@@ -24,12 +24,6 @@ if (isset($_POST["subAgregar"])) {
     $sql = "INSERT INTO t_lugar (caravanaPropia, fecha, lugar) VALUES ('$caravanaPropia', '$fecha', '$lugar') ";
     $result = mysqli_query($con, $sql);
 
-    // echo'<script type="text/javascript">
-    // alert("Animal agregado");
-    // </script>';
-
-    // $stmt = $con->prepare($sql);
-    // $stmt->execute();
     if (mysqli_affected_rows($con) == 1) {
         echo '<script type="text/javascript">
         alert("ANIMAL AGREGADO");
@@ -70,14 +64,7 @@ if (isset($_POST["subAgregarTernero"])) {
         echo '<script type="text/javascript">
         alert("ANIMAL AGREGADO");
         </script>';
-        // $stmt = $con->prepare($sql);
-        // $stmt->execute();
-        // if (mysqli_num_rows($result) == 1) {
-        //     echo "<h3>Cargado exitoso</h3>";
-        //     return 1;
-        // } else {
-        //     echo "<h3>ERROR</h3>";
-        // }
+
     } else {
         echo '<script type="text/javascript">
         alert("Error");
@@ -218,11 +205,6 @@ if ($funcion == "cambioVacunas") {
     $vacunas = $_POST["vacunas"];
     $id = $_POST["id"];
 
-    // $sql = "INSERT INTO t_lugar (caravanaPropia, fecha, lugar) VALUES ('$id', '$nuevaFecha', '$nuevoLugar')";
-    // $stmt = $con->prepare($sql);
-    // $stmt->execute();
-    // print_r($sql);
-
     $sql = "DELETE FROM t_vacuna WHERE caravanaPropia = '$id' ";
     $stmt = $con->prepare($sql);
     $stmt->execute();
@@ -310,9 +292,8 @@ function cargarTodo($conf = array())
     if ($sexo != "") $sql .= "AND sexo LIKE '%$sexo%' ";
     if ($color != "") $sql .= "AND color LIKE '%$color%' ";
     if ($raza != "") $sql .= "AND raza LIKE '%$raza%' ";
-    //if ($peso != "") $sql .= "AND peso LIKE '%$peso%' ";
     if ($nacimiento != "") $sql .= "AND nacimiento LIKE '%$nacimiento%' ";
-    //if ($lugar != "") $sql .= "AND lugar LIKE '%$lugar%' ";
+
     $stmt = $con->prepare($sql);
     $stmt->execute();
     $resultado = $stmt->get_result();
@@ -330,61 +311,44 @@ function cargarTodo($conf = array())
         $res_lugar = $stmt->get_result();
         $lugar = $res_lugar->fetch_object();
 
-        // $sql = "SELECT * FROM t_peso WHERE caravanaPropia = '$res->caravanaPropia' ORDER BY fecha DESC LIMIT 0,1";
         $sql = "SELECT * FROM `t_peso` where caravanaPropia = '$res->caravanaPropia' ORDER BY fecha DESC LIMIT 0,1";
         $stmt = $con->prepare($sql);
         $stmt->execute();
         $res_peso = $stmt->get_result();
         $peso = $res_peso->fetch_object();
 
-
         if ($filtro_peso == '') {
             $res->peso = $peso->peso;
             $res->lugar = $lugar->lugar;
             $ress = 1;
+        } else if ($filtro_peso == '<200' && $peso->peso < 200) {
+            $res->peso = $peso->peso;
+            $res->lugar = $lugar->lugar;
+            $ress = 1;
+        } else if ($filtro_peso == '200-300' && $peso->peso >= 200 && $peso->peso < 300) {
+            $res->peso = $peso->peso;
+            $res->lugar = $lugar->lugar;
+            $ress = 1;
+        } else if ($filtro_peso == '300-400' && $peso->peso >= 300 && $peso->peso < 400) {
+            $res->peso = $peso->peso;
+            $res->lugar = $lugar->lugar;
+            $ress = 1;
+        } else if ($filtro_peso == '400-500' && $peso->peso >= 400 && $peso->peso < 500) {
+            $res->peso = $peso->peso;
+            $res->lugar = $lugar->lugar;
+            $ress = 1;
+        } else if ($filtro_peso == '500-600' && $peso->peso >= 500 && $peso->peso < 600) {
+            $res->peso = $peso->peso;
+            $res->lugar = $lugar->lugar;
+            $ress = 1;
         } else {
-            if ($filtro_peso == '<200' && $peso->peso < 200) {
+            if ($filtro_peso == '>600' && $peso->peso > 600) {
                 $res->peso = $peso->peso;
                 $res->lugar = $lugar->lugar;
                 $ress = 1;
-            } else {
-                if ($filtro_peso == '200-300' && $peso->peso >= 200 && $peso->peso < 300) {
-                    $res->peso = $peso->peso;
-                    $res->lugar = $lugar->lugar;
-                    $ress = 1;
-                } else {
-                    if ($filtro_peso == '300-400' && $peso->peso >= 300 && $peso->peso < 400) {
-                        $res->peso = $peso->peso;
-                        $res->lugar = $lugar->lugar;
-                        $ress = 1;
-                    } else {
-                        if ($filtro_peso == '400-500' && $peso->peso >= 400 && $peso->peso < 500) {
-                            $res->peso = $peso->peso;
-                            $res->lugar = $lugar->lugar;
-                            $ress = 1;
-                        } else {
-                            if ($filtro_peso == '500-600' && $peso->peso >= 500 && $peso->peso < 600) {
-                                $res->peso = $peso->peso;
-                                $res->lugar = $lugar->lugar;
-                                $ress = 1;
-                            } else {
-                                if ($filtro_peso == '>600' && $peso->peso > 600 ) {
-                                    $res->peso = $peso->peso;
-                                    $res->lugar = $lugar->lugar;
-                                    $ress = 1;
-                                }
-                            }
-                        }
-                    }
-                }
             }
         }
 
-       
-
-        // if ($filtro_peso != "" && $peso->peso != $filtro_peso) {
-        //     $se_agrega = 0;
-        // }
 
         if ($filtro_lugar != "" && $lugar->lugar != $filtro_lugar) {
             $se_agrega = 0;
@@ -394,13 +358,6 @@ function cargarTodo($conf = array())
     }
 
     return $salida;
-
-    #$stmt->bind_param("sss", $firstname, $lastname, $email);
-    // $resultado = mysqli_query($con, $sql);
-    // if (mysqli_num_rows($resultado) == 0) {
-    //     echo "No se encontro ningun dato";
-    // }
-    // mysqli_free_result($resultado);
 }
 
 function obtenerAnimal($id)
@@ -573,18 +530,8 @@ function cantidadAnimales()
     if ($stmt = $con->prepare($sql)) {
         $stmt->execute();
         $stmt->store_result();
-        // printf("Number of rows: %d.\n", $stmt->num_rows);
     }
     return $stmt;
-
-    //     $row = mysql_fetch_assoc($result);
-    //     $count = $row['count'];
-    //     $result = mysql_query("SELECT COUNT(*) AS `count` FROM `Students`");
-    //     $row = mysql_fetch_assoc($result);
-    //     $count = $row['count'];
-
-    //     print_r($row[0]);
-    //     return $row;
 }
 
 function mostrarTernero($id)
@@ -660,7 +607,8 @@ function sexo($id)
     return $resultado;
 }
 
-function recuperarRaza($id){
+function recuperarRaza($id)
+{
     global $con;
     $resultado = esHija($id);
     $res = $resultado->fetch_object();
@@ -671,5 +619,4 @@ function recuperarRaza($id){
     $result = $stmt->get_result();
 
     return $result;
-
 }
