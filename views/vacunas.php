@@ -119,13 +119,12 @@ if (!isset($_COOKIE["usuarioLogeado"]) || empty($_COOKIE["usuarioLogeado"])) {
     	let veterinario = $("#txtVeterinario").val();
       let descripcion = $("#txtDescripcion").val();
 
-
-    	if (fecha == "") {
-    		alert ("Por favor ingrese una fecha");
+      if (vacuna == "") {
+    		alert ("Por favor ingrese una vacuna");
     		return false;
     	}
-    	if (vacuna == "") {
-    		alert ("Por favor ingrese una vacuna");
+    	if (fecha == "") {
+    		alert ("Por favor ingrese una fecha");
     		return false;
     	}
       if (droga == "") {

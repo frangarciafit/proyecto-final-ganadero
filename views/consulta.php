@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
+
 <?php include("../funciones.php") ?>
+<?php include("../exportar.php") ?>
 
 <head>
   <?php
@@ -99,8 +101,8 @@
     <ul>
       <li><a href="">Exportar</a>
         <ul>
-          <li><a href="../exportar.php">Activos</a></li>
-          <li><a href="../exportarEliminada.php">Inactivos</a></li>
+          <li><a href=""> <button onclick="exportarAnimal(0)">Activos</button></a></li>
+          <li><a href=""> <button onclick="exportarAnimal(1)">Inactivos</button></a></li>
         </ul>
       </li>
     </ul>

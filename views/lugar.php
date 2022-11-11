@@ -33,13 +33,13 @@ if (!isset($_COOKIE["usuarioLogeado"]) || empty($_COOKIE["usuarioLogeado"])) {
   <section class="formulario">
     <form>
       <ul>
+      <li>
+          <label for="">Lugar</label>
+          <input type="text" name="txtLugar" id="txtLugar" required>
+        </li>
         <li>
           <label for="">Fecha de cambio</label>
           <input type="date" name="datFecha" id="datFecha" required>
-        </li>
-        <li>
-          <label for="">Lugar</label>
-          <input type="text" name="txtLugar" id="txtLugar" required>
         </li>
       </ul>
       <input class="enviar1" onclick="agregarlugar()" name="subCambio" id="subCambio" value="Agregar lugar">
@@ -88,13 +88,12 @@ if (!isset($_COOKIE["usuarioLogeado"]) || empty($_COOKIE["usuarioLogeado"])) {
     	let fecha = $("#datFecha").val();
     	let lugar = $("#txtLugar").val();
     	//Verificamos los valores
-    	if (fecha == "") {
-    		alert ("Por favor ingrese una fecha");
+      if (lugar == "") {
+    		alert ("Por favor ingrese un lugar");
     		return false;
     	}
-
-    	if (lugar == "") {
-    		alert ("Por favor ingrese un lugar");
+    	if (fecha == "") {
+    		alert ("Por favor ingrese una fecha");
     		return false;
     	}
 

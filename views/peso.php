@@ -33,13 +33,13 @@ if (!isset($_COOKIE["usuarioLogeado"]) || empty($_COOKIE["usuarioLogeado"])) {
   <section class="formulario">
   	<form>
 	    <ul>
+      <li>
+	        <label for="">Peso</label>
+	        <input type="number" name="numPeso" id="numPeso">
+	      </li>
 	      <li>
 	        <label for="">Fecha</label>
 	        <input type="date" name="datFecha" id="datFecha">
-	      </li>
-	      <li>
-	        <label for="">Peso</label>
-	        <input type="number" name="numPeso" id="numPeso">
 	      </li>
 	    </ul>
 	    <!-- En vez de guardar de una, lo que hacemos es agregar un nuevo peso -->
@@ -90,15 +90,15 @@ if (!isset($_COOKIE["usuarioLogeado"]) || empty($_COOKIE["usuarioLogeado"])) {
     	let fecha = $("#datFecha").val();
     	let peso = $("#numPeso").val();
     	//Verificamos los valores
+      if (peso == "") {
+    		alert ("Por favor ingrese un peso");
+    		return false;
+    	}
     	if (fecha == "") {
     		alert ("Por favor ingrese una fecha");
     		return false;
     	}
 
-    	if (peso == "") {
-    		alert ("Por favor ingrese un peso");
-    		return false;
-    	}
     	//Agregamos el nuevo peso a la tabla
     	let elemento_peso = `
     		<tr>

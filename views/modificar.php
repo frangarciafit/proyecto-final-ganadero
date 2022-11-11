@@ -49,10 +49,6 @@ if (!isset($_COOKIE["usuarioLogeado"]) || empty($_COOKIE["usuarioLogeado"])) {
           <label for="">Nacimiento</label>
           <input type="date" name="datNacimiento" value="<?php echo $datas->nacimiento ?>" id="datNacimiento" required>
         </li>
-        <!-- <li>
-          <label for="">Fecha ingreso</label>
-          <input type="date" name="datFecha" value="<?php echo $datas->fecha ?>" required>
-        </li> -->
         <li>
           <label for="">Color</label>
           <input type="text" name="txtColor" value="<?php echo $datas->color ?>" id="txtColor" required>
@@ -66,28 +62,6 @@ if (!isset($_COOKIE["usuarioLogeado"]) || empty($_COOKIE["usuarioLogeado"])) {
         </li>
       </ul>
     </form>
-
-
-    <!-- <table class="table_pesos">
-      <thead>
-        <tr>
-          <th>Peso</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php foreach ($datas->pesos as $p) { ?>
-          <tr>
-            <td class="peso"><?php echo $p->peso ?></td>
-            <td>
-              
-              <a href="javascript:void(0)" onclick="remove_element(this)">Eliminar</a>
-
-            </td>
-          </tr>
-        <?php } ?>
-      </tbody>
-    </table> -->
    
     <input class="enviar1 enviar2" onclick="guardarElemento('<?php echo $id; ?>')" type="submit" name="subModificar" id="subModificar">
 
@@ -96,33 +70,15 @@ if (!isset($_COOKIE["usuarioLogeado"]) || empty($_COOKIE["usuarioLogeado"])) {
 <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
 <script type="text/javascript">
 
-  // function removeElement(e){
-  //   $(e).parent().parent().remove();
-  // }
 
   function guardarElemento(id) {
-    // var lugares = new Array();
-    // var pesos = new Array();
+
     var raza = $("#txtRaza").val();
     var caravanaPropia = $("#caravanaPropia").val();
     var caravanaAjena = $("#caravanaAjena").val();
     var nacimiento = $("#datNacimiento").val();
     var color = $("#txtColor").val();
     var sexo = $("#selSexo").val();
-
-    // $(".table_lugares tbody tr").each(function(i, e){
-    //   var lugar = $(e).find(".lugar").text();
-    //   lugares.push({
-    //     "lugar": lugar,
-    //   });
-    // });
-
-    // $(".table_pesos tbody tr").each(function(i, e){
-    //   var peso = $(e).find(".peso").text();
-    //   pesos.push({
-    //     "peso": peso,
-    //   });
-    // });
 
     $.ajax({
       "url": "../funciones.php",
@@ -141,6 +97,7 @@ if (!isset($_COOKIE["usuarioLogeado"]) || empty($_COOKIE["usuarioLogeado"])) {
       success: function(r) {
         if (r.error == 0) {
           location.reload();
+          alert("Actualizado con exito.");
         }
       },
     });
