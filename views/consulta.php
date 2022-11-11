@@ -101,8 +101,8 @@
     <ul>
       <li><a href="">Exportar</a>
         <ul>
-          <li><a href=""> <button onclick="exportarAnimal(0)">Activos</button></a></li>
-          <li><a href=""> <button onclick="exportarAnimal(1)">Inactivos</button></a></li>
+          <li><a target="_blank" href="/exportar.php?estado=0"> <button>Activos</button></a></li>
+          <li><a target="_blank" href="/exportar.php?estado=1"> <button>Inactivos</button></a></li>
         </ul>
       </li>
     </ul>
