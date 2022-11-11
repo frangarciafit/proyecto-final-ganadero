@@ -74,13 +74,12 @@ if (isset($_POST["subAgregarTernero"])) {
 
 if ($funcion == "eliminar") {
     $id = isset($_POST['id']) ? $_POST["id"] : "";
-    echo "<h3> id $id </h3>";
     $sql = "UPDATE t_animal SET eliminada = 1 WHERE caravanaPropia = $id";
     $stmt = $con->prepare($sql);
     $stmt->execute();
     $resultado = $stmt->get_result();
-} else {
-    if ($funcion == "modificar") {
+} 
+if ($funcion == "modificar") {
         global $con;
         $id = isset($_POST['id']) ? $_POST["id"] : "";
         $sql = "SELECT * ";
@@ -98,8 +97,18 @@ if ($funcion == "eliminar") {
         $stmt->execute();
         $resultado = $stmt->get_result();
         return $resultado;
-    }
 }
+if ($funcion == "eliminarDefinitivo") {
+    $id = isset($_POST['id']) ? $_POST["id"] : "";
+    $sql = "DELETE FROM t_animal WHERE caravanaPropia = $id";
+    $stmt = $con->prepare($sql);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+
+    echo json_encode(array(
+        "error" => 0,
+    ));
+} 
 
 if ($funcion == "login") {
     global $con;
@@ -240,6 +249,27 @@ if ($funcion == "registroEnfermedades") {
         $valorDescripcion = $descripcion["descripcion"];
         $valorFecha = $descripcion["fecha"];
         $sql = "INSERT INTO t_enfermedades (caravanaPropia, fecha, descripcion) VALUES ('$id', '$valorFecha', '$valorDescripcion') ";
+        mysqli_query($con, $sql);
+    }
+
+    echo json_encode(array(
+        "error" => 0,
+    ));
+}
+if ($funcion == "registroComportamientos") {
+    global $con;
+
+    $descripciones = $_POST['descripciones'];
+    $id = $_POST['id'];
+
+    $sql = "DELETE FROM t_comportamiento WHERE caravanaPropia = '$id' ";
+    $stmt = $con->prepare($sql);
+    $stmt->execute();
+
+    foreach ($descripciones as $descripcion) {
+        $valorDescripcion = $descripcion["descripcion"];
+        $valorFecha = $descripcion["fecha"];
+        $sql = "INSERT INTO t_comportamiento (caravanaPropia, fecha, descripcion) VALUES ('$id', '$valorFecha', '$valorDescripcion') ";
         mysqli_query($con, $sql);
     }
 
@@ -532,6 +562,37 @@ function cantidadAnimales()
         $stmt->store_result();
     }
     return $stmt;
+}
+
+function registroComportamiento($id){
+    global $con;
+    $id = intval($id);
+
+    $sql = "SELECT TA.* FROM t_animal TA WHERE TA.caravanaPropia = ? ";
+    $stmt = $con->prepare($sql);
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+    $row = $resultado->fetch_object();
+
+
+    $row->descripciones = array();
+    $row->fechas = array();
+    $sql = "SELECT TE.* FROM t_comportamiento TE WHERE TE.caravanaPropia = ? ";
+    $stmt = $con->prepare($sql);
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
+    if (mysqli_num_rows($resultado) > 0) {
+        while ($data = $resultado->fetch_object()) {
+            $row->descripciones[] = $data;
+            $row->fechas[] = $data;
+        }
+        $row->opcion[] = 1;
+    } else {
+        $row->opcion[] = 0;
+    }
+    return $row;
 }
 
 function mostrarTernero($id)

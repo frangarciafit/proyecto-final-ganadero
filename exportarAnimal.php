@@ -43,7 +43,7 @@ class Consulta{
         $this->_db = new Conexion();
     }
 
-    public function buscarActivo(){
+    public function buscar(){
         
         $this->_db->conectar();
 
@@ -65,45 +65,20 @@ class Consulta{
 
             $this->listaAnimales[] = $res;
         }
+        // $consulta->execute();
+        
+        // while($row = $res->fetch(PDO::FETCH_OBJ)){
+        //     $this->listaAnimales[] =$row;
+        // }
         $this->_db->desconectar();
         return $this->listaAnimales;
     }
-    
-    // public function buscarInactivo(){
-        
-    //     $this->_db->conectar();
 
-    //     $stmt = $this->_db->cnx->prepare("SELECT * FROM t_animal where eliminada = 1");
-    //     $stmt->execute();
-    //     while ($res = $stmt->fetch(PDO::FETCH_OBJ)) {
-            
-    //         $sql = "SELECT * FROM t_peso WHERE caravanaPropia = '$res->caravanaPropia' ORDER BY fecha DESC LIMIT 0,1";
-    //         $stmt_peso = $this->_db->cnx->prepare($sql);
-    //         $stmt_peso->execute();
-    //         $peso = $stmt_peso->fetch(PDO::FETCH_OBJ);
-    //         $res->peso = $peso->peso;
-    
-    //         $sql = "SELECT * FROM t_lugar WHERE caravanaPropia = '$res->caravanaPropia' ORDER BY fecha DESC LIMIT 0,1";
-    //         $stmt_lugar = $this->_db->cnx->prepare($sql);
-    //         $stmt_lugar->execute();
-    //         $lugar = $stmt_lugar->fetch(PDO::FETCH_OBJ);
-    //         $res->lugar = $lugar->lugar;
-
-    //         $this->listaAnimales[] = $res;
-    //     }
-    //     // $consulta->execute();
-        
-    //     // while($row = $res->fetch(PDO::FETCH_OBJ)){
-    //     //     $this->listaAnimales[] =$row;
-    //     // }
-    //     $this->_db->desconectar();
-    //     return $this->listaAnimales;
-    // }
 
 }
 
 $consulta = new Consulta();
-$animales = $consulta->buscarActivo();
+$animales = $consulta->buscar();
 
 $salida = "";
 $salida .= "<table>";

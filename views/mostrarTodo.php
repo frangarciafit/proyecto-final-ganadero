@@ -25,7 +25,8 @@
 <body>
 
     <nav>
-        <p>Historicos</p>
+        <p>Historico</p>
+        <a href="exportarAnimal">Exportar</a>
         <p>Caravana N°: <?php echo $id ?> </p>
     </nav>
 
@@ -94,6 +95,41 @@
                             </thead>
                             <tbody>
                     <td> No tiene Enfermedades registradas</td>";
+            } else {
+                echo '<thead>
+                    <tr>
+                        <th class="grandef">Fecha</th>
+                        <th class="grandeplus">Descripcion</th>
+                    </tr>
+                </thead>
+                <tbody>'; ?>
+                <?php foreach ($datas->fechas as $f) { ?>
+                    <tr>
+                        <td class="fecha"><?php echo $f->fecha ?></td>
+                        <td class="descripcion"><?php echo $datas->descripciones[$i]->descripcion ?></td>
+                    </tr>
+                    <?php $i++; ?>
+                <?php } ?>
+            <?php } ?>
+            </tbody>
+        </table>
+    </div>
+
+    <?php $datas = registroComportamiento($id); ?>
+    <h1 class="mostradoTotal">Historico de Comportamientos</h1>
+    <div class="tabla tablasLugares tablasEnfermedades">
+        <table class="table_lugares">
+
+            <?php $i = 0; ?>
+            <?php if ($datas->opcion[0] == 0) {
+                echo "
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                    <td> No tiene un comportamiento registrado</td>";
             } else {
                 echo '<thead>
                     <tr>

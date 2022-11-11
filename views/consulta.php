@@ -3,12 +3,12 @@
 <?php include("../funciones.php") ?>
 
 <head>
-<?php 
-if (!isset($_COOKIE["usuarioLogeado"]) || empty($_COOKIE["usuarioLogeado"])) {
-	header("Location: ../login.php");
-	exit;
-}
-?>
+  <?php
+  if (!isset($_COOKIE["usuarioLogeado"]) || empty($_COOKIE["usuarioLogeado"])) {
+    header("Location: ../login.php");
+    exit;
+  }
+  ?>
 
   <meta charset="UTF-8" />
   <link rel="stylesheet" href="../css/index.css">
@@ -28,13 +28,14 @@ if (!isset($_COOKIE["usuarioLogeado"]) || empty($_COOKIE["usuarioLogeado"])) {
   $peso = isset($_POST['selPeso']) ? $_POST["selPeso"] : "";
   $nacimiento = isset($_POST['datNacimiento']) ? $_POST["datNacimiento"] : "";
   $lugar = isset($_POST['txtLugar']) ? $_POST["txtLugar"] : "";
+  $estado = isset($_POST["selEstado"]) ? $_POST["selEstado"] : "";
   ?>
 
 </head>
 
 <body>
 
-  
+
   <nav>
     <p>Consulta animal</p>
     <a href="../index.php">Volver</a>
@@ -80,12 +81,30 @@ if (!isset($_COOKIE["usuarioLogeado"]) || empty($_COOKIE["usuarioLogeado"])) {
             <option <?php echo ($sexo == "hembra") ? 'selected' : '' ?> value="hembra">Hembra</option>
             <option <?php echo ($sexo == "") ? 'selected' : '' ?> value="">Ambos</option>
           </select>
+        </div>
+
+        <div class="alinear alinearestado">
+          <label for="">Estado</label>
+          <select name="selEstado" id="selEstado">
+            <option <?php echo ($estado == "") ? 'selected' : '' ?> value="">Activo</option>
+            <option <?php echo ($estado == "eliminada") ? 'selected' : '' ?> value="eliminada">Eliminada</option>
+          </select>
+
           <button type="submit" class="enviar" id="insertar" onclick="cargarTodo()">Filtrar</button>
         </div>
       </div>
     </form>
 
-    <a class="excel" href="../exportar.php">Exportar Excel</a>
+  <div class="exportar" id="menu">
+    <ul>
+      <li><a href="">Exportar</a>
+        <ul>
+          <li><a href="../exportar.php">Activos</a></li>
+          <li><a href="../exportarEliminada.php">Inactivos</a></li>
+        </ul>
+      </li>
+    </ul>
+</div>
 
     <div id="tabla" class="tabla">
       <table class="table">
@@ -123,22 +142,37 @@ if (!isset($_COOKIE["usuarioLogeado"]) || empty($_COOKIE["usuarioLogeado"])) {
           ));
           ?>
           <?php foreach ($datos as $data) { ?>
-            <?php if ($data->eliminada == 0) { ?>
-              <tr>
-                <td class="grande"><?php echo $data->caravanaPropia; ?></td>
-                <td class="normal"><?php echo $data->raza; ?></td>
-                <td class="normal"><?php echo $data->peso; ?></td>
-                <td class="normal"><?php echo $data->color; ?></td>
-                <td class="normal"><?php echo $data->lugar; ?></td>
-                <td class="normal"><?php echo $data->sexo; ?></td>
-                <td class="chico"><a href="./mostrarTodo.php?id=<?php echo $data->caravanaPropia ?> " target="_blank"><i class="fa fa-plus icons" aria-hidden="true"></i></a></td>
-                <td class="chico"><a href="./peso.php?id=<?php echo $data->caravanaPropia ?> " target="_blank"><i class="fa fa-balance-scale icons" aria-hidden="true"></i></a></td>
-                <td class="chico"><a href="./vacunas.php?id=<?php echo $data->caravanaPropia ?> " target="_blank"><i class="fa fa-eyedropper icons" aria-hidden="true"></i></a></td>
-                <td class="chico"><a href="./enfermedades.php?id=<?php echo $data->caravanaPropia ?> " target="_blank"><i class="fa fa-user-md icons" aria-hidden="true"></i></a></td>
-                <td class="chico"><a href="./lugar.php?id=<?php echo $data->caravanaPropia ?> " target="_blank"><i class="fa fa-home icons" aria-hidden="true"></i></a></td>
-                <td class="chico"><a href="./modificar.php?id=<?php echo $data->caravanaPropia ?> " target="_blank"><i class="fa fa-pencil-square-o icons" aria-hidden="true"></i></a></td>
-                <td class="chico"><button data-id="'<?php echo $data->caravanaPropia; ?>'" onclick="eliminarAnimal(this)"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
-              </tr>
+            <?php if ($estado == '') { ?>
+              <?php if ($data->eliminada == 0) { ?>
+                <tr>
+                  <td class="grande"><?php echo $data->caravanaPropia; ?></td>
+                  <td class="normal"><?php echo $data->raza; ?></td>
+                  <td class="normal"><?php echo $data->peso; ?></td>
+                  <td class="normal"><?php echo $data->color; ?></td>
+                  <td class="normal"><?php echo $data->lugar; ?></td>
+                  <td class="normal"><?php echo $data->sexo; ?></td>
+                  <td class="chico"><a href="./mostrarTodo.php?id=<?php echo $data->caravanaPropia ?> " target="_blank"><i class="fa fa-plus icons" aria-hidden="true"></i></a></td>
+                  <td class="chico"><a href="./peso.php?id=<?php echo $data->caravanaPropia ?> " target="_blank"><i class="fa fa-balance-scale icons" aria-hidden="true"></i></a></td>
+                  <td class="chico"><a href="./vacunas.php?id=<?php echo $data->caravanaPropia ?> " target="_blank"><i class="fa fa-eyedropper icons" aria-hidden="true"></i></a></td>
+                  <td class="chico"><a href="./enfermedades.php?id=<?php echo $data->caravanaPropia ?> " target="_blank"><i class="fa fa-user-md icons" aria-hidden="true"></i></a></td>
+                  <td class="chico"><a href="./lugar.php?id=<?php echo $data->caravanaPropia ?> " target="_blank"><i class="fa fa-home icons" aria-hidden="true"></i></a></td>
+                  <td class="chico"><a href="./modificar.php?id=<?php echo $data->caravanaPropia ?> " target="_blank"><i class="fa fa-pencil-square-o icons" aria-hidden="true"></i></a></td>
+                  <td class="chico"><button data-id="'<?php echo $data->caravanaPropia; ?>'" onclick="eliminarAnimal(this)"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
+                </tr>
+              <?php } ?>
+            <?php } else { ?>
+              <?php if ($data->eliminada == 1) { ?>
+                <tr>
+                  <td class="grande"><?php echo $data->caravanaPropia; ?></td>
+                  <td class="grande"><?php echo $data->raza; ?></td>
+                  <td class="normal"><?php echo $data->peso; ?></td>
+                  <td class="grande"><?php echo $data->color; ?></td>
+                  <td class="grande"><?php echo $data->lugar; ?></td>
+                  <td class="grande"><?php echo $data->sexo; ?></td>
+                  <td class="normal"><a href="./mostrarTodo.php?id=<?php echo $data->caravanaPropia ?> " target="_blank"><i class="fa fa-plus icons" aria-hidden="true"></i></a></td>
+                  <td class="normal"><button data-id="'<?php echo $data->caravanaPropia; ?>'" onclick="eliminarDefinitivo(this)"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
+                </tr>
+              <?php } ?>
             <?php } ?>
           <?php } ?>
         </tbody>
@@ -159,6 +193,14 @@ if (!isset($_COOKIE["usuarioLogeado"]) || empty($_COOKIE["usuarioLogeado"])) {
       }
     }
 
+    function eliminarDefinitivo(e) {
+      if (confirm("DESEA ELIMINAR AL ANIMAL?")) {
+        let id = $(e).attr("data-id");
+        console.log(id);
+        eliminarCampoDefinitivo(id);
+        $(e).parent().parent().remove();
+      }
+    }
 
     function eliminarCampo(id) {
       $.ajax({
@@ -171,13 +213,26 @@ if (!isset($_COOKIE["usuarioLogeado"]) || empty($_COOKIE["usuarioLogeado"])) {
         },
         success: function(r) {
           if (r.error == 0) {
-            $("#tabla").html(r.total);
-            html = `hola`;
           }
         },
       });
     }
-
+    function eliminarCampoDefinitivo(id) {
+      $.ajax({
+        "url": "../funciones.php",
+        "type": "post",
+        "dataType": "json",
+        "data": {
+          "id": id,
+          "funcion": "eliminarDefinitivo",
+        },
+        success: function(r) {
+          if (r.error == 0) {
+            alert("Borrado exitoso");
+          }
+        },
+      });
+    }
     function modificarDatos() {
       let id = $(e).attr("data-id");
       $.ajax({

@@ -202,10 +202,13 @@ nav p {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    margin: 15px 0;
+    margin: 15px 50px;
 
 }
+.alinearestado{
+    margin: 15px 600px;
 
+}
 table {
     padding: .5rem;
     width: 100%;
@@ -268,7 +271,7 @@ table tr td .fa-trash {
     padding: 20px 0;
     font-weight: bolder;
     color: rgb(255, 255, 255);
-    width: 30%;
+    width: 35%;
     margin: 0 auto;
     border-radius: 15px;
 }
@@ -349,6 +352,16 @@ table tr td .fa-trash {
     margin: 0 auto 35px auto;
     font-size: 28px;
 }
+.comportamientoh1{
+    width: 40%;
+    background-color: rgba(0, 0, 0, 0.786);
+    color: white;
+    border-radius: 25px;
+    padding: .5rem 3rem;
+    margin: 10px auto 30px auto; 
+    text-align: center;
+
+}
 
 footer {
     padding: .5rem 0;
@@ -361,6 +374,19 @@ footer {
     text-align: center;
     font-size: 18px;
     font-weight: bolder;
+}
+
+.exportar{
+    margin: 0px auto;
+}
+.exportar ul li{
+    width: 132%;
+    text-align: center;
+}
+
+.exportar ul li a{
+    color: rgb(0, 0, 0) !important;
+    background-color: #39d45d !important;
 }
 
 #menu ul li {
@@ -413,19 +439,4 @@ footer {
     display: block;
 }
 
-.excel{
-    text-decoration: none;
-    color: black;
-    background-color: #39d45d;
-    font-size: 20px;
-    font-weight: bolder;
-    padding: .5rem 1.5rem;
-    width: 15%;
-    text-align: center;
-    margin: 20px auto 0px auto;
-    border-radius: 25px;
-}
-.excel:hover{
-    background-color: #85d998;
-}
 .iconito-eliminar{color: red;}
