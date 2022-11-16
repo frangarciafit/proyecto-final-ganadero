@@ -2,7 +2,6 @@
 <html>
 
 <?php include("../funciones.php") ?>
-<?php include("../exportar.php") ?>
 
 <head>
   <?php
@@ -97,16 +96,16 @@
       </div>
     </form>
 
-  <div class="exportar" id="menu">
-    <ul>
-      <li><a href="">Exportar</a>
-        <ul>
-          <li><a target="_blank" href="/exportar.php?estado=0"> <button>Activos</button></a></li>
-          <li><a target="_blank" href="/exportar.php?estado=1"> <button>Inactivos</button></a></li>
-        </ul>
-      </li>
-    </ul>
-</div>
+    <div class="exportar" id="menu">
+      <ul>
+        <li><a href="">Exportar</a>
+          <ul>
+            <li><a target="_blank" href="/exportar.php?estado=0"> <button>Activos</button></a></li>
+            <li><a target="_blank" href="/exportar.php?estado=1"> <button>Inactivos</button></a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
 
     <div id="tabla" class="tabla">
       <table class="table">
@@ -214,11 +213,11 @@
           "funcion": "eliminar",
         },
         success: function(r) {
-          if (r.error == 0) {
-          }
+          if (r.error == 0) {}
         },
       });
     }
+
     function eliminarCampoDefinitivo(id) {
       $.ajax({
         "url": "../funciones.php",
@@ -235,6 +234,7 @@
         },
       });
     }
+
     function modificarDatos() {
       let id = $(e).attr("data-id");
       $.ajax({
