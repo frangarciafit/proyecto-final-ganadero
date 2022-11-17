@@ -100,8 +100,8 @@
       <ul>
         <li><a href="">Exportar</a>
           <ul>
-            <li><a target="_blank" href="/exportar.php?estado=0"> <button>Activos</button></a></li>
-            <li><a target="_blank" href="/exportar.php?estado=1"> <button>Inactivos</button></a></li>
+            <li><a target="_blank" href="/exportar.php?estado=0"> Activos</a></li>
+            <li><a target="_blank" href="/exportar.php?estado=1"> Inactivos</a></li>
           </ul>
         </li>
       </ul>

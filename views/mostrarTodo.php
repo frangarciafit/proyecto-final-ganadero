@@ -26,7 +26,7 @@
 
     <nav>
         <p>Historico</p>
-        <a href="exportarAnimal">Exportar</a>
+        <a href="../exportarAnimal.php?id=<?php echo $id ?>">Exportar a excel</a>
         <p>Caravana N°: <?php echo $id ?> </p>
     </nav>
 

@@ -387,7 +387,13 @@ footer {
 .exportar ul li a{
     color: rgb(0, 0, 0) !important;
     background-color: #39d45d !important;
+    font-size: 22px !important;
 }
+
+.exportar ul li ul li a{
+    width: 98%;
+}
+
 
 #menu ul li {
     color: #fff;

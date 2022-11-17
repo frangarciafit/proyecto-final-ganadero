@@ -102,3 +102,6 @@ header("Content-Disposition: attachment; filename=animales.xls");
 header("Pragma: no-cache");
 header("Expires: 0");
 echo $salida;
+
+
+?>
