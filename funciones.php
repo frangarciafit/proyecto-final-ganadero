@@ -48,7 +48,7 @@ if (isset($_POST["subAgregarTernero"])) {
     $sexo = $_POST['selSexo'];
     $razaPadre = $_POST['txtRazaPadre'];
 
-    $sql = "SELECT * FROM t_animal WHERE caravanaPropia = '$caravanaMadre'";
+    $sql = "SELECT * FROM t_animal WHERE caravanaPropia = '$caravanaMadre' AND sexo = 'hembra'";
     $result = mysqli_query($con, $sql);
 
     if (mysqli_num_rows($result) == 1 && $caravanaMadre != $caravanaPropia) {
@@ -67,7 +67,7 @@ if (isset($_POST["subAgregarTernero"])) {
 
     } else {
         echo '<script type="text/javascript">
-        alert("Error");
+        alert("ERROR LA CARAVANA MADRE ES MACHO O INEXISTENTE.");
         </script>';
     }
 }
@@ -428,11 +428,11 @@ function obtenerAnimal($id)
 function obtenerLugar($id)
 {
     global $con;
-    $id = intval($id);
+    // $id = intval($id);
 
-    $sql = "SELECT TA.* FROM t_animal TA WHERE TA.caravanaPropia = ? ";
+    $sql = "SELECT TA.* FROM t_animal TA WHERE TA.caravanaPropia = '$id' ";
     $stmt = $con->prepare($sql);
-    $stmt->bind_param("i", $id);
+    // $stmt->bind_param("i", $id);
     $stmt->execute();
     $resultado = $stmt->get_result();
     $row = $resultado->fetch_object();
@@ -440,9 +440,9 @@ function obtenerLugar($id)
 
     $row->lugares = array();
     $row->fechas = array();
-    $sql = "SELECT TL.* FROM t_lugar TL WHERE TL.caravanaPropia = ? ";
+    $sql = "SELECT TL.* FROM t_lugar TL WHERE TL.caravanaPropia = '$id' ";
     $stmt = $con->prepare($sql);
-    $stmt->bind_param("i", $id);
+    // $stmt->bind_param("i", $id);
     $stmt->execute();
     $resultado = $stmt->get_result();
     while ($data = $resultado->fetch_object()) {
@@ -456,20 +456,22 @@ function obtenerLugar($id)
 function cambioPeso($id)
 {
     global $con;
-    $id = intval($id);
+    // $id = intval($id);
 
-    $sql = "SELECT TA.* FROM t_animal TA WHERE TA.caravanaPropia = ? ";
+    // print_r($id);
+
+    $sql = "SELECT TA.* FROM t_animal TA WHERE TA.caravanaPropia = '$id' ";
     $stmt = $con->prepare($sql);
-    $stmt->bind_param("i", $id);
+    // $stmt->bind_param('i', $id);
     $stmt->execute();
     $resultado = $stmt->get_result();
     $row = $resultado->fetch_object();
 
     $row->pesos = array();
     $row->fechas = array();
-    $sql = "SELECT TP.* FROM t_peso TP WHERE TP.caravanaPropia = ? ORDER BY fecha ASC ";
+    $sql = "SELECT TP.* FROM t_peso TP WHERE TP.caravanaPropia = '$id' ORDER BY fecha ASC ";
     $stmt = $con->prepare($sql);
-    $stmt->bind_param("i", $id);
+    // $stmt->bind_param('i', $id);
     $stmt->execute();
     $resultado = $stmt->get_result();
     while ($data = $resultado->fetch_object()) {
@@ -483,11 +485,11 @@ function cambioPeso($id)
 function cambioVacunas2($id)
 {
     global $con;
-    $id = intval($id);
+    // $id = intval($id);
 
-    $sql = "SELECT TA.* FROM t_animal TA WHERE TA.caravanaPropia = ? ";
+    $sql = "SELECT TA.* FROM t_animal TA WHERE TA.caravanaPropia = '$id' ";
     $stmt = $con->prepare($sql);
-    $stmt->bind_param("i", $id);
+    // $stmt->bind_param("i", $id);
     $stmt->execute();
     $resultado = $stmt->get_result();
     $row = $resultado->fetch_object();
@@ -498,9 +500,10 @@ function cambioVacunas2($id)
     $row->obligatorias = array();
     $row->veterinarios = array();
     $row->descripciones = array();
-    $sql = "SELECT TV.* FROM t_vacuna TV WHERE TV.caravanaPropia = ? ";
+
+    $sql = "SELECT TV.* FROM t_vacuna TV WHERE TV.caravanaPropia = '$id' ";
     $stmt = $con->prepare($sql);
-    $stmt->bind_param("i", $id);
+    // $stmt->bind_param("i", $id);
     $stmt->execute();
     $resultado = $stmt->get_result();
 
@@ -523,11 +526,11 @@ function cambioVacunas2($id)
 function registroEnfermedad($id)
 {
     global $con;
-    $id = intval($id);
+    // $id = intval($id);
 
-    $sql = "SELECT TA.* FROM t_animal TA WHERE TA.caravanaPropia = ? ";
+    $sql = "SELECT TA.* FROM t_animal TA WHERE TA.caravanaPropia = '$id' ";
     $stmt = $con->prepare($sql);
-    $stmt->bind_param("i", $id);
+    // $stmt->bind_param("i", $id);
     $stmt->execute();
     $resultado = $stmt->get_result();
     $row = $resultado->fetch_object();
@@ -535,9 +538,9 @@ function registroEnfermedad($id)
 
     $row->descripciones = array();
     $row->fechas = array();
-    $sql = "SELECT TE.* FROM t_enfermedades TE WHERE TE.caravanaPropia = ? ";
+    $sql = "SELECT TE.* FROM t_enfermedades TE WHERE TE.caravanaPropia = '$id' ";
     $stmt = $con->prepare($sql);
-    $stmt->bind_param("i", $id);
+    // $stmt->bind_param("i", $id);
     $stmt->execute();
     $resultado = $stmt->get_result();
     if (mysqli_num_rows($resultado) > 0) {
@@ -566,11 +569,11 @@ function cantidadAnimales()
 
 function registroComportamiento($id){
     global $con;
-    $id = intval($id);
+    // $id = intval($id);
 
-    $sql = "SELECT TA.* FROM t_animal TA WHERE TA.caravanaPropia = ? ";
+    $sql = "SELECT TA.* FROM t_animal TA WHERE TA.caravanaPropia = '$id' ";
     $stmt = $con->prepare($sql);
-    $stmt->bind_param("i", $id);
+    // $stmt->bind_param("i", $id);
     $stmt->execute();
     $resultado = $stmt->get_result();
     $row = $resultado->fetch_object();
@@ -578,9 +581,9 @@ function registroComportamiento($id){
 
     $row->descripciones = array();
     $row->fechas = array();
-    $sql = "SELECT TE.* FROM t_comportamiento TE WHERE TE.caravanaPropia = ? ";
+    $sql = "SELECT TE.* FROM t_comportamiento TE WHERE TE.caravanaPropia = '$id' ";
     $stmt = $con->prepare($sql);
-    $stmt->bind_param("i", $id);
+    // $stmt->bind_param("i", $id);
     $stmt->execute();
     $resultado = $stmt->get_result();
     if (mysqli_num_rows($resultado) > 0) {
@@ -598,11 +601,11 @@ function registroComportamiento($id){
 function mostrarTernero($id)
 {
     global $con;
-    $id = intval($id);
+    // $id = intval($id);
 
-    $sql = "SELECT TA.* FROM t_animal TA WHERE TA.caravanaPropia = ? ";
+    $sql = "SELECT TA.* FROM t_animal TA WHERE TA.caravanaPropia = '$id' ";
     $stmt = $con->prepare($sql);
-    $stmt->bind_param("i", $id);
+    // $stmt->bind_param("i", $id);
     $stmt->execute();
     $resultado = $stmt->get_result();
     $row = $resultado->fetch_object();
@@ -610,9 +613,9 @@ function mostrarTernero($id)
 
     $row->lugares = array();
     $row->fechas = array();
-    $sql = "SELECT TL.* FROM t_lugar TL WHERE TL.caravanaPropia = ? ";
+    $sql = "SELECT TL.* FROM t_lugar TL WHERE TL.caravanaPropia = '$id' ";
     $stmt = $con->prepare($sql);
-    $stmt->bind_param("i", $id);
+    // $stmt->bind_param("i", $id);
     $stmt->execute();
     $resultado = $stmt->get_result();
     while ($data = $resultado->fetch_object()) {
@@ -626,12 +629,12 @@ function mostrarTernero($id)
 function esHija($id)
 {
     global $con;
-    $id = intval($id);
+    // $id = intval($id);
 
-    $sql = "SELECT * FROM t_ternero WHERE caravanaTernero = ? ";
+    $sql = "SELECT * FROM t_ternero WHERE caravanaTernero = '$id' ";
 
     $stmt = $con->prepare($sql);
-    $stmt->bind_param("i", $id);
+    // $stmt->bind_param("i", $id);
     $stmt->execute();
     $resultado = $stmt->get_result();
 
@@ -641,12 +644,12 @@ function esHija($id)
 function esMadre($id)
 {
     global $con;
-    $id = intval($id);
+    // $id = intval($id);
 
-    $sql = "SELECT * FROM t_ternero WHERE caravanaMadre = ? ";
+    $sql = "SELECT * FROM t_ternero WHERE caravanaMadre = '$id' ";
 
     $stmt = $con->prepare($sql);
-    $stmt->bind_param("i", $id);
+    // $stmt->bind_param("i", $id);
     $stmt->execute();
     $resultado = $stmt->get_result();
 
@@ -656,12 +659,12 @@ function esMadre($id)
 function sexo($id)
 {
     global $con;
-    $id = intval($id);
+    // $id = intval($id);
 
-    $sql = "SELECT * FROM t_animal WHERE caravanaPropia = ? ";
+    $sql = "SELECT * FROM t_animal WHERE caravanaPropia = '$id' ";
 
     $stmt = $con->prepare($sql);
-    $stmt->bind_param("i", $id);
+    // $stmt->bind_param("i", $id);
     $stmt->execute();
     $resultado = $stmt->get_result();
 
